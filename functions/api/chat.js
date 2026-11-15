@@ -63,11 +63,14 @@ User Question: ${userMessage}`;
       })
     });
 
+    const aiData = await aiResponse.json();
+
     if (!aiResponse.ok) {
-      throw new Error("Failed to communicate with AI service.");
+      // Return the exact error from Google Gemini for debugging
+      const errorMessage = aiData.error?.message || "Failed to communicate with AI service.";
+      return Response.json({ success: false, message: `Gemini Error: ${errorMessage}` }, { status: 500 });
     }
 
-    const aiData = await aiResponse.json();
     const answer = aiData.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate an answer right now. Please try again.";
 
     return Response.json({
@@ -76,8 +79,9 @@ User Question: ${userMessage}`;
     });
 
   } catch (error) {
+    // Return the exact JavaScript error for debugging
     return Response.json(
-      { success: false, message: "Unable to process your request at this time." },
+      { success: false, message: `Server Error: ${error.message}` },
       { status: 500 }
     );
   }
