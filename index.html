@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WantokHub | PNG Opportunity Hub</title>
-<meta name="description" content="Find jobs, scholarships, and professional CV tools in Papua New Guinea.">
+<meta name="description" content="Find jobs, scholarships, and professional CV and cover letter tools in Papua New Guinea.">
 <meta name="theme-color" content="#15803d">
 
 <style>
@@ -426,15 +426,46 @@ section {
 }
 
 /* ========================================
-   CV BUILDER & TEMPLATE STYLES
+   DOCUMENT BUILDER & TABS STYLES
    ======================================== */
+
+.builder-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.tab-btn.active {
+  background: var(--green);
+  color: white;
+}
+
+.builder-section {
+  display: none;
+}
+
+.builder-section.active {
+  display: block;
+}
 
 .cv-builder-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
   text-align: left;
-  margin-top: 20px;
 }
 
 .cv-form-box, .cv-preview-box {
@@ -466,7 +497,7 @@ section {
   resize: vertical;
 }
 
-/* BASE CV PAPER LAYOUT */
+/* BASE CV & LETTER PAPER LAYOUT */
 .cv-paper {
   background: #ffffff;
   border: 1px solid #cbd5e1;
@@ -483,14 +514,13 @@ section {
   margin: 0 0 10px;
 }
 
-/* TEMPLATE 1: MODERN GREEN (Default) */
+/* TEMPLATE STYLES */
 .cv-paper.template-modern h3.cv-name {
   color: var(--darkgreen);
   font-size: 22px;
   margin-bottom: 2px;
   border-bottom: 3px solid var(--green);
   padding-bottom: 6px;
-  font-family: Arial, sans-serif;
 }
 .cv-paper.template-modern h4 {
   color: var(--green);
@@ -502,7 +532,6 @@ section {
   padding-left: 6px;
 }
 
-/* TEMPLATE 2: CLASSIC PROFESSIONAL */
 .cv-paper.template-classic {
   font-family: "Georgia", serif;
 }
@@ -512,7 +541,6 @@ section {
   text-align: center;
   margin-bottom: 4px;
   font-weight: normal;
-  letter-spacing: 1px;
 }
 .cv-paper.template-classic .cv-contact {
   text-align: center;
@@ -529,10 +557,8 @@ section {
   border-bottom: 1px solid #cbd5e1;
   padding-bottom: 2px;
   font-family: Arial, sans-serif;
-  letter-spacing: 0.5px;
 }
 
-/* TEMPLATE 3: CREATIVE MINIMALIST */
 .cv-paper.template-creative {
   font-family: "Verdana", sans-serif;
   border-left: 6px solid #0891b2;
@@ -553,7 +579,6 @@ section {
   font-weight: bold;
 }
 
-/* TEMPLATE 4: EXECUTIVE BOLD */
 .cv-paper.template-executive {
   font-family: Arial, sans-serif;
 }
@@ -669,15 +694,15 @@ footer a:hover {
   }
 }
 
-/* PRINT STYLES FOR CV */
+/* PRINT STYLES */
 @media print {
   body * {
     visibility: hidden;
   }
-  #cvPaper, #cvPaper * {
+  .cv-paper.active-print, .cv-paper.active-print * {
     visibility: visible;
   }
-  #cvPaper {
+  .cv-paper.active-print {
     position: absolute;
     left: 0;
     top: 0;
@@ -705,7 +730,7 @@ footer a:hover {
     <nav class="nav-links" id="navLinks">
       <a href="#home">Home</a>
       <a href="#opportunities">Opportunities</a>
-      <a href="#documents">CV Builder</a>
+      <a href="#documents">Document Tools</a>
       <a href="/submit.html">Post a Job</a>
     </nav>
 
@@ -732,8 +757,8 @@ footer a:hover {
     <h1>Your future starts <span>here.</span></h1>
 
     <p>
-      Discover jobs, scholarships, and build professional CVs
-      with custom vector styles for career opportunities across Papua New Guinea.
+      Discover jobs, scholarships, and build professional CVs and cover letters
+      for career opportunities across Papua New Guinea.
     </p>
 
     <div class="search-box">
@@ -789,9 +814,9 @@ footer a:hover {
       <a href="#documents" class="service-card"
         data-search="cv resume curriculum vitae career profile">
         <div class="service-icon">📄</div>
-        <h3>CV & Resume Builder</h3>
-        <p>Choose from multiple professional templates and save your CV as a PDF.</p>
-        <span class="service-link">Build your CV →</span>
+        <h3>CV & Cover Letter Builder</h3>
+        <p>Create professional CVs and matching cover letters with multi-template designs.</p>
+        <span class="service-link">Build documents →</span>
       </a>
 
       <a href="/submit.html" class="service-card"
@@ -848,86 +873,138 @@ footer a:hover {
 
 </section>
 
-<!-- DOCUMENTS / MULTI-TEMPLATE CV & RESUME BUILDER -->
+<!-- DOCUMENTS SECTION: CV & COVER LETTER BUILDER WITH TABS -->
 <section id="documents" style="background:white;">
   <div class="container">
 
     <div class="section-heading">
-      <h2>Free PNG Multi-Template CV Builder</h2>
-      <p>Select your favorite visual style, fill in your details, and instantly save as a PDF.</p>
+      <h2>PNG Professional Document Tools</h2>
+      <p>Create custom, polished CVs and matching cover letters tailored for Papua New Guinea employers.</p>
     </div>
 
-    <div class="cv-builder-grid">
+    <!-- Tab Navigation -->
+    <div class="builder-tabs">
+      <button class="tab-btn active" onclick="switchTab('cvTab', this)">📄 CV & Resume Builder</button>
+      <button class="tab-btn" onclick="switchTab('letterTab', this)">✉️ Cover Letter Generator</button>
+    </div>
 
-      <!-- Left: Input Form & Style Selector -->
-      <div class="cv-form-box">
-        <h3 style="margin-bottom: 10px; color: var(--darkgreen);">1. Choose Template Style</h3>
-        
-        <label for="templateSelect">Select Design Theme</label>
-        <select id="templateSelect">
-          <option value="template-modern">🌿 Modern Green (WantokHub Default)</option>
-          <option value="template-classic">🏛️ Classic Professional (Serif & Clean)</option>
-          <option value="template-creative">⚡ Creative Minimalist (Cyan Accents)</option>
-          <option value="template-executive">💼 Executive Bold (Dark Header Bar)</option>
-        </select>
+    <!-- TAB 1: CV BUILDER -->
+    <div id="cvTab" class="builder-section active">
+      <div class="cv-builder-grid">
+        <!-- Form -->
+        <div class="cv-form-box">
+          <h3 style="margin-bottom: 10px; color: var(--darkgreen);">1. Choose Template Style</h3>
+          <label for="templateSelect">Design Theme</label>
+          <select id="templateSelect">
+            <option value="template-modern">🌿 Modern Green (WantokHub Default)</option>
+            <option value="template-classic">🏛️ Classic Professional (Serif)</option>
+            <option value="template-creative">⚡ Creative Minimalist (Cyan)</option>
+            <option value="template-executive">💼 Executive Bold (Dark Header)</option>
+          </select>
 
-        <h3 style="margin: 18px 0 10px; color: var(--darkgreen);">2. Enter Your Details</h3>
+          <h3 style="margin: 18px 0 10px; color: var(--darkgreen);">2. Enter Your Details</h3>
+          <label for="cvName">Full Name</label>
+          <input type="text" id="cvName" placeholder="e.g., John Kila">
 
-        <label for="cvName">Full Name</label>
-        <input type="text" id="cvName" placeholder="e.g., John Kila">
+          <label for="cvContact">Contact Info</label>
+          <input type="text" id="cvContact" placeholder="📞 +675 7123 4567 | ✉️ john@email.com | 📍 Lae, Morobe">
 
-        <label for="cvContact">Contact Info (Phone, Email, Location)</label>
-        <input type="text" id="cvContact" placeholder="📞 +675 7123 4567 | ✉️ john@email.com | 📍 Lae, Morobe">
+          <label for="cvObjective">Career Objective</label>
+          <textarea id="cvObjective" placeholder="Briefly describe your professional background and goals..."></textarea>
 
-        <label for="cvObjective">Career Objective / Profile</label>
-        <textarea id="cvObjective" placeholder="Briefly describe your professional background and goals..."></textarea>
+          <label for="cvEducation">Education & Qualifications</label>
+          <textarea id="cvEducation" placeholder="🎓 Diploma in IT - ITI (2025)&#10;🏫 Grade 12 - Bumayong Secondary (2022)"></textarea>
 
-        <label for="cvEducation">Education & Qualifications</label>
-        <textarea id="cvEducation" placeholder="🎓 Diploma in IT - ITI (2025)&#10;🏫 Grade 12 - Bumayong Secondary (2022)"></textarea>
+          <label for="cvExperience">Work Experience</label>
+          <textarea id="cvExperience" placeholder="💼 Retail Assistant - PC & J.Y. Woo Ltd (2023 - 2024)"></textarea>
 
-        <label for="cvExperience">Work Experience / Attachments</label>
-        <textarea id="cvExperience" placeholder="💼 Retail Assistant - PC & J.Y. Woo Ltd (2023 - 2024)&#10;- Maintained daily sales records and customer care"></textarea>
+          <label for="cvSkills">Key Skills</label>
+          <textarea id="cvSkills" placeholder="⭐ Communication, Microsoft Office, Teamwork"></textarea>
 
-        <label for="cvSkills">Key Skills</label>
-        <textarea id="cvSkills" placeholder="⭐ Communication (English & Tok Pisin), Microsoft Office, Teamwork"></textarea>
-
-        <label for="cvReferees">Referees</label>
-        <textarea id="cvReferees" placeholder="👤 1. Mr. Peter Waim - Manager, ABC Ltd | Ph: 7000 1111"></textarea>
-      </div>
-
-      <!-- Right: Live Preview -->
-      <div class="cv-preview-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="color: var(--darkgreen); margin: 0;">3. Live Preview & Print</h3>
-          <button type="button" class="btn" onclick="window.print()" style="padding: 8px 14px; font-size: 13px;">
-            🖨️ Print / Save PDF
-          </button>
+          <label for="cvReferees">Referees</label>
+          <textarea id="cvReferees" placeholder="👤 1. Mr. Peter Waim - Manager, ABC Ltd | Ph: 7000 1111"></textarea>
         </div>
 
-        <div class="cv-paper template-modern" id="cvPaper">
-          <div id="cvHeaderWrapper">
-            <h3 class="cv-name" id="prevName">YOUR FULL NAME</h3>
-            <p class="cv-contact" id="prevContact">📞 Phone | ✉️ Email | 📍 Town, Province, PNG</p>
+        <!-- Preview -->
+        <div class="cv-preview-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="color: var(--darkgreen); margin: 0;">3. Live Preview & Print</h3>
+            <button type="button" class="btn" onclick="printDocument('cvPaper')" style="padding: 8px 14px; font-size: 13px;">
+              🖨️ Print / Save PDF
+            </button>
           </div>
 
-          <h4>Career Objective</h4>
-          <p id="prevObjective">Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally.</p>
+          <div class="cv-paper template-modern" id="cvPaper">
+            <div id="cvHeaderWrapper">
+              <h3 class="cv-name" id="prevName">YOUR FULL NAME</h3>
+              <p class="cv-contact" id="prevContact">📞 Phone | ✉️ Email | 📍 Town, Province, PNG</p>
+            </div>
 
-          <h4>Education & Qualifications</h4>
-          <p id="prevEducation">• Enter your institution, qualification, and graduation year.</p>
+            <h4>Career Objective</h4>
+            <p id="prevObjective">Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally.</p>
 
-          <h4>Work Experience</h4>
-          <p id="prevExperience">• Enter your job title, company name, dates, and main duties.</p>
+            <h4>Education & Qualifications</h4>
+            <p id="prevEducation">• Enter your institution, qualification, and graduation year.</p>
 
-          <h4>Key Skills</h4>
-          <p id="prevSkills">• Communication, Teamwork, Computer Literacy</p>
+            <h4>Work Experience</h4>
+            <p id="prevExperience">• Enter your job title, company name, dates, and main duties.</p>
 
-          <h4>Referees</h4>
-          <p id="prevReferees">• Referee Name, Position, Organisation, and Phone Number</p>
+            <h4>Key Skills</h4>
+            <p id="prevSkills">• Communication, Teamwork, Computer Literacy</p>
+
+            <h4>Referees</h4>
+            <p id="prevReferees">• Referee Name, Position, Organisation, and Phone Number</p>
+          </div>
         </div>
       </div>
-
     </div>
+
+    <!-- TAB 2: COVER LETTER GENERATOR -->
+    <div id="letterTab" class="builder-section">
+      <div class="cv-builder-grid">
+        <!-- Form -->
+        <div class="cv-form-box">
+          <h3 style="margin-bottom: 10px; color: var(--darkgreen);">Cover Letter Details</h3>
+
+          <label for="letName">Your Full Name</label>
+          <input type="text" id="letName" placeholder="e.g., John Kila">
+
+          <label for="letContact">Your Contact & Location</label>
+          <input type="text" id="letContact" placeholder="Po Box 123, Lae, Morobe Province | Phone: 7123 4567">
+
+          <label for="letCompany">Hiring Organisation & Manager</label>
+          <input type="text" id="letCompany" placeholder="The HR Manager, Brian Bell Group, Lae">
+
+          <label for="letPosition">Position Applying For</label>
+          <input type="text" id="letPosition" placeholder="e.g., Accounts Clerk / ICT Graduate Trainee">
+
+          <label for="letBody">Cover Letter Message & Body</label>
+          <textarea id="letBody" style="min-height: 150px;" placeholder="Dear Hiring Manager,&#10;&#10;I am writing to express my strong interest in the [Position] role at [Company] as advertised on WantokHub. With my recent qualification in Information Technology from ITI and hands-on experience in customer service and administration in Lae, I am confident in my ability to contribute effectively to your team..."></textarea>
+        </div>
+
+        <!-- Preview -->
+        <div class="cv-preview-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="color: var(--darkgreen); margin: 0;">Live Cover Letter Preview</h3>
+            <button type="button" class="btn" onclick="printDocument('letterPaper')" style="padding: 8px 14px; font-size: 13px;">
+              🖨️ Print / Save PDF
+            </button>
+          </div>
+
+          <div class="cv-paper" id="letterPaper">
+            <p id="prevLetContact" style="font-weight: bold; margin-bottom: 15px;">Your Name<br>Contact Details, Province, PNG</p>
+            <p id="prevLetDate" style="margin-bottom: 15px;">Date: November 2026</p>
+            <p id="prevLetCompany" style="margin-bottom: 15px;">To: The Hiring Manager<br>Company Name, PNG</p>
+            <p style="font-weight: bold;" id="prevLetSubject">SUBJECT: APPLICATION FOR [POSITION]</p>
+            <p id="prevLetSalutation">Dear Hiring Manager,</p>
+            <p id="prevLetBody">I am writing to express my strong interest in the advertised position. With my background, dedication, and training in Papua New Guinea, I am eager to bring my skills to your esteemed organisation...</p>
+            <p style="margin-top: 20px;">Yours sincerely,</p>
+            <p id="prevLetSign" style="font-weight: bold; margin-top: 10px;">Your Name</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -952,7 +1029,7 @@ footer a:hover {
       <div>
         <h4>Explore</h4>
         <a href="/opportunities.html">Opportunities</a>
-        <a href="#documents">CV Builder</a>
+        <a href="#documents">Document Tools</a>
         <a href="/submit.html">Post a Job</a>
       </div>
 
@@ -1006,6 +1083,22 @@ searchBtn.addEventListener("click", searchServices);
 searchInput.addEventListener("keydown", event => {
   if (event.key === "Enter") searchServices();
 });
+
+// TAB SWITCHER
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.builder-section').forEach(sec => sec.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// PRINT / PDF HELPER
+function printDocument(elementId) {
+  const paper = document.getElementById(elementId);
+  paper.classList.add('active-print');
+  window.print();
+  paper.classList.remove('active-print');
+}
 
 // ========================================
 // OPPORTUNITY DISPLAY
@@ -1141,7 +1234,7 @@ async function loadLatestOpportunities() {
 }
 
 // ========================================
-// LIVE MULTI-TEMPLATE CV BUILDER SCRIPT
+// LIVE CV & COVER LETTER PREVIEW SCRIPTS
 // ========================================
 
 const templateSelect = document.getElementById("templateSelect");
@@ -1152,7 +1245,6 @@ templateSelect.addEventListener("change", () => {
   const selectedTemplate = templateSelect.value;
   cvPaper.className = "cv-paper " + selectedTemplate;
 
-  // Handle Executive header block structure dynamically
   if (selectedTemplate === "template-executive") {
     if (!document.getElementById("execBlock")) {
       const execBlock = document.createElement("div");
@@ -1192,6 +1284,35 @@ cvFields.forEach(field => {
     });
   }
 });
+
+// Cover Letter Live Binding
+const letFields = [
+  { input: "letName", preview: "prevLetContact", fallback: "Your Name\nContact Details, Province, PNG", transform: val => val ? `${val}\n${document.getElementById('letContact').value}` : "Your Name\nContact Details, Province, PNG" },
+  { input: "letContact", preview: "prevLetContact", fallback: "Your Name\nContact Details, Province, PNG", transform: val => `${document.getElementById('letName').value || 'Your Name'}\n${val}` },
+  { input: "letCompany", preview: "prevLetCompany", fallback: "To: The Hiring Manager\nCompany Name, PNG", transform: val => `To: ${val}` },
+  { input: "letPosition", preview: "prevLetSubject", fallback: "SUBJECT: APPLICATION FOR [POSITION]", transform: val => `SUBJECT: APPLICATION FOR ${val.toUpperCase()}` },
+  { input: "letBody", preview: "prevLetBody", fallback: "I am writing to express my strong interest...", transform: val => val }
+];
+
+document.getElementById("letName").addEventListener("input", updateLetter);
+document.getElementById("letContact").addEventListener("input", updateLetter);
+document.getElementById("letCompany").addEventListener("input", updateLetter);
+document.getElementById("letPosition").addEventListener("input", updateLetter);
+document.getElementById("letBody").addEventListener("input", updateLetter);
+
+function updateLetter() {
+  const name = document.getElementById("letName").value.trim();
+  const contact = document.getElementById("letContact").value.trim();
+  const company = document.getElementById("letCompany").value.trim();
+  const position = document.getElementById("letPosition").value.trim();
+  const body = document.getElementById("letBody").value.trim();
+
+  document.getElementById("prevLetContact").textContent = (name || contact) ? `${name}\n${contact}` : "Your Name\nContact Details, Province, PNG";
+  document.getElementById("prevLetCompany").textContent = company ? `To: ${company}` : "To: The Hiring Manager\nCompany Name, PNG";
+  document.getElementById("prevLetSubject").textContent = position ? `SUBJECT: APPLICATION FOR ${position.toUpperCase()}` : "SUBJECT: APPLICATION FOR [POSITION]";
+  document.getElementById("prevLetBody").textContent = body || "I am writing to express my strong interest in the advertised position. With my background, dedication, and training in Papua New Guinea, I am eager to bring my skills to your esteemed organisation...";
+  document.getElementById("prevLetSign").textContent = name || "Your Name";
+}
 
 // CURRENT YEAR & STARTUP
 document.getElementById("year").textContent = new Date().getFullYear();
