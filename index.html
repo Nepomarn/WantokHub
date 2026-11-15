@@ -42,7 +42,7 @@ a {
   color: inherit;
 }
 
-button, input {
+button, input, select {
   font: inherit;
 }
 
@@ -190,11 +190,6 @@ header {
   border: none;
 }
 
-.hero-note {
-  color: var(--muted);
-  font-size: 12px;
-}
-
 /* STATS */
 
 .stats {
@@ -243,7 +238,7 @@ section {
   font-size: 14px;
 }
 
-/* SERVICES (Streamlined to 4 core pillars) */
+/* SERVICES */
 
 .service-grid {
   display: grid;
@@ -430,6 +425,165 @@ section {
   background: var(--darkgreen);
 }
 
+/* ========================================
+   CV BUILDER & TEMPLATE STYLES
+   ======================================== */
+
+.cv-builder-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  text-align: left;
+  margin-top: 20px;
+}
+
+.cv-form-box, .cv-preview-box {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 22px;
+}
+
+.cv-form-box label {
+  display: block;
+  font-weight: bold;
+  font-size: 13px;
+  margin: 12px 0 5px;
+}
+
+.cv-form-box input, .cv-form-box textarea, .cv-form-box select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+}
+
+.cv-form-box textarea {
+  min-height: 75px;
+  resize: vertical;
+}
+
+/* BASE CV PAPER LAYOUT */
+.cv-paper {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 28px;
+  border-radius: 6px;
+  color: #1e293b;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+}
+
+.cv-paper p {
+  white-space: pre-line;
+  margin: 0 0 10px;
+}
+
+/* TEMPLATE 1: MODERN GREEN (Default) */
+.cv-paper.template-modern h3.cv-name {
+  color: var(--darkgreen);
+  font-size: 22px;
+  margin-bottom: 2px;
+  border-bottom: 3px solid var(--green);
+  padding-bottom: 6px;
+  font-family: Arial, sans-serif;
+}
+.cv-paper.template-modern h4 {
+  color: var(--green);
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 14px 0 4px;
+  letter-spacing: 1px;
+  border-left: 3px solid var(--green);
+  padding-left: 6px;
+}
+
+/* TEMPLATE 2: CLASSIC PROFESSIONAL */
+.cv-paper.template-classic {
+  font-family: "Georgia", serif;
+}
+.cv-paper.template-classic h3.cv-name {
+  color: #0f172a;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 4px;
+  font-weight: normal;
+  letter-spacing: 1px;
+}
+.cv-paper.template-classic .cv-contact {
+  text-align: center;
+  font-size: 12px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+}
+.cv-paper.template-classic h4 {
+  color: #1e293b;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin: 14px 0 4px;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 2px;
+  font-family: Arial, sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* TEMPLATE 3: CREATIVE MINIMALIST */
+.cv-paper.template-creative {
+  font-family: "Verdana", sans-serif;
+  border-left: 6px solid #0891b2;
+}
+.cv-paper.template-creative h3.cv-name {
+  color: #0e7490;
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.cv-paper.template-creative h4 {
+  color: #0891b2;
+  font-size: 12px;
+  text-transform: uppercase;
+  margin: 14px 0 4px;
+  background: #ecfeff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* TEMPLATE 4: EXECUTIVE BOLD */
+.cv-paper.template-executive {
+  font-family: Arial, sans-serif;
+}
+.cv-paper.template-executive .cv-header-block {
+  background: #0f172a;
+  color: white;
+  padding: 16px;
+  margin: -28px -28px 18px -28px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.cv-paper.template-executive h3.cv-name {
+  color: white;
+  font-size: 22px;
+  margin: 0 0 4px 0;
+}
+.cv-paper.template-executive .cv-contact {
+  color: #94a3b8;
+  font-size: 12px;
+  margin: 0;
+}
+.cv-paper.template-executive h4 {
+  color: #0f172a;
+  font-size: 13px;
+  text-transform: uppercase;
+  margin: 14px 0 4px;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 3px;
+}
+
 /* FOOTER */
 
 footer {
@@ -472,74 +626,6 @@ footer a:hover {
   margin-top: 30px;
   color: #cbd5d1;
   font-size: 12px;
-}
-
-/* CV BUILDER STYLES */
-.cv-builder-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  text-align: left;
-  margin-top: 20px;
-}
-
-.cv-form-box, .cv-preview-box {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 22px;
-}
-
-.cv-form-box label {
-  display: block;
-  font-weight: bold;
-  font-size: 13px;
-  margin: 12px 0 5px;
-}
-
-.cv-form-box input, .cv-form-box textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 14px;
-  font-family: inherit;
-}
-
-.cv-form-box textarea {
-  min-height: 75px;
-  resize: vertical;
-}
-
-.cv-paper {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  padding: 25px;
-  border-radius: 6px;
-  color: #1e293b;
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.cv-paper h3 {
-  color: var(--darkgreen);
-  font-size: 20px;
-  margin-bottom: 4px;
-  border-bottom: 2px solid var(--green);
-  padding-bottom: 6px;
-}
-
-.cv-paper h4 {
-  color: var(--green);
-  font-size: 13px;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  letter-spacing: 0.5px;
-}
-
-.cv-paper p {
-  white-space: pre-line;
-  margin: 0 0 8px;
 }
 
 /* MOBILE */
@@ -598,6 +684,7 @@ footer a:hover {
     width: 100%;
     border: none;
     padding: 0;
+    box-shadow: none;
   }
 }
 </style>
@@ -646,7 +733,7 @@ footer a:hover {
 
     <p>
       Discover jobs, scholarships, and build professional CVs
-      for career opportunities across Papua New Guinea.
+      with custom vector styles for career opportunities across Papua New Guinea.
     </p>
 
     <div class="search-box">
@@ -679,7 +766,7 @@ footer a:hover {
 
 </section>
 
-<!-- CORE SERVICES (Streamlined to 4 primary pillars) -->
+<!-- CORE SERVICES -->
 
 <section id="services">
   <div class="container">
@@ -703,7 +790,7 @@ footer a:hover {
         data-search="cv resume curriculum vitae career profile">
         <div class="service-icon">📄</div>
         <h3>CV & Resume Builder</h3>
-        <p>Fill in your details and instantly print or save a professional CV as a PDF.</p>
+        <p>Choose from multiple professional templates and save your CV as a PDF.</p>
         <span class="service-link">Build your CV →</span>
       </a>
 
@@ -761,55 +848,67 @@ footer a:hover {
 
 </section>
 
-<!-- DOCUMENTS / INTERACTIVE CV BUILDER -->
+<!-- DOCUMENTS / MULTI-TEMPLATE CV & RESUME BUILDER -->
 <section id="documents" style="background:white;">
   <div class="container">
 
     <div class="section-heading">
-      <h2>Free PNG CV & Resume Builder</h2>
-      <p>Fill in your details below to preview and save a clean, professional CV as a PDF.</p>
+      <h2>Free PNG Multi-Template CV Builder</h2>
+      <p>Select your favorite visual style, fill in your details, and instantly save as a PDF.</p>
     </div>
 
     <div class="cv-builder-grid">
 
-      <!-- Left: Input Form -->
+      <!-- Left: Input Form & Style Selector -->
       <div class="cv-form-box">
-        <h3 style="margin-bottom: 10px; color: var(--darkgreen);">1. Enter Your Details</h3>
+        <h3 style="margin-bottom: 10px; color: var(--darkgreen);">1. Choose Template Style</h3>
+        
+        <label for="templateSelect">Select Design Theme</label>
+        <select id="templateSelect">
+          <option value="template-modern">🌿 Modern Green (WantokHub Default)</option>
+          <option value="template-classic">🏛️ Classic Professional (Serif & Clean)</option>
+          <option value="template-creative">⚡ Creative Minimalist (Cyan Accents)</option>
+          <option value="template-executive">💼 Executive Bold (Dark Header Bar)</option>
+        </select>
+
+        <h3 style="margin: 18px 0 10px; color: var(--darkgreen);">2. Enter Your Details</h3>
 
         <label for="cvName">Full Name</label>
         <input type="text" id="cvName" placeholder="e.g., John Kila">
 
-        <label for="cvContact">Phone, Email & Location (Province)</label>
-        <input type="text" id="cvContact" placeholder="e.g., +675 7123 4567 | john@email.com | Lae, Morobe">
+        <label for="cvContact">Contact Info (Phone, Email, Location)</label>
+        <input type="text" id="cvContact" placeholder="📞 +675 7123 4567 | ✉️ john@email.com | 📍 Lae, Morobe">
 
-        <label for="cvObjective">Career Objective / Personal Profile</label>
-        <textarea id="cvObjective" placeholder="Briefly describe your skills, reliability, and career goals..."></textarea>
+        <label for="cvObjective">Career Objective / Profile</label>
+        <textarea id="cvObjective" placeholder="Briefly describe your professional background and goals..."></textarea>
 
         <label for="cvEducation">Education & Qualifications</label>
-        <textarea id="cvEducation" placeholder="e.g., Diploma in Information Technology - ITI (2025)&#10;Grade 12 Certificate - Bumayong Secondary School (2022)"></textarea>
+        <textarea id="cvEducation" placeholder="🎓 Diploma in IT - ITI (2025)&#10;🏫 Grade 12 - Bumayong Secondary (2022)"></textarea>
 
-        <label for="cvExperience">Work Experience / Industrial Attachment</label>
-        <textarea id="cvExperience" placeholder="e.g., Retail & Cashier Assistant - PC & J.Y. Woo Ltd (2023 - 2024)&#10;- Handled customer service, cash register, and daily sales records"></textarea>
+        <label for="cvExperience">Work Experience / Attachments</label>
+        <textarea id="cvExperience" placeholder="💼 Retail Assistant - PC & J.Y. Woo Ltd (2023 - 2024)&#10;- Maintained daily sales records and customer care"></textarea>
 
         <label for="cvSkills">Key Skills</label>
-        <textarea id="cvSkills" placeholder="e.g., Microsoft Office (Word, Excel), Customer Service, English & Tok Pisin"></textarea>
+        <textarea id="cvSkills" placeholder="⭐ Communication (English & Tok Pisin), Microsoft Office, Teamwork"></textarea>
 
-        <label for="cvReferees">Referees (2 Recommended in PNG)</label>
-        <textarea id="cvReferees" placeholder="e.g., 1. Mr. Peter Waim - Manager, ABC Ltd | Ph: 7000 1111&#10;2. Ms. Mary Koni - Lecturer, ITI | Ph: 7000 2222"></textarea>
+        <label for="cvReferees">Referees</label>
+        <textarea id="cvReferees" placeholder="👤 1. Mr. Peter Waim - Manager, ABC Ltd | Ph: 7000 1111"></textarea>
       </div>
 
       <!-- Right: Live Preview -->
       <div class="cv-preview-box">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-          <h3 style="color: var(--darkgreen); margin: 0;">2. Live CV Preview</h3>
+          <h3 style="color: var(--darkgreen); margin: 0;">3. Live Preview & Print</h3>
           <button type="button" class="btn" onclick="window.print()" style="padding: 8px 14px; font-size: 13px;">
-            Print / Save PDF
+            🖨️ Print / Save PDF
           </button>
         </div>
 
-        <div class="cv-paper" id="cvPaper">
-          <h3 id="prevName">YOUR FULL NAME</h3>
-          <p id="prevContact" style="color: #475569; font-weight: bold;">Phone | Email | Town, Province, PNG</p>
+        <div class="cv-paper template-modern" id="cvPaper">
+          <div id="cvHeaderWrapper">
+            <h3 class="cv-name" id="prevName">YOUR FULL NAME</h3>
+            <p class="cv-contact" id="prevContact">📞 Phone | ✉️ Email | 📍 Town, Province, PNG</p>
+          </div>
 
           <h4>Career Objective</h4>
           <p id="prevObjective">Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally.</p>
@@ -821,7 +920,7 @@ footer a:hover {
           <p id="prevExperience">• Enter your job title, company name, dates, and main duties.</p>
 
           <h4>Key Skills</h4>
-          <p id="prevSkills">• Communication (English & Tok Pisin), Teamwork, Computer Literacy</p>
+          <p id="prevSkills">• Communication, Teamwork, Computer Literacy</p>
 
           <h4>Referees</h4>
           <p id="prevReferees">• Referee Name, Position, Organisation, and Phone Number</p>
@@ -898,18 +997,14 @@ document.querySelectorAll(".nav-links a").forEach(link => {
 // SEARCH SERVICES
 const searchInput = document.getElementById("siteSearch");
 const searchBtn = document.getElementById("searchBtn");
-const serviceCards = document.querySelectorAll(".service-card");
 
 function searchServices() {
-  const query = searchInput.value.trim().toLowerCase();
   document.getElementById("services").scrollIntoView({ behavior: "smooth" });
 }
 
 searchBtn.addEventListener("click", searchServices);
 searchInput.addEventListener("keydown", event => {
-  if (event.key === "Enter") {
-    searchServices();
-  }
+  if (event.key === "Enter") searchServices();
 });
 
 // ========================================
@@ -1046,16 +1141,44 @@ async function loadLatestOpportunities() {
 }
 
 // ========================================
-// LIVE CV BUILDER PREVIEW SCRIPT
+// LIVE MULTI-TEMPLATE CV BUILDER SCRIPT
 // ========================================
+
+const templateSelect = document.getElementById("templateSelect");
+const cvPaper = document.getElementById("cvPaper");
+const headerWrapper = document.getElementById("cvHeaderWrapper");
+
+templateSelect.addEventListener("change", () => {
+  const selectedTemplate = templateSelect.value;
+  cvPaper.className = "cv-paper " + selectedTemplate;
+
+  // Handle Executive header block structure dynamically
+  if (selectedTemplate === "template-executive") {
+    if (!document.getElementById("execBlock")) {
+      const execBlock = document.createElement("div");
+      execBlock.id = "execBlock";
+      execBlock.className = "cv-header-block";
+      execBlock.appendChild(document.getElementById("prevName"));
+      execBlock.appendChild(document.getElementById("prevContact"));
+      headerWrapper.prepend(execBlock);
+    }
+  } else {
+    const execBlock = document.getElementById("execBlock");
+    if (execBlock) {
+      headerWrapper.appendChild(document.getElementById("prevName"));
+      headerWrapper.appendChild(document.getElementById("prevContact"));
+      execBlock.remove();
+    }
+  }
+});
 
 const cvFields = [
   { input: "cvName", preview: "prevName", fallback: "YOUR FULL NAME" },
-  { input: "cvContact", preview: "prevContact", fallback: "Phone | Email | Town, Province, PNG" },
+  { input: "cvContact", preview: "prevContact", fallback: "📞 Phone | ✉️ Email | 📍 Town, Province, PNG" },
   { input: "cvObjective", preview: "prevObjective", fallback: "Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally." },
   { input: "cvEducation", preview: "prevEducation", fallback: "• Enter your institution, qualification, and graduation year." },
   { input: "cvExperience", preview: "prevExperience", fallback: "• Enter your job title, company name, dates, and main duties." },
-  { input: "cvSkills", preview: "prevSkills", fallback: "• Communication (English & Tok Pisin), Teamwork, Computer Literacy" },
+  { input: "cvSkills", preview: "prevSkills", fallback: "• Communication, Teamwork, Computer Literacy" },
   { input: "cvReferees", preview: "prevReferees", fallback: "• Referee Name, Position, Organisation, and Phone Number" }
 ];
 
