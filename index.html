@@ -315,6 +315,32 @@ section { padding: 65px 0; }
   margin-bottom: 12px;
 }
 
+.deadline-badge {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  margin: 0 0 12px 6px;
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.deadline-badge.today {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.deadline-badge.normal {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.deadline-badge.closed {
+  background: #e2e8f0;
+  color: #475569;
+}
+
 .opportunity-card h3 {
   font-size: 17px;
   margin-bottom: 6px;
@@ -959,8 +985,118 @@ function formatDate(dateValue) {
     year: "numeric"
   });
 }
-
+  
 function displayOpportunities(opportunities) {
+  latestContainer.replaceChildren();
+
+  if (!opportunities.length) {
+    const message = createElement(
+      "div",
+      "opportunity-status"
+    );
+
+    message.style.gridColumn = "1 / -1";
+
+    message.appendChild(createElement(
+      "strong",
+      "",
+      "No current opportunities"
+    ));
+
+    message.appendChild(document.createTextNode(
+      "New jobs, scholarships and other opportunities will appear here when published."
+    ));
+
+    latestContainer.appendChild(message);
+    return;
+  }
+
+  opportunities.slice(0, 6).forEach(item => {
+    const card = createElement("article", "opportunity-card");
+
+    card.appendChild(createElement(
+      "span",
+      "opportunity-type",
+      item.type || "Opportunity"
+    ));
+
+    // Calculate deadline status
+    if (item.deadline) {
+      const deadline = new Date(item.deadline + "T00:00:00");
+      const today = new Date();
+
+      today.setHours(0, 0, 0, 0);
+
+      if (!Number.isNaN(deadline.getTime())) {
+        const daysLeft = Math.ceil(
+          (deadline - today) / 86400000
+        );
+
+        let label = "";
+        let badgeClass = "deadline-badge normal";
+
+        if (daysLeft < 0) {
+          label = "Deadline passed";
+          badgeClass = "deadline-badge closed";
+        } else if (daysLeft === 0) {
+          label = "Closing today";
+          badgeClass = "deadline-badge today";
+        } else if (daysLeft <= 7) {
+          label = daysLeft + " days left";
+          badgeClass = "deadline-badge today";
+        } else {
+          label = "Open for applications";
+        }
+
+        card.appendChild(createElement(
+          "span",
+          badgeClass,
+          label
+        ));
+      }
+    }
+
+    card.appendChild(createElement(
+      "h3",
+      "",
+      item.title || "Untitled opportunity"
+    ));
+
+    card.appendChild(createElement(
+      "p",
+      "opportunity-organisation",
+      item.organisation || "Organisation not specified"
+    ));
+
+    const meta = createElement("div", "opportunity-meta");
+
+    meta.appendChild(createElement(
+      "span",
+      "",
+      "📍 " + (item.province || "PNG")
+    ));
+
+    meta.appendChild(createElement(
+      "span",
+      "",
+      "📅 Deadline: " + formatDate(item.deadline)
+    ));
+
+    card.appendChild(meta);
+
+    const link = createElement(
+      "a",
+      "opportunity-card-link",
+      "View opportunity details →"
+    );
+
+    link.href = "/opportunities.html";
+    card.appendChild(link);
+
+    latestContainer.appendChild(card);
+  });
+}
+
   latestContainer.replaceChildren();
 
   if (!opportunities.length) {
