@@ -1,7 +1,7 @@
 export async function onRequestPost({ request, env }) {
   try {
     // Validate that environment secrets and database bindings are present
-    if (!env.GROQ_API_KEY || !env.DB) {
+    if (!env.OPENROUTER_API_KEY || !env.DB) {
       return Response.json(
         { success: false, message: "AI assistant is not configured on the server." },
         { status: 500 }
@@ -26,7 +26,7 @@ export async function onRequestPost({ request, env }) {
       );
     }
 
-    // 1. Fetch current published, non-expired opportunities from the D1 database[span_1](start_span)[span_1](end_span)
+    // 1. Fetch current published, non-expired opportunities from the D1 database[span_0](start_span)[span_0](end_span)
     const result = await env.DB.prepare(`
       SELECT
         id,
@@ -63,15 +63,17 @@ Be polite, concise, encouraging, and mention exact titles, organizations, deadli
 Current Live Opportunities Database:
 ${JSON.stringify(opportunities, null, 2)}`;
 
-    // 3. Call Groq API using Llama 3.1 8B Instant model
-    const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    // 3. Call OpenRouter API using a free model
+    const openRouterResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${env.GROQ_API_KEY}`,
-        "Content-Type": "application/json"
+        "Authorization": `Bearer ${env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://wantokhub.pages.dev", // Optional: Site URL for OpenRouter rankings
+        "X-Title": "WantokHub" // Optional: App name for OpenRouter rankings
       },
       body: JSON.stringify({
-        model: "llama-3.1-8b-instant",
+        model: "meta-llama/llama-3-8b-instruct:free",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userMessage.trim() }
@@ -80,11 +82,11 @@ ${JSON.stringify(opportunities, null, 2)}`;
       })
     });
 
-    if (!groqResponse.ok) {
-      throw new Error("Failed to communicate with Groq AI service.");
+    if (!openRouterResponse.ok) {
+      throw new Error("Failed to communicate with OpenRouter AI service.");
     }
 
-    const aiData = await groqResponse.json();
+    const aiData = await openRouterResponse.json();
     const answer = aiData.choices?.[0]?.message?.content || "I'm sorry, I couldn't generate an answer right now. Please try again.";
 
     return Response.json({
