@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>PNG Opportunity Hub | Jobs, Scholarships & Education</title>
+<title>WantokHub | PNG Opportunity Hub</title>
 
 <meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea.">
 
@@ -29,9 +29,7 @@
   padding: 0;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
   font-family: Arial, sans-serif;
@@ -45,9 +43,7 @@ a {
   color: inherit;
 }
 
-button, input {
-  font: inherit;
-}
+button, input { font: inherit; }
 
 .container {
   width: min(1100px, 92%);
@@ -100,9 +96,7 @@ header {
   font-weight: 600;
 }
 
-.nav-links a:hover {
-  color: var(--green);
-}
+.nav-links a:hover { color: var(--green); }
 
 .btn {
   display: inline-block;
@@ -115,9 +109,7 @@ header {
   cursor: pointer;
 }
 
-.btn:hover {
-  background: var(--darkgreen);
-}
+.btn:hover { background: var(--darkgreen); }
 
 .menu-btn {
   display: none;
@@ -158,9 +150,7 @@ header {
   letter-spacing: -1.5px;
 }
 
-.hero h1 span {
-  color: var(--green);
-}
+.hero h1 span { color: var(--green); }
 
 .hero p {
   color: var(--muted);
@@ -189,9 +179,7 @@ header {
   font-size: 14px;
 }
 
-.search-box button {
-  border: none;
-}
+.search-box button { border: none; }
 
 .hero-note {
   color: var(--muted);
@@ -227,9 +215,7 @@ header {
 
 /* SECTIONS */
 
-section {
-  padding: 65px 0;
-}
+section { padding: 65px 0; }
 
 .section-heading {
   text-align: center;
@@ -297,32 +283,98 @@ section {
 
 /* OPPORTUNITIES */
 
-.opportunities {
+.opportunities { background: white; }
+
+.opportunity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.opportunity-card {
   background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  padding: 20px;
+  transition: .2s;
 }
 
-.opportunity-box {
-  max-width: 750px;
-  margin: auto;
-  border: 1px dashed #86c99e;
-  background: #f0fdf4;
-  border-radius: 14px;
-  padding: 35px 20px;
+.opportunity-card:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+}
+
+.opportunity-type {
+  display: inline-block;
+  background: var(--lightgreen);
+  color: var(--darkgreen);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.opportunity-card h3 {
+  font-size: 17px;
+  margin-bottom: 6px;
+  overflow-wrap: anywhere;
+}
+
+.opportunity-organisation {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.opportunity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 15px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.opportunity-card-link {
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.opportunity-status {
   text-align: center;
-}
-
-.opportunity-box .icon {
-  font-size: 38px;
-}
-
-.opportunity-box h3 {
-  margin: 10px 0;
-}
-
-.opportunity-box p {
+  padding: 30px 15px;
+  background: #f0fdf4;
+  border: 1px dashed #86c99e;
+  border-radius: 14px;
   color: var(--muted);
   font-size: 14px;
 }
+
+.opportunity-status strong {
+  display: block;
+  color: var(--text);
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.opportunity-actions {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.view-all-btn {
+  display: inline-block;
+  background: var(--green);
+  color: white;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.view-all-btn:hover { background: var(--darkgreen); }
 
 /* HOW IT WORKS */
 
@@ -386,9 +438,7 @@ footer {
   gap: 30px;
 }
 
-footer h3, footer h4 {
-  margin-bottom: 13px;
-}
+footer h3, footer h4 { margin-bottom: 13px; }
 
 footer p, footer a {
   color: #cbd5d1;
@@ -400,9 +450,7 @@ footer a {
   margin-bottom: 8px;
 }
 
-footer a:hover {
-  color: white;
-}
+footer a:hover { color: white; }
 
 .copyright {
   border-top: 1px solid #31503c;
@@ -426,7 +474,6 @@ footer a:hover {
 /* MOBILE */
 
 @media(max-width: 750px) {
-
   .nav-links {
     display: none;
     position: absolute;
@@ -440,74 +487,50 @@ footer a:hover {
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-links.active {
-    display: flex;
-  }
+  .nav-links.active { display: flex; }
 
-  .menu-btn {
-    display: block;
-  }
+  .menu-btn { display: block; }
 
-  .nav > .btn {
-    display: none;
-  }
+  .nav > .btn { display: none; }
 
-  .hero {
-    padding: 55px 0;
-  }
+  .hero { padding: 55px 0; }
 
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .service-card {
-    padding: 16px;
-  }
+  .service-card { padding: 16px; }
 
-  .steps {
-    grid-template-columns: 1fr;
-  }
+  .steps { grid-template-columns: 1fr; }
 
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
+  .footer-grid { grid-template-columns: 1fr; }
 
-  .stats {
-    gap: 8px;
-  }
+  .stats { gap: 8px; }
 
-  .stat {
-    padding: 12px 5px;
-  }
+  .stat { padding: 12px 5px; }
 
-  .stat strong {
-    font-size: 19px;
-  }
+  .stat strong { font-size: 19px; }
 
-  .stat span {
-    font-size: 10px;
-  }
+  .stat span { font-size: 10px; }
+
+  .opportunity-grid { grid-template-columns: 1fr; }
 }
 
 @media(max-width: 380px) {
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
+  .service-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header>
   <div class="container nav">
 
     <a href="#" class="logo">
       <span class="logo-icon">🇵🇬</span>
-      PNG Opportunity Hub
+      WantokHub
     </a>
 
     <nav class="nav-links" id="navLinks">
@@ -526,9 +549,9 @@ footer a:hover {
   </div>
 </header>
 
-<!-- HERO -->
-
 <main>
+
+<!-- HERO -->
 
 <section class="hero" id="home">
   <div class="container hero-content">
@@ -695,24 +718,29 @@ footer a:hover {
   </div>
 </section>
 
-<!-- OPPORTUNITIES -->
+<!-- LATEST OPPORTUNITIES -->
 
 <section class="opportunities" id="opportunities">
   <div class="container">
 
     <div class="section-heading">
       <h2>Latest Opportunities</h2>
-      <p>Find opportunities that can help you build your future.</p>
+      <p>Explore recently published jobs, scholarships, internships and more across PNG.</p>
     </div>
 
-    <div class="opportunity-box">
-      <div class="icon">🔎</div>
-      <h3>Opportunity listings coming soon</h3>
-      <p>
-        We are preparing a directory of verified
-        jobs, scholarships, internships and
-        education opportunities across PNG.
-      </p>
+    <div id="latestOpportunities" class="opportunity-grid">
+
+      <div class="opportunity-status" style="grid-column:1/-1;">
+        <strong>Loading opportunities...</strong>
+        Please wait while we retrieve the latest listings.
+      </div>
+
+    </div>
+
+    <div class="opportunity-actions">
+      <a href="/opportunities.html" class="view-all-btn">
+        View All Opportunities →
+      </a>
     </div>
 
   </div>
@@ -752,7 +780,7 @@ footer a:hover {
   </div>
 </section>
 
-<!-- DOCUMENTS PLACEHOLDER -->
+<!-- DOCUMENTS -->
 
 <section id="documents" style="background:white;">
   <div class="container">
@@ -760,15 +788,14 @@ footer a:hover {
       <h2>Professional Document Tools</h2>
       <p>Prepare for your next opportunity.</p>
     </div>
-    <div class="opportunity-box">
-      <div class="icon">📄</div>
-      <h3>CV and Document Builder</h3>
-      <p>Professional templates and downloadable documents will be available here.</p>
+    <div class="opportunity-status">
+      <strong>CV and Document Builder</strong>
+      Professional templates and downloadable documents will be available here.
     </div>
   </div>
 </section>
 
-<!-- OTHER SERVICE PLACEHOLDERS -->
+<!-- OTHER SERVICES -->
 
 <section id="learning">
   <div class="container section-heading">
@@ -804,7 +831,7 @@ footer a:hover {
   <div class="container">
     <div class="cta">
       <h2>Ready to build your future?</h2>
-      <p>PNG Opportunity Hub is being developed to connect people with opportunities.</p>
+      <p>WantokHub connects Papua New Guineans to education, employment and opportunities.</p>
       <a href="#contact" class="btn">Get in Touch</a>
     </div>
   </div>
@@ -820,9 +847,9 @@ footer a:hover {
     <div class="footer-grid">
 
       <div>
-        <h3>🇵🇬 PNG Opportunity Hub</h3>
+        <h3>🇵🇬 WantokHub</h3>
         <p>
-          Connecting Papua New Guineans to
+          PNG Opportunity Hub — connecting Papua New Guineans to
           education, employment and opportunities.
         </p>
       </div>
@@ -830,7 +857,7 @@ footer a:hover {
       <div>
         <h4>Explore</h4>
         <a href="#services">Our Services</a>
-        <a href="#opportunities">Opportunities</a>
+        <a href="/opportunities.html">Opportunities</a>
         <a href="#about">About Us</a>
       </div>
 
@@ -844,7 +871,7 @@ footer a:hover {
     </div>
 
     <div class="copyright">
-      © <span id="year"></span> PNG Opportunity Hub.
+      © <span id="year"></span> WantokHub.
       Built for Papua New Guinea. 🇵🇬
     </div>
 
@@ -862,8 +889,6 @@ menuBtn.addEventListener("click", () => {
   navLinks.classList.toggle("active");
 });
 
-// CLOSE MOBILE MENU AFTER CLICK
-
 document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", () => {
     navLinks.classList.remove("active");
@@ -878,47 +903,196 @@ const cards = document.querySelectorAll(".service-card");
 const noResults = document.getElementById("noResults");
 
 function searchServices() {
-
   const query = searchInput.value.trim().toLowerCase();
-
   let found = 0;
 
   cards.forEach(card => {
-
     const content = (
-      card.innerText + " " +
-      card.dataset.search
+      card.innerText + " " + card.dataset.search
     ).toLowerCase();
 
     const match = content.includes(query);
-
     card.style.display = match ? "" : "none";
 
     if (match) found++;
-
   });
 
-  noResults.style.display =
-    found === 0 ? "block" : "none";
+  noResults.style.display = found === 0 ? "block" : "none";
 
   document.getElementById("services").scrollIntoView({
     behavior: "smooth"
   });
-
 }
 
 searchBtn.addEventListener("click", searchServices);
 
 searchInput.addEventListener("keydown", event => {
-  if (event.key === "Enter") {
-    searchServices();
-  }
+  if (event.key === "Enter") searchServices();
 });
+
+// LOAD LATEST OPPORTUNITIES
+
+const latestContainer =
+  document.getElementById("latestOpportunities");
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+
+  return element;
+}
+
+function formatDate(dateValue) {
+  if (!dateValue) return "Not specified";
+
+  const date = new Date(dateValue + "T00:00:00");
+
+  if (Number.isNaN(date.getTime())) {
+    return dateValue;
+  }
+
+  return date.toLocaleDateString("en-PG", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
+}
+
+function displayOpportunities(opportunities) {
+  latestContainer.replaceChildren();
+
+  if (!opportunities.length) {
+    const message = createElement(
+      "div",
+      "opportunity-status"
+    );
+
+    message.style.gridColumn = "1 / -1";
+
+    message.appendChild(createElement(
+      "strong",
+      "",
+      "No current opportunities"
+    ));
+
+    message.appendChild(document.createTextNode(
+      "New jobs, scholarships and other opportunities will appear here when published."
+    ));
+
+    latestContainer.appendChild(message);
+    return;
+  }
+
+  // Show up to six latest opportunities
+
+  opportunities.slice(0, 6).forEach(item => {
+    const card = createElement("article", "opportunity-card");
+
+    card.appendChild(createElement(
+      "span",
+      "opportunity-type",
+      item.type || "Opportunity"
+    ));
+
+    card.appendChild(createElement(
+      "h3",
+      "",
+      item.title || "Untitled opportunity"
+    ));
+
+    card.appendChild(createElement(
+      "p",
+      "opportunity-organisation",
+      item.organisation || "Organisation not specified"
+    ));
+
+    const meta = createElement("div", "opportunity-meta");
+
+    meta.appendChild(createElement(
+      "span",
+      "",
+      "📍 " + (item.province || "PNG")
+    ));
+
+    meta.appendChild(createElement(
+      "span",
+      "",
+      "📅 Deadline: " + formatDate(item.deadline)
+    ));
+
+    card.appendChild(meta);
+
+    const link = createElement(
+      "a",
+      "opportunity-card-link",
+      "View opportunity details →"
+    );
+
+    link.href = "/opportunities.html";
+    card.appendChild(link);
+
+    latestContainer.appendChild(card);
+  });
+}
+
+async function loadLatestOpportunities() {
+  try {
+    const response = await fetch("/api/opportunities", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      },
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("Could not retrieve opportunities.");
+    }
+
+    const data = await response.json();
+
+    if (!data.success || !Array.isArray(data.opportunities)) {
+      throw new Error("Invalid opportunities response.");
+    }
+
+    displayOpportunities(data.opportunities);
+
+  } catch (error) {
+    console.error("Opportunity loading error:", error);
+
+    latestContainer.replaceChildren();
+
+    const message = createElement(
+      "div",
+      "opportunity-status"
+    );
+
+    message.style.gridColumn = "1 / -1";
+
+    message.appendChild(createElement(
+      "strong",
+      "",
+      "Unable to load opportunities"
+    ));
+
+    message.appendChild(document.createTextNode(
+      "Please visit the full opportunities page or try again later."
+    ));
+
+    latestContainer.appendChild(message);
+  }
+}
 
 // CURRENT YEAR
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
+
+// START
+
+loadLatestOpportunities();
 
 </script>
 
