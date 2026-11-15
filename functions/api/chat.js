@@ -46,8 +46,8 @@ ${JSON.stringify(opportunities, null, 2)}
 
 User Question: ${userMessage}`;
 
-    // 3. Call Google Gemini API using gemini-2.0-flash
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${env.GEMINI_API_KEY}`;
+    // 3. Call Google Gemini API using gemini-3.8-flash
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${env.GEMINI_API_KEY}`;
     
     const aiResponse = await fetch(geminiUrl, {
       method: "POST",
