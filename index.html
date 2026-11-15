@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>WantokHub | PNG Opportunity Hub</title>
-<meta name="description" content="Find jobs, scholarships, and professional CV and cover letter tools in Papua New Guinea.">
+<meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea[span_0](start_span)[span_0](end_span).">
 <meta name="theme-color" content="#15803d">
 
 <style>
@@ -13,6 +12,8 @@
   --green: #15803d;
   --darkgreen: #14532d;
   --lightgreen: #dcfce7;
+  --gold: #D97706;
+  --gold-bg: #fef3c7;
   --bg: #f7faf8;
   --white: #ffffff;
   --text: #172b20;
@@ -35,6 +36,7 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a {
@@ -42,7 +44,7 @@ a {
   color: inherit;
 }
 
-button, input, select {
+button, input {
   font: inherit;
 }
 
@@ -55,14 +57,15 @@ button, input, select {
 
 header {
   background: white;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 2px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 
 .nav {
-  min-height: 70px;
+  min-height: 75px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -73,7 +76,7 @@ header {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 800;
   color: var(--darkgreen);
 }
@@ -81,19 +84,20 @@ header {
 .logo-icon {
   background: var(--green);
   color: white;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: 12px;
   display: grid;
   place-items: center;
   font-size: 22px;
+  box-shadow: 0 4px 10px rgba(21,128,61,0.2);
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 20px;
-  font-size: 14px;
+  gap: 24px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -102,33 +106,44 @@ header {
 }
 
 .btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: var(--green);
   color: white;
   border: none;
-  border-radius: 8px;
-  padding: 11px 17px;
+  border-radius: 10px;
+  padding: 12px 20px;
   font-weight: 700;
   cursor: pointer;
+  min-height: 48px;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .btn:hover {
   background: var(--darkgreen);
 }
 
+.btn:active {
+  transform: scale(0.98);
+}
+
 .menu-btn {
   display: none;
   background: none;
   border: none;
-  font-size: 27px;
+  font-size: 30px;
   cursor: pointer;
+  color: var(--darkgreen);
+  padding: 8px;
 }
 
 /* HERO */
 
 .hero {
-  padding: 75px 0 65px;
-  background: linear-gradient(135deg, #ecfdf3, #ffffff);
+  padding: clamp(50px, 8vw, 85px) 0 65px;
+  background: linear-gradient(135deg, #ecfdf3 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--border);
 }
 
 .hero-content {
@@ -139,20 +154,21 @@ header {
 
 .tag {
   display: inline-block;
-  background: var(--lightgreen);
-  color: var(--darkgreen);
+  background: var(--gold-bg);
+  color: var(--gold);
   border-radius: 30px;
-  padding: 6px 14px;
-  font-size: 12px;
+  padding: 6px 16px;
+  font-size: 13px;
   font-weight: 800;
   margin-bottom: 18px;
+  border: 1px solid #fde68a;
 }
 
 .hero h1 {
-  font-size: clamp(34px, 6vw, 55px);
-  line-height: 1.12;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: 1.15;
   margin-bottom: 18px;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
 }
 
 .hero h1 span {
@@ -161,7 +177,7 @@ header {
 
 .hero p {
   color: var(--muted);
-  font-size: 17px;
+  font-size: clamp(16px, 2vw, 18px);
   max-width: 620px;
   margin: auto;
 }
@@ -169,12 +185,17 @@ header {
 .search-box {
   display: flex;
   background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 7px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  padding: 8px;
   margin: 30px auto 15px;
   max-width: 620px;
-  box-shadow: 0 8px 25px rgba(0,0,0,.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: border-color 0.2s;
+}
+
+.search-box:focus-within {
+  border-color: var(--green);
 }
 
 .search-box input {
@@ -182,12 +203,19 @@ header {
   outline: none;
   flex: 1;
   min-width: 0;
-  padding: 12px;
-  font-size: 14px;
+  padding: 12px 14px;
+  font-size: 15px;
 }
 
 .search-box button {
   border: none;
+  border-radius: 10px;
+  padding: 0 22px;
+}
+
+.hero-note {
+  color: var(--muted);
+  font-size: 13px;
 }
 
 /* STATS */
@@ -196,128 +224,136 @@ header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 15px;
-  margin-top: 35px;
+  margin-top: 40px;
 }
 
 .stat {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
 
 .stat strong {
   display: block;
   color: var(--green);
-  font-size: 23px;
+  font-size: clamp(20px, 4vw, 26px);
 }
 
 .stat span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* SECTIONS */
 
 section {
-  padding: 65px 0;
+  padding: clamp(45px, 7vw, 75px) 0;
 }
 
 .section-heading {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .section-heading h2 {
-  font-size: 29px;
+  font-size: clamp(24px, 4vw, 32px);
   margin-bottom: 8px;
+  color: var(--darkgreen);
 }
 
 .section-heading p {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
 }
 
 /* SERVICES */
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .service-card {
   background: white;
-  padding: 26px;
+  padding: 25px;
   border: 1px solid var(--border);
-  border-radius: 13px;
-  transition: .2s;
+  border-radius: 16px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
 .service-card:hover {
   border-color: var(--green);
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(21,128,61,0.08);
 }
 
 .service-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: grid;
   place-items: center;
   background: var(--lightgreen);
-  border-radius: 12px;
-  font-size: 24px;
-  margin-bottom: 15px;
+  border-radius: 14px;
+  font-size: 26px;
+  margin-bottom: 18px;
 }
 
 .service-card h3 {
   font-size: 18px;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
+  color: var(--darkgreen);
 }
 
 .service-card p {
   font-size: 14px;
   color: var(--muted);
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .service-link {
   color: var(--green);
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 /* OPPORTUNITIES */
 
 .opportunities {
   background: white;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .opportunity-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
 
 .opportunity-card {
   background: white;
   border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 20px;
-  transition: .2s;
-  min-width: 0;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
 .opportunity-card:hover {
   border-color: var(--green);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(21,128,61,0.08);
 }
 
 .opportunity-badges {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 7px;
+  gap: 8px;
   margin-bottom: 14px;
 }
 
@@ -325,11 +361,10 @@ section {
 .deadline-badge {
   display: inline-flex;
   align-items: center;
-  padding: 5px 11px;
+  padding: 6px 12px;
   border-radius: 30px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  line-height: 1.5;
 }
 
 .opportunity-type {
@@ -358,15 +393,17 @@ section {
 }
 
 .opportunity-card h3 {
-  font-size: 17px;
+  font-size: 18px;
   margin-bottom: 6px;
+  color: var(--darkgreen);
   overflow-wrap: anywhere;
 }
 
 .opportunity-organisation {
   color: var(--muted);
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 12px;
+  font-weight: 600;
 }
 
 .opportunity-meta {
@@ -374,239 +411,121 @@ section {
   flex-wrap: wrap;
   gap: 8px 15px;
   color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 15px;
+  font-size: 13px;
+  margin-bottom: 18px;
 }
 
 .opportunity-card-link {
   color: var(--green);
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-}
-
-.opportunity-card-link:hover {
-  color: var(--darkgreen);
-  text-decoration: underline;
 }
 
 .opportunity-status {
   text-align: center;
-  padding: 30px 15px;
+  padding: 40px 20px;
   background: #f0fdf4;
-  border: 1px dashed #86c99e;
-  border-radius: 14px;
+  border: 2px dashed #86c99e;
+  border-radius: 16px;
   color: var(--muted);
-  font-size: 14px;
+  font-size: 15px;
+  grid-column: 1 / -1;
 }
 
 .opportunity-status strong {
   display: block;
   color: var(--text);
-  font-size: 17px;
-  margin-bottom: 7px;
+  font-size: 18px;
+  margin-bottom: 8px;
 }
 
 .opportunity-actions {
   text-align: center;
-  margin-top: 25px;
+  margin-top: 35px;
 }
 
 .view-all-btn {
   display: inline-block;
   background: var(--green);
   color: white;
-  padding: 12px 22px;
-  border-radius: 8px;
+  padding: 14px 28px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 14px;
+  font-size: 15px;
+  box-shadow: 0 4px 15px rgba(21,128,61,0.2);
 }
 
 .view-all-btn:hover {
   background: var(--darkgreen);
 }
 
-/* ========================================
-   DOCUMENT BUILDER & TABS STYLES
-   ======================================== */
+/* HOW IT WORKS */
 
-.builder-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 25px;
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
 }
 
-.tab-btn {
-  background: #e2e8f0;
-  color: #334155;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
 }
 
-.tab-btn.active {
+.step-number {
   background: var(--green);
   color: white;
-}
-
-.builder-section {
-  display: none;
-}
-
-.builder-section.active {
-  display: block;
-}
-
-.cv-builder-grid {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  text-align: left;
-}
-
-.cv-form-box, .cv-preview-box {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 22px;
-}
-
-.cv-form-box label {
-  display: block;
+  place-items: center;
   font-weight: bold;
-  font-size: 13px;
-  margin: 12px 0 5px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(21,128,61,0.3);
 }
 
-.cv-form-box input, .cv-form-box textarea, .cv-form-box select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 7px;
-  font-size: 14px;
-  font-family: inherit;
-  background: white;
-}
-
-.cv-form-box textarea {
-  min-height: 75px;
-  resize: vertical;
-}
-
-/* BASE CV & LETTER PAPER LAYOUT */
-.cv-paper {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  padding: 28px;
-  border-radius: 6px;
-  color: #1e293b;
-  font-size: 13px;
-  line-height: 1.5;
-  transition: all 0.3s ease;
-}
-
-.cv-paper p {
-  white-space: pre-line;
-  margin: 0 0 10px;
-}
-
-/* TEMPLATE STYLES */
-.cv-paper.template-modern h3.cv-name {
+.step h3 {
   color: var(--darkgreen);
-  font-size: 22px;
-  margin-bottom: 2px;
-  border-bottom: 3px solid var(--green);
-  padding-bottom: 6px;
-}
-.cv-paper.template-modern h4 {
-  color: var(--green);
-  font-size: 12px;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  letter-spacing: 1px;
-  border-left: 3px solid var(--green);
-  padding-left: 6px;
+  margin-bottom: 8px;
 }
 
-.cv-paper.template-classic {
-  font-family: "Georgia", serif;
-}
-.cv-paper.template-classic h3.cv-name {
-  color: #0f172a;
-  font-size: 24px;
-  text-align: center;
-  margin-bottom: 4px;
-  font-weight: normal;
-}
-.cv-paper.template-classic .cv-contact {
-  text-align: center;
-  font-size: 12px;
-  border-bottom: 1px solid #334155;
-  padding-bottom: 10px;
-  margin-bottom: 12px;
-}
-.cv-paper.template-classic h4 {
-  color: #1e293b;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  border-bottom: 1px solid #cbd5e1;
-  padding-bottom: 2px;
-  font-family: Arial, sans-serif;
+.step p {
+  color: var(--muted);
+  font-size: 14px;
 }
 
-.cv-paper.template-creative {
-  font-family: "Verdana", sans-serif;
-  border-left: 6px solid #0891b2;
-}
-.cv-paper.template-creative h3.cv-name {
-  color: #0e7490;
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-.cv-paper.template-creative h4 {
-  color: #0891b2;
-  font-size: 12px;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  background: #ecfeff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-weight: bold;
-}
+/* CTA */
 
-.cv-paper.template-executive {
-  font-family: Arial, sans-serif;
-}
-.cv-paper.template-executive .cv-header-block {
-  background: #0f172a;
+.cta {
+  background: var(--darkgreen);
   color: white;
-  padding: 16px;
-  margin: -28px -28px 18px -28px;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  text-align: center;
+  padding: clamp(40px, 6vw, 65px) 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(20,83,45,0.2);
 }
-.cv-paper.template-executive h3.cv-name {
-  color: white;
-  font-size: 22px;
-  margin: 0 0 4px 0;
+
+.cta h2 {
+  font-size: clamp(24px, 4vw, 34px);
 }
-.cv-paper.template-executive .cv-contact {
-  color: #94a3b8;
-  font-size: 12px;
-  margin: 0;
+
+.cta p {
+  color: #dcfce7;
+  margin: 12px 0 25px;
+  font-size: 16px;
 }
-.cv-paper.template-executive h4 {
-  color: #0f172a;
-  font-size: 13px;
-  text-transform: uppercase;
-  margin: 14px 0 4px;
-  border-bottom: 2px solid #0f172a;
-  padding-bottom: 3px;
+
+.cta .btn {
+  background: white;
+  color: var(--darkgreen);
+}
+
+.cta .btn:hover {
+  background: var(--lightgreen);
 }
 
 /* FOOTER */
@@ -614,30 +533,33 @@ section {
 footer {
   background: #10251a;
   color: white;
-  padding: 40px 0 20px;
-  margin-top: 60px;
+  padding: 50px 0 20px;
+  margin-top: 40px;
+  border-top: 4px solid var(--green);
 }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 35px;
 }
 
 footer h3,
 footer h4 {
-  margin-bottom: 13px;
+  margin-bottom: 15px;
+  color: #fff;
 }
 
 footer p,
 footer a {
   color: #cbd5d1;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 footer a {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  transition: color 0.2s;
 }
 
 footer a:hover {
@@ -647,26 +569,27 @@ footer a:hover {
 .copyright {
   border-top: 1px solid #31503c;
   text-align: center;
-  padding-top: 18px;
-  margin-top: 30px;
-  color: #cbd5d1;
-  font-size: 12px;
+  padding-top: 22px;
+  margin-top: 40px;
+  color: #94a3b8;
+  font-size: 13px;
 }
 
-/* MOBILE */
+/* MOBILE NAV DRAWER */
 
-@media(max-width: 750px) {
+@media(max-width: 768px) {
   .nav-links {
     display: none;
     position: absolute;
-    top: 70px;
+    top: 75px;
     left: 0;
     right: 0;
     background: white;
-    padding: 20px;
+    padding: 25px;
     flex-direction: column;
     align-items: stretch;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 2px solid var(--border);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
   }
 
   .nav-links.active {
@@ -680,37 +603,6 @@ footer a:hover {
   .nav > .btn {
     display: none;
   }
-
-  .service-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .opportunity-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .cv-builder-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* PRINT STYLES */
-@media print {
-  body * {
-    visibility: hidden;
-  }
-  .cv-paper.active-print, .cv-paper.active-print * {
-    visibility: visible;
-  }
-  .cv-paper.active-print {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-  }
 }
 </style>
 </head>
@@ -718,10 +610,8 @@ footer a:hover {
 <body>
 
 <!-- HEADER -->
-
 <header>
   <div class="container nav">
-
     <a href="#home" class="logo">
       <span class="logo-icon">🇵🇬</span>
       WantokHub
@@ -729,48 +619,34 @@ footer a:hover {
 
     <nav class="nav-links" id="navLinks">
       <a href="#home">Home</a>
+      <a href="#services">Services</a>
       <a href="#opportunities">Opportunities</a>
-      <a href="#documents">Document Tools</a>
-      <a href="/submit.html">Post a Job</a>
+      <a href="/cv-builder.html">CV Builder</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </nav>
 
-    <a href="/submit.html" class="btn">Post a Job</a>
+    <a href="/opportunities.html" class="btn">Get Started</a>
 
-    <button class="menu-btn" id="menuBtn"
-      type="button"
-      aria-label="Toggle navigation"
-      aria-expanded="false">☰</button>
-
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
   </div>
 </header>
 
 <main>
 
 <!-- HERO -->
-
 <section class="hero" id="home">
-
   <div class="container hero-content">
-
     <span class="tag">🇵🇬 BUILT FOR PAPUA NEW GUINEA</span>
-
     <h1>Your future starts <span>here.</span></h1>
-
-    <p>
-      Discover jobs, scholarships, and build professional CVs and cover letters
-      for career opportunities across Papua New Guinea.
-    </p>
+    <p>Discover jobs, scholarships, education, career opportunities and professional tools. Everything you need in one place.</p>
 
     <div class="search-box">
-      <input
-        type="search"
-        id="siteSearch"
-        placeholder="Search jobs, scholarships..."
-        aria-label="Search website services">
-      <button class="btn" id="searchBtn" type="button">
-        Search
-      </button>
+      <input type="search" id="siteSearch" placeholder="Search jobs, CV tools, scholarships..." aria-label="Search website services">
+      <button class="btn" id="searchBtn" type="button">Search</button>
     </div>
+
+    <div class="hero-note">Explore opportunities. Build your future across all 22 provinces.</div>
 
     <div class="stats">
       <div class="stat">
@@ -778,548 +654,161 @@ footer a:hover {
         <span>Provinces</span>
       </div>
       <div class="stat">
-        <strong>Active</strong>
-        <span>Job Listings</span>
+        <strong>All</strong>
+        <span>Career Stages</span>
       </div>
       <div class="stat">
         <strong>Free</strong>
         <span>Platform Access</span>
       </div>
     </div>
-
   </div>
-
 </section>
 
-<!-- CORE SERVICES -->
-
+<!-- SERVICES -->
 <section id="services">
   <div class="container">
-
     <div class="section-heading">
-      <h2>Platform Features</h2>
-      <p>Everything job seekers and employers need in one place.</p>
+      <h2>Explore Our Services</h2>
+      <p>Everything students and job seekers need to move forward.</p>
     </div>
 
     <div class="service-grid" id="serviceGrid">
-
-      <a href="#opportunities" class="service-card"
-        data-search="jobs employment vacancies recruitment work careers">
+      <a href="/opportunities.html" class="service-card" data-search="jobs employment vacancies recruitment work careers">
         <div class="service-icon">💼</div>
-        <h3>Jobs & Opportunities</h3>
-        <p>Explore active job vacancies, internships, and scholarships across PNG provinces.</p>
-        <span class="service-link">Browse opportunities →</span>
+        <h3>Jobs & Employment</h3>
+        <p>Explore job vacancies, internships, graduate programs and employment opportunities.</p>
+        <span class="service-link">Explore jobs →</span>
       </a>
 
-      <a href="#documents" class="service-card"
-        data-search="cv resume curriculum vitae career profile">
-        <div class="service-icon">📄</div>
-        <h3>CV & Cover Letter Builder</h3>
-        <p>Create professional CVs and matching cover letters with multi-template designs.</p>
-        <span class="service-link">Build documents →</span>
-      </a>
-
-      <a href="/submit.html" class="service-card"
-        data-search="employers companies recruitment post vacancies">
-        <div class="service-icon">🏢</div>
-        <h3>Employer Centre</h3>
-        <p>Publish free job vacancies and connect with qualified local applicants.</p>
-        <span class="service-link">Post a free job →</span>
-      </a>
-
-      <a href="#opportunities" class="service-card"
-        data-search="scholarships education university grants overseas study">
+      <a href="/opportunities.html" class="service-card" data-search="scholarships education university grants overseas study">
         <div class="service-icon">🎓</div>
-        <h3>Scholarships & Grants</h3>
-        <p>Find education grants, training programs, and study opportunities.</p>
+        <h3>Scholarships</h3>
+        <p>Find local and international scholarships, grants and study opportunities.</p>
         <span class="service-link">Find scholarships →</span>
       </a>
 
-    </div>
+      <a href="/cv-builder.html" class="service-card" data-search="cv resume curriculum vitae career profile">
+        <div class="service-icon">📄</div>
+        <h3>CV & Resume Builder</h3>
+        <p>Create professional CVs and resumes for your job applications instantly.</p>
+        <span class="service-link">Build your CV →</span>
+      </a>
 
+      <a href="/opportunities.html" class="service-card" data-search="letters documents application cover letters templates">
+        <div class="service-icon">📝</div>
+        <h3>Document Centre</h3>
+        <p>Prepare application letters, cover letters, business documents and more.</p>
+        <span class="service-link">Explore documents →</span>
+      </a>
+
+      <a href="#learning" class="service-card" data-search="student learning courses study notes tutorials education">
+        <div class="service-icon">📚</div>
+        <h3>Student Learning</h3>
+        <p>Access study resources, tutorials, courses and examination preparation.</p>
+        <span class="service-link">Start learning →</span>
+      </a>
+
+      <a href="/opportunities.html" class="service-card" data-search="internships apprenticeships volunteer youth programs">
+        <div class="service-icon">🌱</div>
+        <h3>Youth Opportunities</h3>
+        <p>Discover volunteering, apprenticeships and youth development programs.</p>
+        <span class="service-link">Discover more →</span>
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- LATEST OPPORTUNITIES -->
-
 <section class="opportunities" id="opportunities">
-
   <div class="container">
-
     <div class="section-heading">
       <h2>Latest Opportunities</h2>
-      <p>
-        Explore recently published jobs, scholarships,
-        and internships across PNG.
-      </p>
+      <p>Explore recently published jobs, scholarships, internships and more across PNG.</p>
     </div>
 
     <div id="latestOpportunities" class="opportunity-grid">
-
-      <div class="opportunity-status" style="grid-column:1/-1;">
+      <div class="opportunity-status">
         <strong>Loading opportunities...</strong>
         Please wait while we retrieve the latest listings.
       </div>
-
     </div>
 
     <div class="opportunity-actions">
-      <a href="/opportunities.html" class="view-all-btn">
-        View All Opportunities →
-      </a>
+      <a href="/opportunities.html" class="view-all-btn">View All Opportunities →</a>
     </div>
-
   </div>
-
 </section>
 
-<!-- DOCUMENTS SECTION: CV & COVER LETTER BUILDER WITH TABS -->
-<section id="documents" style="background:white;">
+<!-- HOW IT WORKS -->
+<section id="about">
   <div class="container">
-
     <div class="section-heading">
-      <h2>PNG Professional Document Tools</h2>
-      <p>Create custom, polished CVs and matching cover letters tailored for Papua New Guinea employers.</p>
+      <h2>How It Works</h2>
+      <p>Simple steps to help you access opportunities.</p>
     </div>
 
-    <!-- Tab Navigation -->
-    <div class="builder-tabs">
-      <button class="tab-btn active" onclick="switchTab('cvTab', this)">📄 CV & Resume Builder</button>
-      <button class="tab-btn" onclick="switchTab('letterTab', this)">✉️ Cover Letter Generator</button>
-    </div>
-
-    <!-- TAB 1: CV BUILDER -->
-    <div id="cvTab" class="builder-section active">
-      <div class="cv-builder-grid">
-        <!-- Form -->
-        <div class="cv-form-box">
-          <h3 style="margin-bottom: 10px; color: var(--darkgreen);">1. Choose Template Style</h3>
-          <label for="templateSelect">Design Theme</label>
-          <select id="templateSelect">
-            <option value="template-modern">🌿 Modern Green (WantokHub Default)</option>
-            <option value="template-classic">🏛️ Classic Professional (Serif)</option>
-            <option value="template-creative">⚡ Creative Minimalist (Cyan)</option>
-            <option value="template-executive">💼 Executive Bold (Dark Header)</option>
-          </select>
-
-          <h3 style="margin: 18px 0 10px; color: var(--darkgreen);">2. Enter Your Details</h3>
-          <label for="cvName">Full Name</label>
-          <input type="text" id="cvName" placeholder="e.g., John Kila">
-
-          <label for="cvContact">Contact Info</label>
-          <input type="text" id="cvContact" placeholder="📞 +675 7123 4567 | ✉️ john@email.com | 📍 Lae, Morobe">
-
-          <label for="cvObjective">Career Objective</label>
-          <textarea id="cvObjective" placeholder="Briefly describe your professional background and goals..."></textarea>
-
-          <label for="cvEducation">Education & Qualifications</label>
-          <textarea id="cvEducation" placeholder="🎓 Diploma in IT - ITI (2025)&#10;🏫 Grade 12 - Bumayong Secondary (2022)"></textarea>
-
-          <label for="cvExperience">Work Experience</label>
-          <textarea id="cvExperience" placeholder="💼 Retail Assistant - PC & J.Y. Woo Ltd (2023 - 2024)"></textarea>
-
-          <label for="cvSkills">Key Skills</label>
-          <textarea id="cvSkills" placeholder="⭐ Communication, Microsoft Office, Teamwork"></textarea>
-
-          <label for="cvReferees">Referees</label>
-          <textarea id="cvReferees" placeholder="👤 1. Mr. Peter Waim - Manager, ABC Ltd | Ph: 7000 1111"></textarea>
-        </div>
-
-        <!-- Preview -->
-        <div class="cv-preview-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h3 style="color: var(--darkgreen); margin: 0;">3. Live Preview & Print</h3>
-            <button type="button" class="btn" onclick="printDocument('cvPaper')" style="padding: 8px 14px; font-size: 13px;">
-              🖨️ Print / Save PDF
-            </button>
-          </div>
-
-          <div class="cv-paper template-modern" id="cvPaper">
-            <div id="cvHeaderWrapper">
-              <h3 class="cv-name" id="prevName">YOUR FULL NAME</h3>
-              <p class="cv-contact" id="prevContact">📞 Phone | ✉️ Email | 📍 Town, Province, PNG</p>
-            </div>
-
-            <h4>Career Objective</h4>
-            <p id="prevObjective">Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally.</p>
-
-            <h4>Education & Qualifications</h4>
-            <p id="prevEducation">• Enter your institution, qualification, and graduation year.</p>
-
-            <h4>Work Experience</h4>
-            <p id="prevExperience">• Enter your job title, company name, dates, and main duties.</p>
-
-            <h4>Key Skills</h4>
-            <p id="prevSkills">• Communication, Teamwork, Computer Literacy</p>
-
-            <h4>Referees</h4>
-            <p id="prevReferees">• Referee Name, Position, Organisation, and Phone Number</p>
-          </div>
-        </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Explore</h3>
+        <p>Discover employment, education and career resources tailored for PNG.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Prepare</h3>
+        <p>Build your CV, prepare documents and improve your interview skills.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Apply</h3>
+        <p>Connect with verified opportunities and take the next step.</p>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- TAB 2: COVER LETTER GENERATOR -->
-    <div id="letterTab" class="builder-section">
-      <div class="cv-builder-grid">
-        <!-- Form -->
-        <div class="cv-form-box">
-          <h3 style="margin-bottom: 10px; color: var(--darkgreen);">Cover Letter Details</h3>
-
-          <label for="letName">Your Full Name</label>
-          <input type="text" id="letName" placeholder="e.g., John Kila">
-
-          <label for="letContact">Your Contact & Location</label>
-          <input type="text" id="letContact" placeholder="Po Box 123, Lae, Morobe Province | Phone: 7123 4567">
-
-          <label for="letCompany">Hiring Organisation & Manager</label>
-          <input type="text" id="letCompany" placeholder="The HR Manager, Brian Bell Group, Lae">
-
-          <label for="letPosition">Position Applying For</label>
-          <input type="text" id="letPosition" placeholder="e.g., Accounts Clerk / ICT Graduate Trainee">
-
-          <label for="letBody">Cover Letter Message & Body</label>
-          <textarea id="letBody" style="min-height: 150px;" placeholder="Dear Hiring Manager,&#10;&#10;I am writing to express my strong interest in the [Position] role at [Company] as advertised on WantokHub. With my recent qualification in Information Technology from ITI and hands-on experience in customer service and administration in Lae, I am confident in my ability to contribute effectively to your team..."></textarea>
-        </div>
-
-        <!-- Preview -->
-        <div class="cv-preview-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-            <h3 style="color: var(--darkgreen); margin: 0;">Live Cover Letter Preview</h3>
-            <button type="button" class="btn" onclick="printDocument('letterPaper')" style="padding: 8px 14px; font-size: 13px;">
-              🖨️ Print / Save PDF
-            </button>
-          </div>
-
-          <div class="cv-paper" id="letterPaper">
-            <p id="prevLetContact" style="font-weight: bold; margin-bottom: 15px;">Your Name<br>Contact Details, Province, PNG</p>
-            <p id="prevLetDate" style="margin-bottom: 15px;">Date: November 2026</p>
-            <p id="prevLetCompany" style="margin-bottom: 15px;">To: The Hiring Manager<br>Company Name, PNG</p>
-            <p style="font-weight: bold;" id="prevLetSubject">SUBJECT: APPLICATION FOR [POSITION]</p>
-            <p id="prevLetSalutation">Dear Hiring Manager,</p>
-            <p id="prevLetBody">I am writing to express my strong interest in the advertised position. With my background, dedication, and training in Papua New Guinea, I am eager to bring my skills to your esteemed organisation...</p>
-            <p style="margin-top: 20px;">Yours sincerely,</p>
-            <p id="prevLetSign" style="font-weight: bold; margin-top: 10px;">Your Name</p>
-          </div>
-        </div>
-      </div>
+<!-- REGISTER CTA -->
+<section id="register">
+  <div class="container">
+    <div class="cta">
+      <h2>Ready to build your future?</h2>
+      <p>WantokHub connects Papua New Guineans to education, employment and opportunities.</p>
+      <a href="/opportunities.html" class="btn">Explore Opportunities Now</a>
     </div>
-
   </div>
 </section>
 
 </main>
 
 <!-- FOOTER -->
-
 <footer id="contact">
-
   <div class="container">
-
     <div class="footer-grid">
-
       <div>
         <h3>🇵🇬 WantokHub</h3>
-        <p>
-          PNG Opportunity Hub — connecting Papua New Guineans
-          to education, employment and opportunities.
-        </p>
+        <p>PNG Opportunity Hub — connecting Papua New Guineans to education, employment and opportunities.</p>
       </div>
-
       <div>
         <h4>Explore</h4>
+        <a href="#services">Our Services</a>
         <a href="/opportunities.html">Opportunities</a>
-        <a href="#documents">Document Tools</a>
-        <a href="/submit.html">Post a Job</a>
+        <a href="/cv-builder.html">CV Builder</a>
       </div>
-
       <div>
         <h4>Information</h4>
-        <a href="/submit.html">Employer Support</a>
-        <a href="/opportunities.html">All Listings</a>
+        <a href="#contact">Contact Support</a>
+        <a href="#about">About WantokHub</a>
       </div>
-
     </div>
 
     <div class="copyright">
-      © <span id="year"></span> WantokHub.
-      Built for Papua New Guinea. 🇵🇬
+      © <span id="year"></span> WantokHub. Built with pride for Papua New Guinea. 🇵🇬
     </div>
-
   </div>
-
 </footer>
 
-<script>
-
-// ========================================
-// WANTOKHUB MAIN JAVASCRIPT
-// ========================================
-
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
-
-menuBtn.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("active");
-  menuBtn.setAttribute("aria-expanded", String(isOpen));
-});
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("active");
-    menuBtn.setAttribute("aria-expanded", "false");
-  });
-});
-
-// SEARCH SERVICES
-const searchInput = document.getElementById("siteSearch");
-const searchBtn = document.getElementById("searchBtn");
-
-function searchServices() {
-  document.getElementById("services").scrollIntoView({ behavior: "smooth" });
-}
-
-searchBtn.addEventListener("click", searchServices);
-searchInput.addEventListener("keydown", event => {
-  if (event.key === "Enter") searchServices();
-});
-
-// TAB SWITCHER
-function switchTab(tabId, btn) {
-  document.querySelectorAll('.builder-section').forEach(sec => sec.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  btn.classList.add('active');
-}
-
-// PRINT / PDF HELPER
-function printDocument(elementId) {
-  const paper = document.getElementById(elementId);
-  paper.classList.add('active-print');
-  window.print();
-  paper.classList.remove('active-print');
-}
-
-// ========================================
-// OPPORTUNITY DISPLAY
-// ========================================
-
-const latestContainer = document.getElementById("latestOpportunities");
-
-function createElement(tag, className, text) {
-  const element = document.createElement(tag);
-  if (className) element.className = className;
-  if (text !== undefined && text !== null) element.textContent = text;
-  return element;
-}
-
-function parseDeadline(dateValue) {
-  if (!dateValue) return null;
-  const value = String(dateValue).trim();
-  let match = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-  let year, month, day;
-
-  if (match) {
-    year = Number(match[1]);
-    month = Number(match[2]);
-    day = Number(match[3]);
-  } else {
-    match = value.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
-    if (!match) return null;
-    day = Number(match[1]);
-    month = Number(match[2]);
-    year = Number(match[3]);
-  }
-
-  const date = new Date(year, month - 1, day);
-  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-    return null;
-  }
-  date.setHours(0, 0, 0, 0);
-  return date;
-}
-
-function formatDate(dateValue) {
-  const date = parseDeadline(dateValue);
-  if (!date) return dateValue || "Not specified";
-  return date.toLocaleDateString("en-PG", { day: "numeric", month: "short", year: "numeric" });
-}
-
-function getDeadlineStatus(deadlineValue) {
-  const deadline = parseDeadline(deadlineValue);
-  if (!deadline) return null;
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const daysLeft = Math.round((deadline.getTime() - today.getTime()) / 86400000);
-
-  if (daysLeft < 0) return { label: "Closed", className: "deadline-badge closed" };
-  if (daysLeft === 0) return { label: "Closing today", className: "deadline-badge today" };
-  if (daysLeft === 1) return { label: "Closing tomorrow", className: "deadline-badge today" };
-  if (daysLeft <= 7) return { label: "Closing in " + daysLeft + " days", className: "deadline-badge soon" };
-  return { label: "Open for applications", className: "deadline-badge normal" };
-}
-
-function displayOpportunities(opportunities) {
-  latestContainer.replaceChildren();
-
-  if (!opportunities.length) {
-    const message = createElement("div", "opportunity-status");
-    message.style.gridColumn = "1 / -1";
-    message.appendChild(createElement("strong", "", "No current opportunities"));
-    message.appendChild(document.createTextNode("New jobs, scholarships and other opportunities will appear here when published."));
-    latestContainer.appendChild(message);
-    return;
-  }
-
-  opportunities.slice(0, 6).forEach(item => {
-    const card = createElement("article", "opportunity-card");
-    const badges = createElement("div", "opportunity-badges");
-
-    badges.appendChild(createElement("span", "opportunity-type", item.type || "Opportunity"));
-
-    const deadlineStatus = getDeadlineStatus(item.deadline);
-    if (deadlineStatus) {
-      badges.appendChild(createElement("span", deadlineStatus.className, deadlineStatus.label));
-    }
-    card.appendChild(badges);
-
-    card.appendChild(createElement("h3", "", item.title || "Untitled opportunity"));
-    card.appendChild(createElement("p", "opportunity-organisation", item.organisation || "Organisation not specified"));
-
-    const meta = createElement("div", "opportunity-meta");
-    meta.appendChild(createElement("span", "", "📍 " + (item.province || "PNG")));
-    meta.appendChild(createElement("span", "", "📅 Deadline: " + formatDate(item.deadline)));
-    card.appendChild(meta);
-
-    const link = createElement("a", "opportunity-card-link", "View opportunity details →");
-    link.href = "/opportunities.html";
-    card.appendChild(link);
-
-    latestContainer.appendChild(card);
-  });
-}
-
-async function loadLatestOpportunities() {
-  latestContainer.replaceChildren();
-  const loading = createElement("div", "opportunity-status");
-  loading.style.gridColumn = "1 / -1";
-  loading.appendChild(createElement("strong", "", "Loading opportunities..."));
-  loading.appendChild(document.createTextNode("Please wait while we retrieve the latest listings."));
-  latestContainer.appendChild(loading);
-
-  try {
-    const response = await fetch("/api/opportunities", {
-      method: "GET",
-      headers: { "Accept": "application/json" },
-      cache: "no-store"
-    });
-
-    if (!response.ok) throw new Error("API returned status " + response.status);
-
-    const data = await response.json();
-    if (!data || data.success !== true || !Array.isArray(data.opportunities)) {
-      throw new Error("Invalid opportunities response.");
-    }
-
-    displayOpportunities(data.opportunities);
-  } catch (error) {
-    latestContainer.replaceChildren();
-    const message = createElement("div", "opportunity-status");
-    message.style.gridColumn = "1 / -1";
-    message.appendChild(createElement("strong", "", "Unable to load opportunities"));
-    message.appendChild(document.createTextNode("Please try again later or visit the full opportunities page."));
-    latestContainer.appendChild(message);
-  }
-}
-
-// ========================================
-// LIVE CV & COVER LETTER PREVIEW SCRIPTS
-// ========================================
-
-const templateSelect = document.getElementById("templateSelect");
-const cvPaper = document.getElementById("cvPaper");
-const headerWrapper = document.getElementById("cvHeaderWrapper");
-
-templateSelect.addEventListener("change", () => {
-  const selectedTemplate = templateSelect.value;
-  cvPaper.className = "cv-paper " + selectedTemplate;
-
-  if (selectedTemplate === "template-executive") {
-    if (!document.getElementById("execBlock")) {
-      const execBlock = document.createElement("div");
-      execBlock.id = "execBlock";
-      execBlock.className = "cv-header-block";
-      execBlock.appendChild(document.getElementById("prevName"));
-      execBlock.appendChild(document.getElementById("prevContact"));
-      headerWrapper.prepend(execBlock);
-    }
-  } else {
-    const execBlock = document.getElementById("execBlock");
-    if (execBlock) {
-      headerWrapper.appendChild(document.getElementById("prevName"));
-      headerWrapper.appendChild(document.getElementById("prevContact"));
-      execBlock.remove();
-    }
-  }
-});
-
-const cvFields = [
-  { input: "cvName", preview: "prevName", fallback: "YOUR FULL NAME" },
-  { input: "cvContact", preview: "prevContact", fallback: "📞 Phone | ✉️ Email | 📍 Town, Province, PNG" },
-  { input: "cvObjective", preview: "prevObjective", fallback: "Dedicated and hardworking individual seeking an opportunity to contribute skills and grow professionally." },
-  { input: "cvEducation", preview: "prevEducation", fallback: "• Enter your institution, qualification, and graduation year." },
-  { input: "cvExperience", preview: "prevExperience", fallback: "• Enter your job title, company name, dates, and main duties." },
-  { input: "cvSkills", preview: "prevSkills", fallback: "• Communication, Teamwork, Computer Literacy" },
-  { input: "cvReferees", preview: "prevReferees", fallback: "• Referee Name, Position, Organisation, and Phone Number" }
-];
-
-cvFields.forEach(field => {
-  const inputEl = document.getElementById(field.input);
-  const previewEl = document.getElementById(field.preview);
-
-  if (inputEl && previewEl) {
-    inputEl.addEventListener("input", () => {
-      previewEl.textContent = inputEl.value.trim() || field.fallback;
-    });
-  }
-});
-
-// Cover Letter Live Binding
-const letFields = [
-  { input: "letName", preview: "prevLetContact", fallback: "Your Name\nContact Details, Province, PNG", transform: val => val ? `${val}\n${document.getElementById('letContact').value}` : "Your Name\nContact Details, Province, PNG" },
-  { input: "letContact", preview: "prevLetContact", fallback: "Your Name\nContact Details, Province, PNG", transform: val => `${document.getElementById('letName').value || 'Your Name'}\n${val}` },
-  { input: "letCompany", preview: "prevLetCompany", fallback: "To: The Hiring Manager\nCompany Name, PNG", transform: val => `To: ${val}` },
-  { input: "letPosition", preview: "prevLetSubject", fallback: "SUBJECT: APPLICATION FOR [POSITION]", transform: val => `SUBJECT: APPLICATION FOR ${val.toUpperCase()}` },
-  { input: "letBody", preview: "prevLetBody", fallback: "I am writing to express my strong interest...", transform: val => val }
-];
-
-document.getElementById("letName").addEventListener("input", updateLetter);
-document.getElementById("letContact").addEventListener("input", updateLetter);
-document.getElementById("letCompany").addEventListener("input", updateLetter);
-document.getElementById("letPosition").addEventListener("input", updateLetter);
-document.getElementById("letBody").addEventListener("input", updateLetter);
-
-function updateLetter() {
-  const name = document.getElementById("letName").value.trim();
-  const contact = document.getElementById("letContact").value.trim();
-  const company = document.getElementById("letCompany").value.trim();
-  const position = document.getElementById("letPosition").value.trim();
-  const body = document.getElementById("letBody").value.trim();
-
-  document.getElementById("prevLetContact").textContent = (name || contact) ? `${name}\n${contact}` : "Your Name\nContact Details, Province, PNG";
-  document.getElementById("prevLetCompany").textContent = company ? `To: ${company}` : "To: The Hiring Manager\nCompany Name, PNG";
-  document.getElementById("prevLetSubject").textContent = position ? `SUBJECT: APPLICATION FOR ${position.toUpperCase()}` : "SUBJECT: APPLICATION FOR [POSITION]";
-  document.getElementById("prevLetBody").textContent = body || "I am writing to express my strong interest in the advertised position. With my background, dedication, and training in Papua New Guinea, I am eager to bring my skills to your esteemed organisation...";
-  document.getElementById("prevLetSign").textContent = name || "Your Name";
-}
-
-// CURRENT YEAR & STARTUP
-document.getElementById("year").textContent = new Date().getFullYear();
-loadLatestOpportunities();
-
-</script>
-<!-- Wantok Assistant Floating Chatbot Widget -->
+<!-- Wantok AI Assistant Chatbot Widget -->
 <style>
   #wantok-chat-widget {
     position: fixed;
@@ -1333,29 +822,30 @@ loadLatestOpportunities();
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 12px 20px;
+    padding: 14px 22px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
     display: flex;
     align-items: center;
     gap: 8px;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.2s;
   }
   #wantok-chat-btn:hover {
     background: #14532d;
+    transform: scale(1.05);
   }
   #wantok-chat-window {
     position: absolute;
-    bottom: 60px;
+    bottom: 65px;
     right: 0;
-    width: 350px;
-    max-width: 90vw;
-    height: 480px;
+    width: 360px;
+    max-width: calc(100vw - 30px);
+    height: 500px;
     background: white;
-    border-radius: 14px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+    border-radius: 16px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1368,7 +858,7 @@ loadLatestOpportunities();
   .chat-header {
     background: #15803d;
     color: white;
-    padding: 15px;
+    padding: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1378,7 +868,7 @@ loadLatestOpportunities();
     background: none;
     border: none;
     color: white;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
   }
   .chat-messages {
@@ -1393,8 +883,8 @@ loadLatestOpportunities();
   }
   .chat-message {
     padding: 10px 14px;
-    border-radius: 10px;
-    max-width: 80%;
+    border-radius: 12px;
+    max-width: 85%;
     line-height: 1.4;
     word-break: break-word;
     white-space: pre-wrap;
@@ -1421,9 +911,9 @@ loadLatestOpportunities();
   }
   .chat-input-area input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #e2e8e5;
-    border-radius: 8px;
+    border-radius: 10px;
     outline: none;
     font-size: 14px;
   }
@@ -1431,10 +921,11 @@ loadLatestOpportunities();
     background: #15803d;
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 0 18px;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    min-height: 44px;
   }
   .chat-input-area button:disabled {
     opacity: 0.6;
@@ -1454,7 +945,7 @@ loadLatestOpportunities();
     </div>
     <div class="chat-messages" id="wantokChatMessages">
       <div class="chat-message bot">
-        Ia! I am your Wantok Assistant. Ask me anything about current jobs, scholarships, or training opportunities in PNG! (e.g. "What scholarships are available?")
+        Ia! I am your Wantok Assistant. Ask me anything about current jobs, scholarships, or training opportunities in PNG! (e.g., "What scholarships are available?")
       </div>
     </div>
     <form class="chat-input-area" id="wantokChatForm">
@@ -1465,77 +956,157 @@ loadLatestOpportunities();
 </div>
 
 <script>
-  const chatBtn = document.getElementById("wantok-chat-btn");
-  const chatWindow = document.getElementById("wantok-chat-window");
-  const chatClose = document.getElementById("wantok-chat-close");
-  const chatForm = document.getElementById("wantokChatForm");
-  const chatInput = document.getElementById("wantokChatInput");
-  const chatMessages = document.getElementById("wantokChatMessages");
-  const chatSend = document.getElementById("wantokChatSend");
+// Mobile Navigation
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
 
-  chatBtn.addEventListener("click", () => {
-    chatWindow.classList.toggle("active");
-    if (chatWindow.classList.contains("active")) {
-      chatInput.focus();
+menuBtn.addEventListener("click", () => {
+  const isOpen = navLinks.classList.toggle("active");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+    menuBtn.setAttribute("aria-expanded", "false");
+  });
+});
+
+// Search Services
+const searchInput = document.getElementById("siteSearch");
+const searchBtn = document.getElementById("searchBtn");
+const serviceCards = document.querySelectorAll(".service-card");
+
+function searchServices() {
+  const query = searchInput.value.trim().toLowerCase();
+  serviceCards.forEach(card => {
+    const content = (card.innerText + " " + (card.dataset.search || "")).toLowerCase();
+    const match = !query || content.includes(query);
+    card.style.display = match ? "" : "none";
+  });
+  document.getElementById("services").scrollIntoView({ behavior: "smooth" });
+}
+
+searchBtn.addEventListener("click", searchServices);
+searchInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") searchServices();
+});
+
+// Footer Year
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Chatbot Logic
+const chatBtn = document.getElementById("wantok-chat-btn");
+const chatWindow = document.getElementById("wantok-chat-window");
+const chatClose = document.getElementById("wantok-chat-close");
+const chatForm = document.getElementById("wantokChatForm");
+const chatInput = document.getElementById("wantokChatInput");
+const chatMessages = document.getElementById("wantokChatMessages");
+const chatSend = document.getElementById("wantokChatSend");
+
+chatBtn.addEventListener("click", () => {
+  chatWindow.classList.toggle("active");
+  if (chatWindow.classList.contains("active")) chatInput.focus();
+});
+
+chatClose.addEventListener("click", () => {
+  chatWindow.classList.remove("active");
+});
+
+function appendMessage(text, sender) {
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `chat-message ${sender}`;
+  msgDiv.textContent = text;
+  chatMessages.appendChild(msgDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+chatForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const query = chatInput.value.trim();
+  if (!query) return;
+
+  appendMessage(query, "user");
+  chatInput.value = "";
+  chatInput.disabled = true;
+  chatSend.disabled = true;
+
+  const typingId = "typing-" + Date.now();
+  const typingDiv = document.createElement("div");
+  typingDiv.className = "chat-message bot";
+  typingDiv.id = typingId;
+  typingDiv.textContent = "Thinking...";
+  chatMessages.appendChild(typingDiv);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  try {
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: query })
+    });
+
+    const data = await response.json();
+    document.getElementById(typingId).remove();
+
+    if (response.ok && data.success) {
+      appendMessage(data.reply, "bot");
+    } else {
+      appendMessage(data.message || "Sorry, I encountered an error. Please try again.", "bot");
     }
-  });
-
-  chatClose.addEventListener("click", () => {
-    chatWindow.classList.remove("active");
-  });
-
-  function appendMessage(text, sender) {
-    const msgDiv = document.createElement("div");
-    msgDiv.className = `chat-message ${sender}`;
-    msgDiv.textContent = text;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+  } catch {
+    document.getElementById(typingId)?.remove();
+    appendMessage("Network error. Please check your connection.", "bot");
+  } finally {
+    chatInput.disabled = false;
+    chatSend.disabled = false;
+    chatInput.focus();
   }
+});
 
-  chatForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const query = chatInput.value.trim();
-    if (!query) return;
-
-    appendMessage(query, "user");
-    chatInput.value = "";
-    chatInput.disabled = true;
-    chatSend.disabled = true;
-
-    const typingId = "typing-" + Date.now();
-    const typingDiv = document.createElement("div");
-    typingDiv.className = "chat-message bot";
-    typingDiv.id = typingId;
-    typingDiv.textContent = "Thinking...";
-    chatMessages.appendChild(typingDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-
-    try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message: query })
-      });
-
-      const data = await response.json();
-      document.getElementById(typingId).remove();
-
-      if (response.ok && data.success) {
-        appendMessage(data.reply, "bot");
-      } else {
-        appendMessage(data.message || "Sorry, I encountered an error. Please try again.", "bot");
-      }
-    } catch {
-      document.getElementById(typingId)?.remove();
-      appendMessage("Network error. Please check your connection.", "bot");
-    } finally {
-      chatInput.disabled = false;
-      chatSend.disabled = false;
-      chatInput.focus();
+// Load Latest Opportunities
+async function loadLatestOpportunities() {
+  const latestContainer = document.getElementById("latestOpportunities");
+  try {
+    const response = await fetch("/api/opportunities", { headers: { "Accept": "application/json" }, cache: "no-store" });
+    const data = await response.json();
+    if (!data.success || !Array.isArray(data.opportunities) || data.opportunities.length === 0) {
+      latestContainer.innerHTML = '<div class="opportunity-status" style="grid-column:1/-1;"><strong>No current opportunities</strong>New listings will appear here when published.</div>';
+      return;
     }
-  });
+
+    latestContainer.replaceChildren();
+    data.opportunities.slice(0, 6).forEach(item => {
+      const card = document.createElement("article");
+      card.className = "opportunity-card";
+
+      const badges = document.createElement("div");
+      badges.className = "opportunity-badges";
+      badges.appendChild(Object.assign(document.createElement("span"), { className: "opportunity-type", textContent: item.type || "Opportunity" }));
+
+      card.appendChild(badges);
+      card.appendChild(Object.assign(document.createElement("h3"), { textContent: item.title || "Untitled" }));
+      card.appendChild(Object.assign(document.createElement("p"), { className: "opportunity-organisation", textContent: item.organisation || "Organisation not specified" }));
+
+      const meta = document.createElement("div");
+      meta.className = "opportunity-meta";
+      meta.innerHTML = `<span>📍 ${item.province || "PNG"}</span>`;
+      card.appendChild(meta);
+
+      const link = document.createElement("a");
+      link.className = "opportunity-card-link";
+      link.href = "/opportunities.html";
+      link.textContent = "View opportunity details →";
+      card.appendChild(link);
+
+      latestContainer.appendChild(card);
+    });
+  } catch (error) {
+    latestContainer.innerHTML = '<div class="opportunity-status" style="grid-column:1/-1;"><strong>Unable to load opportunities</strong>Please check back later.</div>';
+  }
+}
+
+loadLatestOpportunities();
 </script>
 
 </body>
