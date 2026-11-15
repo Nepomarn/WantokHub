@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -340,6 +339,17 @@
     <p class="muted">
       Review your listings, edit details, publish drafts or remove outdated opportunities.
     </p>
+
+    <!-- NEW: Search and Status Filter Controls -->
+    <div class="form-grid" style="margin: 15px 0;">
+      <input id="adminSearch" type="search" placeholder="Search by title or organisation..." aria-label="Search opportunities">
+      <select id="adminStatusFilter" aria-label="Filter by status">
+        <option value="">All Statuses</option>
+        <option value="published">Published</option>
+        <option value="draft">Drafts</option>
+      </select>
+    </div>
+
     <div id="opportunityList">
       <p class="empty">Loading opportunities...</p>
     </div>
@@ -353,6 +363,15 @@
   const $ = id => document.getElementById(id);
 
   let opportunities = [];
+
+  // Helper function to get today's date in YYYY-MM-DD format
+  function getTodayDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  }
 
   async function checkSession() {
     try {
@@ -420,15 +439,35 @@
     const container = $("opportunityList");
     container.replaceChildren();
 
-    if (opportunities.length === 0) {
+    // Get search query and status filter values
+    const searchQuery = ($("adminSearch")?.value || "").toLowerCase().trim();
+    const statusFilter = $("adminStatusFilter")?.value || "";
+
+    // Filter opportunities list based on user input
+    const filtered = opportunities.filter(item => {
+      const matchText = (
+        (item.title || "") + " " +
+        (item.organisation || "") + " " +
+        (item.province || "")
+      ).toLowerCase();
+
+      const matchesSearch = !searchQuery || matchText.includes(searchQuery);
+      const matchesStatus = !statusFilter || item.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
+
+    if (filtered.length === 0) {
       const empty = document.createElement("p");
       empty.className = "empty";
-      empty.textContent = "No opportunities yet. Add your first listing above.";
+      empty.textContent = opportunities.length === 0
+        ? "No opportunities yet. Add your first listing above."
+        : "No matching opportunities found.";
       container.appendChild(empty);
       return;
     }
 
-    opportunities.forEach(item => {
+    filtered.forEach(item => {
       const card = document.createElement("div");
       card.className = "opportunity";
 
@@ -535,6 +574,9 @@
     $("opportunityForm").reset();
     $("opportunityId").value = "";
 
+    // Automatically set Date Checked to today's date
+    $("dateChecked").value = getTodayDate();
+
     $("formTitle").textContent = "Add New Opportunity";
     $("saveButton").textContent = "Save Opportunity";
     $("cancelButton").hidden = true;
@@ -542,6 +584,10 @@
   }
 
   $("cancelButton").addEventListener("click", resetForm);
+
+  // Bind real-time listeners for search and filtering
+  $("adminSearch").addEventListener("input", renderOpportunities);
+  $("adminStatusFilter").addEventListener("change", renderOpportunities);
 
   $("opportunityForm").addEventListener("submit", async event => {
     event.preventDefault();
@@ -659,6 +705,8 @@
 
   (async function startDashboard() {
     if (await checkSession()) {
+      // Set initial date checked to today on load
+      $("dateChecked").value = getTodayDate();
       await loadOpportunities();
     }
   })();
