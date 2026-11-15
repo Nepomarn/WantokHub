@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Find jobs, scholarships, internships and training opportunities across Papua New Guinea.">
 <title>Opportunities | WantokHub</title>
 
 <style>
@@ -87,6 +88,7 @@ input, select {
   background: #dcebe2;
   color: #087b43;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .tabs button.active {
@@ -113,6 +115,31 @@ input, select {
   line-height: 1.7;
 }
 
+.verification {
+  background: #f1f7f2;
+  border-left: 4px solid #087b43;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #405548;
+}
+
+.verification strong {
+  color: #087b43;
+}
+
+.source-link {
+  color: #087b43;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.source-link:hover {
+  text-decoration: underline;
+}
+
 .apply {
   display: inline-block;
   background: #087b43;
@@ -120,7 +147,7 @@ input, select {
   padding: 11px 17px;
   border-radius: 6px;
   text-decoration: none;
-  margin-top: 8px;
+  margin-top: 12px;
 }
 
 .notice {
@@ -129,6 +156,7 @@ input, select {
   border-radius: 8px;
   font-size: 13px;
   color: #70551a;
+  line-height: 1.5;
 }
 
 footer {
@@ -139,8 +167,22 @@ footer {
   margin-top: 35px;
 }
 
-.hidden {
-  display: none;
+.empty {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  color: #68766d;
+  text-align: center;
+}
+
+@media (max-width: 500px) {
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .tabs button {
+    min-width: 28%;
+  }
 }
 </style>
 </head>
@@ -159,20 +201,28 @@ footer {
 <main class="container">
 
   <h2>Opportunities Centre</h2>
-  <p>Explore jobs, scholarships, internships and training opportunities across Papua New Guinea.</p>
+
+  <p>
+    Explore jobs, scholarships, internships and training opportunities
+    across Papua New Guinea.
+  </p>
 
   <div class="notice">
-    Demo listings are examples only. They are not confirmed vacancies or scholarship offers.
+    Always check the original source and application requirements before
+    applying. WantokHub shares opportunities but does not guarantee that
+    an organisation is still accepting applications.
   </div>
 
   <div class="search-box">
+
     <input
       type="search"
       id="search"
       placeholder="Search jobs, scholarships, organisations..."
+      aria-label="Search opportunities"
     >
 
-    <select id="province">
+    <select id="province" aria-label="Filter by province">
       <option value="">All Provinces</option>
       <option>National Capital District</option>
       <option>Morobe</option>
@@ -198,24 +248,32 @@ footer {
       <option>Autonomous Region of Bougainville</option>
     </select>
 
-    <select id="type">
+    <select id="type" aria-label="Filter by opportunity type">
       <option value="">All Opportunity Types</option>
       <option value="Job">Jobs</option>
       <option value="Scholarship">Scholarships</option>
       <option value="Internship">Internships</option>
       <option value="Training">Training</option>
+      <option value="Apprenticeship">Apprenticeships</option>
+      <option value="Graduate Program">Graduate Programs</option>
+      <option value="Casual/Part-time">Casual/Part-time</option>
+      <option value="Remote Job">Remote Jobs</option>
+      <option value="Education Grant">Education Grants</option>
     </select>
+
   </div>
 
   <div class="tabs">
-    <button class="active" onclick="setCategory('All', this)">All</button>
-    <button onclick="setCategory('Job', this)">Jobs</button>
-    <button onclick="setCategory('Scholarship', this)">Scholarships</button>
+    <button class="active" data-category="All" type="button">All</button>
+    <button data-category="Job" type="button">Jobs</button>
+    <button data-category="Scholarship" type="button">Scholarships</button>
   </div>
 
   <h2 id="resultTitle">Available Opportunities</h2>
 
-  <div id="results"></div>
+  <div id="results" aria-live="polite">
+    <p class="empty">Loading opportunities...</p>
+  </div>
 
 </main>
 
@@ -226,7 +284,6 @@ footer {
 </footer>
 
 <script>
-
 let opportunities = [];
 let category = "All";
 
@@ -252,6 +309,7 @@ async function loadOpportunities() {
     }
 
     opportunities = data.opportunities || [];
+
     filterOpportunities();
 
   } catch (error) {
@@ -271,16 +329,34 @@ function setCategory(value, button) {
   filterOpportunities();
 }
 
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.addEventListener("click", () => {
+    setCategory(button.dataset.category, button);
+  });
+});
+
+function createTextElement(tag, text, className = "") {
+  const element = document.createElement(tag);
+  element.textContent = text || "";
+
+  if (className) {
+    element.className = className;
+  }
+
+  return element;
+}
+
 function filterOpportunities() {
-  const keyword = search.value.toLowerCase();
+  const keyword = search.value.toLowerCase().trim();
   const selectedProvince = province.value;
   const selectedType = type.value;
 
   const filtered = opportunities.filter(item => {
     const text = (
-      item.title + " " +
-      item.organisation + " " +
-      item.description
+      (item.title || "") + " " +
+      (item.organisation || "") + " " +
+      (item.description || "") + " " +
+      (item.source_name || "")
     ).toLowerCase();
 
     return (
@@ -294,10 +370,13 @@ function filterOpportunities() {
   results.replaceChildren();
 
   if (filtered.length === 0) {
-    const message = document.createElement("p");
-    message.textContent = opportunities.length === 0
-      ? "No published opportunities yet. Please check back soon."
-      : "No matching opportunities found.";
+    const message = createTextElement(
+      "p",
+      opportunities.length === 0
+        ? "No published opportunities yet. Please check back soon."
+        : "No matching opportunities found.",
+      "empty"
+    );
 
     results.appendChild(message);
     return;
@@ -307,32 +386,92 @@ function filterOpportunities() {
     const card = document.createElement("div");
     card.className = "card";
 
-    const title = document.createElement("h3");
-    title.textContent = item.title;
+    const title = createTextElement("h3", item.title);
+    const organisation = createTextElement("p", item.organisation);
+    const description = createTextElement("p", item.description);
 
-    const organisation = document.createElement("p");
-    organisation.textContent = item.organisation;
+    const details = createTextElement(
+      "div",
+      "Type: " + (item.type || "Not specified") +
+      " | Province: " + (item.province || "Not specified") +
+      " | Deadline: " + (item.deadline || "Not specified"),
+      "details"
+    );
 
-    const description = document.createElement("p");
-    description.textContent = item.description;
+    const verification = document.createElement("div");
+    verification.className = "verification";
 
-    const details = document.createElement("div");
-    details.className = "details";
-    details.textContent =
-      "Type: " + item.type +
-      " | Province: " + item.province +
-      " | Deadline: " + (item.deadline || "Not specified");
+    const verificationHeading = createTextElement(
+      "strong",
+      "Opportunity Verification"
+    );
 
-    card.append(title, organisation, description, details);
+    const source = createTextElement(
+      "div",
+      "Source: " + (item.source_name || "Not provided")
+    );
+
+    const checked = createTextElement(
+      "div",
+      "Last checked: " + (item.date_checked || "Not recorded")
+    );
+
+    const expiry = createTextElement(
+      "div",
+      "Expiry date: " + (item.expiry_date || "Not specified")
+    );
+
+    verification.append(
+      verificationHeading,
+      source,
+      checked,
+      expiry
+    );
+
+    card.append(
+      title,
+      organisation,
+      description,
+      details,
+      verification
+    );
+
+    if (item.source_url) {
+      try {
+        const sourceURL = new URL(item.source_url);
+
+        if (sourceURL.protocol === "https:") {
+          const sourceLink = document.createElement("a");
+          sourceLink.className = "source-link";
+          sourceLink.href = sourceURL.href;
+          sourceLink.target = "_blank";
+          sourceLink.rel = "noopener noreferrer";
+          sourceLink.textContent = "View Original Source";
+
+          verification.appendChild(sourceLink);
+        }
+      } catch (error) {
+        // Ignore invalid source links.
+      }
+    }
 
     if (item.application_url) {
-      const link = document.createElement("a");
-      link.className = "apply";
-      link.href = item.application_url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Apply Now";
-      card.appendChild(link);
+      try {
+        const applicationURL = new URL(item.application_url);
+
+        if (applicationURL.protocol === "https:") {
+          const link = document.createElement("a");
+          link.className = "apply";
+          link.href = applicationURL.href;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = "Apply Now";
+
+          card.appendChild(link);
+        }
+      } catch (error) {
+        // Ignore invalid application links.
+      }
     }
 
     results.appendChild(card);
@@ -344,7 +483,6 @@ province.addEventListener("change", filterOpportunities);
 type.addEventListener("change", filterOpportunities);
 
 loadOpportunities();
-
 </script>
 
 </body>
