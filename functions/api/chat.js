@@ -1,6 +1,6 @@
 export async function onRequestPost({ request, env }) {
   try {
-    if (!env.GEMINI_API_KEY || !env.DB) {
+    if (!env.GROQ_API_KEY || !env.DB) {
       return Response.json(
         { success: false, message: "AI assistant is not configured on the server." },
         { status: 500 }
@@ -36,41 +36,37 @@ export async function onRequestPost({ request, env }) {
 
     const opportunities = result.results || [];
 
-    // 2. Prepare context prompt for Gemini
-    const contextPrompt = `You are Wantok Assistant, a helpful AI career and education advisor for WantokHub in Papua New Guinea. 
+    // 2. Prepare system prompt and user message for Groq
+    const systemPrompt = `You are Wantok Assistant, a helpful AI career and education advisor for WantokHub in Papua New Guinea. 
 You help students, job seekers, and professionals find jobs, scholarships, internships, and training opportunities based strictly on the current live database provided below. 
 Be polite, concise, encouraging, and mention exact titles, organizations, deadlines, and provinces when relevant.
 
 Current Live Opportunities Database:
-${JSON.stringify(opportunities, null, 2)}
+${JSON.stringify(opportunities, null, 2)}`;
 
-User Question: ${userMessage}`;
-
-    // 3. Call Google Gemini API using gemini-3.8-flash
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${env.GEMINI_API_KEY}`;
-    
-    const aiResponse = await fetch(geminiUrl, {
+    // 3. Call Groq API (Using Llama 3.1 8B Instant)
+    const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
       headers: {
+        "Authorization": `Bearer ${env.GROQ_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: contextPrompt }]
-          }
-        ]
+        model: "llama-3.1-8b-instant",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userMessage }
+        ],
+        temperature: 0.3
       })
     });
 
-    const aiData = await aiResponse.json();
-
-    if (!aiResponse.ok) {
-      const errorMessage = aiData.error?.message || "Failed to communicate with AI service.";
-      return Response.json({ success: false, message: `Gemini Error: ${errorMessage}` }, { status: 500 });
+    if (!groqResponse.ok) {
+      throw new Error("Failed to communicate with AI service.");
     }
 
-    const answer = aiData.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate an answer right now. Please try again.";
+    const aiData = await groqResponse.json();
+    const answer = aiData.choices?.[0]?.message?.content || "I'm sorry, I couldn't generate an answer right now. Please try again.";
 
     return Response.json({
       success: true,
@@ -79,7 +75,7 @@ User Question: ${userMessage}`;
 
   } catch (error) {
     return Response.json(
-      { success: false, message: `Server Error: ${error.message}` },
+      { success: false, message: "Unable to process your request at this time." },
       { status: 500 }
     );
   }
