@@ -27,7 +27,9 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -41,7 +43,9 @@ a {
   color: inherit;
 }
 
-button, input { font: inherit; }
+button, input {
+  font: inherit;
+}
 
 .container {
   width: min(1100px, 92%);
@@ -94,7 +98,9 @@ header {
   font-weight: 600;
 }
 
-.nav-links a:hover { color: var(--green); }
+.nav-links a:hover {
+  color: var(--green);
+}
 
 .btn {
   display: inline-block;
@@ -107,7 +113,9 @@ header {
   cursor: pointer;
 }
 
-.btn:hover { background: var(--darkgreen); }
+.btn:hover {
+  background: var(--darkgreen);
+}
 
 .menu-btn {
   display: none;
@@ -148,7 +156,9 @@ header {
   letter-spacing: -1.5px;
 }
 
-.hero h1 span { color: var(--green); }
+.hero h1 span {
+  color: var(--green);
+}
 
 .hero p {
   color: var(--muted);
@@ -177,7 +187,9 @@ header {
   font-size: 14px;
 }
 
-.search-box button { border: none; }
+.search-box button {
+  border: none;
+}
 
 .hero-note {
   color: var(--muted);
@@ -213,7 +225,9 @@ header {
 
 /* SECTIONS */
 
-section { padding: 65px 0; }
+section {
+  padding: 65px 0;
+}
 
 .section-heading {
   text-align: center;
@@ -281,7 +295,9 @@ section { padding: 65px 0; }
 
 /* OPPORTUNITIES */
 
-.opportunities { background: white; }
+.opportunities {
+  background: white;
+}
 
 .opportunity-grid {
   display: grid;
@@ -295,6 +311,7 @@ section { padding: 65px 0; }
   border-radius: 13px;
   padding: 20px;
   transition: .2s;
+  min-width: 0;
 }
 
 .opportunity-card:hover {
@@ -302,26 +319,33 @@ section { padding: 65px 0; }
   transform: translateY(-2px);
 }
 
-.opportunity-type {
-  display: inline-block;
-  background: var(--lightgreen);
-  color: var(--darkgreen);
-  padding: 4px 10px;
-  border-radius: 20px;
+.opportunity-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 14px;
+}
+
+.opportunity-type,
+.deadline-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 11px;
+  border-radius: 30px;
   font-size: 11px;
   font-weight: 800;
-  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.opportunity-type {
+  background: var(--lightgreen);
+  color: var(--darkgreen);
 }
 
 .deadline-badge {
-  display: inline-block;
-  padding: 4px 9px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 800;
-  margin: 0 0 12px 6px;
-  background: #fef3c7;
-  color: #92400e;
+  background: #dcfce7;
+  color: #166534;
 }
 
 .deadline-badge.today {
@@ -329,9 +353,9 @@ section { padding: 65px 0; }
   color: #991b1b;
 }
 
-.deadline-badge.normal {
-  background: #dcfce7;
-  color: #166534;
+.deadline-badge.soon {
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .deadline-badge.closed {
@@ -366,6 +390,11 @@ section { padding: 65px 0; }
   font-weight: 700;
 }
 
+.opportunity-card-link:hover {
+  color: var(--darkgreen);
+  text-decoration: underline;
+}
+
 .opportunity-status {
   text-align: center;
   padding: 30px 15px;
@@ -398,7 +427,9 @@ section { padding: 65px 0; }
   font-size: 14px;
 }
 
-.view-all-btn:hover { background: var(--darkgreen); }
+.view-all-btn:hover {
+  background: var(--darkgreen);
+}
 
 /* HOW IT WORKS */
 
@@ -462,9 +493,13 @@ footer {
   gap: 30px;
 }
 
-footer h3, footer h4 { margin-bottom: 13px; }
+footer h3,
+footer h4 {
+  margin-bottom: 13px;
+}
 
-footer p, footer a {
+footer p,
+footer a {
   color: #cbd5d1;
   font-size: 13px;
 }
@@ -474,7 +509,9 @@ footer a {
   margin-bottom: 8px;
 }
 
-footer a:hover { color: white; }
+footer a:hover {
+  color: white;
+}
 
 .copyright {
   border-top: 1px solid #31503c;
@@ -511,46 +548,75 @@ footer a:hover { color: white; }
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-links.active { display: flex; }
+  .nav-links.active {
+    display: flex;
+  }
 
-  .menu-btn { display: block; }
+  .menu-btn {
+    display: block;
+  }
 
-  .nav > .btn { display: none; }
+  .nav > .btn {
+    display: none;
+  }
 
-  .hero { padding: 55px 0; }
+  .hero {
+    padding: 55px 0;
+  }
 
   .service-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
 
-  .service-card { padding: 16px; }
+  .service-card {
+    padding: 16px;
+  }
 
-  .steps { grid-template-columns: 1fr; }
+  .steps {
+    grid-template-columns: 1fr;
+  }
 
-  .footer-grid { grid-template-columns: 1fr; }
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
 
-  .stats { gap: 8px; }
+  .stats {
+    gap: 8px;
+  }
 
-  .stat { padding: 12px 5px; }
+  .stat {
+    padding: 12px 5px;
+  }
 
-  .stat strong { font-size: 19px; }
+  .stat strong {
+    font-size: 19px;
+  }
 
-  .stat span { font-size: 10px; }
+  .stat span {
+    font-size: 10px;
+  }
 
-  .opportunity-grid { grid-template-columns: 1fr; }
+  .opportunity-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media(max-width: 380px) {
-  .service-grid { grid-template-columns: 1fr; }
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
+
 <header>
   <div class="container nav">
+
     <a href="#home" class="logo">
       <span class="logo-icon">🇵🇬</span>
       WantokHub
@@ -567,15 +633,21 @@ footer a:hover { color: white; }
     <a href="#register" class="btn">Get Started</a>
 
     <button class="menu-btn" id="menuBtn"
-      type="button" aria-label="Toggle navigation"
+      type="button"
+      aria-label="Toggle navigation"
       aria-expanded="false">☰</button>
+
   </div>
 </header>
 
 <main>
 
+<!-- HERO -->
+
 <section class="hero" id="home">
+
   <div class="container hero-content">
+
     <span class="tag">🇵🇬 BUILT FOR PAPUA NEW GUINEA</span>
 
     <h1>Your future starts <span>here.</span></h1>
@@ -587,13 +659,17 @@ footer a:hover { color: white; }
     </p>
 
     <div class="search-box">
-      <input type="search" id="siteSearch"
+
+      <input
+        type="search"
+        id="siteSearch"
         placeholder="Search jobs, CV tools, scholarships..."
         aria-label="Search website services">
 
       <button class="btn" id="searchBtn" type="button">
         Search
       </button>
+
     </div>
 
     <div class="hero-note">
@@ -601,24 +677,34 @@ footer a:hover { color: white; }
     </div>
 
     <div class="stats">
+
       <div class="stat">
         <strong>22</strong>
         <span>Provinces</span>
       </div>
+
       <div class="stat">
         <strong>All</strong>
         <span>Career Stages</span>
       </div>
+
       <div class="stat">
         <strong>Free</strong>
         <span>Platform Access</span>
       </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- SERVICES -->
+
 <section id="services">
+
   <div class="container">
+
     <div class="section-heading">
       <h2>Explore Our Services</h2>
       <p>Everything students and job seekers need to move forward.</p>
@@ -628,137 +714,182 @@ footer a:hover { color: white; }
 
       <a href="#opportunities" class="service-card"
         data-search="jobs employment vacancies recruitment work careers">
+
         <div class="service-icon">💼</div>
         <h3>Jobs & Employment</h3>
         <p>Explore job vacancies, internships, graduate programs and employment opportunities.</p>
         <span class="service-link">Explore jobs →</span>
+
       </a>
 
       <a href="#opportunities" class="service-card"
         data-search="scholarships education university grants overseas study">
+
         <div class="service-icon">🎓</div>
         <h3>Scholarships</h3>
         <p>Find local and international scholarships, grants and study opportunities.</p>
         <span class="service-link">Find scholarships →</span>
+
       </a>
 
       <a href="#documents" class="service-card"
         data-search="cv resume curriculum vitae career profile">
+
         <div class="service-icon">📄</div>
         <h3>CV & Resume Builder</h3>
         <p>Create professional CVs and resumes for your job applications.</p>
         <span class="service-link">Build your CV →</span>
+
       </a>
 
       <a href="#documents" class="service-card"
         data-search="letters documents application cover letters templates">
+
         <div class="service-icon">📝</div>
         <h3>Document Centre</h3>
         <p>Prepare application letters, cover letters, business documents and more.</p>
         <span class="service-link">Explore documents →</span>
+
       </a>
 
       <a href="#learning" class="service-card"
         data-search="student learning courses study notes tutorials education">
+
         <div class="service-icon">📚</div>
         <h3>Student Learning</h3>
         <p>Access study resources, tutorials, courses and examination preparation.</p>
         <span class="service-link">Start learning →</span>
+
       </a>
 
       <a href="#learning" class="service-card"
         data-search="universities colleges institutions training courses">
+
         <div class="service-icon">🏫</div>
         <h3>Institutions Directory</h3>
         <p>Discover universities, colleges, TVET institutions and training centres.</p>
         <span class="service-link">Find institutions →</span>
+
       </a>
 
       <a href="#employers" class="service-card"
         data-search="employers companies recruitment post vacancies">
+
         <div class="service-icon">🏢</div>
         <h3>Employer Centre</h3>
         <p>Help organisations publish vacancies and connect with qualified applicants.</p>
         <span class="service-link">For employers →</span>
+
       </a>
 
       <a href="#learning" class="service-card"
         data-search="career interview skills development guidance">
+
         <div class="service-icon">🚀</div>
         <h3>Career Development</h3>
         <p>Improve interview skills, communication and workplace readiness.</p>
         <span class="service-link">Develop your career →</span>
+
       </a>
 
       <a href="#business" class="service-card"
         data-search="business entrepreneurship startup SME funding">
+
         <div class="service-icon">💡</div>
         <h3>Business & SME Centre</h3>
         <p>Explore entrepreneurship, business plans, funding and startup guides.</p>
         <span class="service-link">Start a business →</span>
+
       </a>
 
       <a href="#government" class="service-card"
         data-search="government public services NID TIN registration">
+
         <div class="service-icon">🏛️</div>
         <h3>Government Services</h3>
         <p>Find helpful public service information, official links and guidance.</p>
         <span class="service-link">View services →</span>
+
       </a>
 
       <a href="#opportunities" class="service-card"
         data-search="internships apprenticeships volunteer youth programs">
+
         <div class="service-icon">🌱</div>
         <h3>Youth Opportunities</h3>
         <p>Discover volunteering, apprenticeships and youth development programs.</p>
         <span class="service-link">Discover more →</span>
+
       </a>
 
       <a href="#documents" class="service-card"
         data-search="business plans invoices quotations budgets proposals">
+
         <div class="service-icon">📊</div>
         <h3>Business Documents</h3>
         <p>Prepare business profiles, proposals, quotations and invoices.</p>
         <span class="service-link">Create documents →</span>
+
       </a>
 
       <div class="no-results" id="noResults">
         No matching services found. Try another search.
       </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- LATEST OPPORTUNITIES -->
+
 <section class="opportunities" id="opportunities">
+
   <div class="container">
+
     <div class="section-heading">
       <h2>Latest Opportunities</h2>
-      <p>Explore recently published jobs, scholarships, internships and more across PNG.</p>
+      <p>
+        Explore recently published jobs, scholarships,
+        internships and more across PNG.
+      </p>
     </div>
 
     <div id="latestOpportunities" class="opportunity-grid">
+
       <div class="opportunity-status" style="grid-column:1/-1;">
         <strong>Loading opportunities...</strong>
         Please wait while we retrieve the latest listings.
       </div>
+
     </div>
 
     <div class="opportunity-actions">
+
       <a href="/opportunities.html" class="view-all-btn">
         View All Opportunities →
       </a>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- HOW IT WORKS -->
+
 <section id="about">
+
   <div class="container">
+
     <div class="section-heading">
       <h2>How It Works</h2>
       <p>Simple steps to help you access opportunities.</p>
     </div>
 
     <div class="steps">
+
       <div class="step">
         <div class="step-number">1</div>
         <h3>Explore</h3>
@@ -776,71 +907,115 @@ footer a:hover { color: white; }
         <h3>Apply</h3>
         <p>Connect with opportunities and take the next step.</p>
       </div>
+
     </div>
+
   </div>
+
 </section>
 
+<!-- DOCUMENTS -->
+
 <section id="documents" style="background:white;">
+
   <div class="container">
+
     <div class="section-heading">
       <h2>Professional Document Tools</h2>
       <p>Prepare for your next opportunity.</p>
     </div>
+
     <div class="opportunity-status">
       <strong>CV and Document Builder</strong>
       Professional templates and downloadable documents will be available here.
     </div>
+
   </div>
+
 </section>
 
+<!-- EDUCATION -->
+
 <section id="learning">
+
   <div class="container section-heading">
     <h2>Education & Career Resources</h2>
     <p>Learning resources, institutions and career development tools are coming soon.</p>
   </div>
+
 </section>
 
+<!-- EMPLOYERS -->
+
 <section id="employers" style="background:white;">
+
   <div class="container section-heading">
     <h2>For Employers</h2>
     <p>Recruitment and employer accounts will be introduced in a future stage.</p>
   </div>
+
 </section>
 
+<!-- BUSINESS -->
+
 <section id="business">
+
   <div class="container section-heading">
     <h2>Business & Entrepreneurship</h2>
     <p>Business development resources and tools are coming soon.</p>
   </div>
+
 </section>
 
+<!-- GOVERNMENT -->
+
 <section id="government" style="background:white;">
+
   <div class="container section-heading">
     <h2>Government Services Directory</h2>
     <p>Helpful government information and official service links will be added here.</p>
   </div>
+
 </section>
 
+<!-- REGISTER -->
+
 <section id="register">
+
   <div class="container">
+
     <div class="cta">
+
       <h2>Ready to build your future?</h2>
-      <p>WantokHub connects Papua New Guineans to education, employment and opportunities.</p>
+
+      <p>
+        WantokHub connects Papua New Guineans
+        to education, employment and opportunities.
+      </p>
+
       <a href="#contact" class="btn">Get in Touch</a>
+
     </div>
+
   </div>
+
 </section>
 
 </main>
 
+<!-- FOOTER -->
+
 <footer id="contact">
+
   <div class="container">
+
     <div class="footer-grid">
+
       <div>
         <h3>🇵🇬 WantokHub</h3>
         <p>
-          PNG Opportunity Hub — connecting Papua New Guineans to
-          education, employment and opportunities.
+          PNG Opportunity Hub — connecting Papua New Guineans
+          to education, employment and opportunities.
         </p>
       </div>
 
@@ -857,18 +1032,22 @@ footer a:hover { color: white; }
         <a href="#government">Government Services</a>
         <a href="#services">Resources</a>
       </div>
+
     </div>
 
     <div class="copyright">
       © <span id="year"></span> WantokHub.
       Built for Papua New Guinea. 🇵🇬
     </div>
+
   </div>
+
 </footer>
 
 <script>
+
 // ========================================
-// WANTOKHUB - MAIN JAVASCRIPT
+// WANTOKHUB MAIN JAVASCRIPT
 // ========================================
 
 
@@ -878,15 +1057,23 @@ const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
 menuBtn.addEventListener("click", () => {
+
   const isOpen = navLinks.classList.toggle("active");
+
   menuBtn.setAttribute("aria-expanded", String(isOpen));
+
 });
 
 document.querySelectorAll(".nav-links a").forEach(link => {
+
   link.addEventListener("click", () => {
+
     navLinks.classList.remove("active");
+
     menuBtn.setAttribute("aria-expanded", "false");
+
   });
+
 });
 
 
@@ -898,10 +1085,13 @@ const serviceCards = document.querySelectorAll(".service-card");
 const noResults = document.getElementById("noResults");
 
 function searchServices() {
+
   const query = searchInput.value.trim().toLowerCase();
+
   let found = 0;
 
   serviceCards.forEach(card => {
+
     const content = (
       card.innerText + " " +
       (card.dataset.search || "")
@@ -912,29 +1102,41 @@ function searchServices() {
     card.style.display = match ? "" : "none";
 
     if (match) found++;
+
   });
 
-  noResults.style.display = found === 0 ? "block" : "none";
+  noResults.style.display =
+    found === 0 ? "block" : "none";
 
   document.getElementById("services").scrollIntoView({
     behavior: "smooth"
   });
+
 }
 
 searchBtn.addEventListener("click", searchServices);
 
 searchInput.addEventListener("keydown", event => {
+
   if (event.key === "Enter") {
     searchServices();
   }
+
 });
 
 
+// ========================================
 // OPPORTUNITY DISPLAY
+// ========================================
 
-const latestContainer = document.getElementById("latestOpportunities");
+const latestContainer =
+  document.getElementById("latestOpportunities");
+
+
+// CREATE HTML ELEMENTS SAFELY
 
 function createElement(tag, className, text) {
+
   const element = document.createElement(tag);
 
   if (className) {
@@ -946,26 +1148,83 @@ function createElement(tag, className, text) {
   }
 
   return element;
+
 }
 
 
-// FORMAT DEADLINE DATE
+// ========================================
+// PARSE DEADLINE DATE
+// Supports YYYY-MM-DD and DD/MM/YYYY
+// ========================================
 
-function formatDate(dateValue) {
-  if (!dateValue) return "Not specified";
+function parseDeadline(dateValue) {
 
-  const parts = String(dateValue).split("-");
+  if (!dateValue) return null;
 
-  if (parts.length !== 3) return dateValue;
+  const value = String(dateValue).trim();
 
-  const date = new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2])
+  let match;
+  let year;
+  let month;
+  let day;
+
+  // YYYY-MM-DD or ISO date/time
+
+  match = value.match(
+    /^(\d{4})-(\d{1,2})-(\d{1,2})/
   );
 
-  if (Number.isNaN(date.getTime())) {
-    return dateValue;
+  if (match) {
+
+    year = Number(match[1]);
+    month = Number(match[2]);
+    day = Number(match[3]);
+
+  } else {
+
+    // DD/MM/YYYY or DD-MM-YYYY
+
+    match = value.match(
+      /^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/
+    );
+
+    if (!match) return null;
+
+    day = Number(match[1]);
+    month = Number(match[2]);
+    year = Number(match[3]);
+
+  }
+
+  const date = new Date(year, month - 1, day);
+
+  // Reject invalid calendar dates
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  ) {
+    return null;
+  }
+
+  date.setHours(0, 0, 0, 0);
+
+  return date;
+
+}
+
+
+// ========================================
+// FORMAT DEADLINE DATE
+// ========================================
+
+function formatDate(dateValue) {
+
+  const date = parseDeadline(dateValue);
+
+  if (!date) {
+    return "Not specified";
   }
 
   return date.toLocaleDateString("en-PG", {
@@ -973,69 +1232,96 @@ function formatDate(dateValue) {
     month: "short",
     year: "numeric"
   });
+
 }
 
 
-// DEADLINE STATUS
+// ========================================
+// DEADLINE STATUS BADGE
+// ========================================
 
 function getDeadlineStatus(deadlineValue) {
-  if (!deadlineValue) return null;
 
-  const parts = String(deadlineValue).split("-");
+  const deadline = parseDeadline(deadlineValue);
 
-  if (parts.length !== 3) return null;
+  // ALWAYS RETURN A BADGE
 
-  const deadline = new Date(
-    Number(parts[0]),
-    Number(parts[1]) - 1,
-    Number(parts[2])
-  );
+  if (!deadline) {
 
-  if (Number.isNaN(deadline.getTime())) return null;
+    return {
+      label: "Deadline not specified",
+      className: "deadline-badge closed"
+    };
+
+  }
 
   const today = new Date();
+
   today.setHours(0, 0, 0, 0);
-  deadline.setHours(0, 0, 0, 0);
 
   const daysLeft = Math.round(
-    (deadline - today) / 86400000
+    (deadline.getTime() - today.getTime()) / 86400000
   );
 
   if (daysLeft < 0) {
+
     return {
-      label: "Deadline passed",
+      label: "Closed",
       className: "deadline-badge closed"
     };
+
   }
 
   if (daysLeft === 0) {
+
     return {
       label: "Closing today",
       className: "deadline-badge today"
     };
+
+  }
+
+  if (daysLeft === 1) {
+
+    return {
+      label: "Closing tomorrow",
+      className: "deadline-badge today"
+    };
+
   }
 
   if (daysLeft <= 7) {
+
     return {
-      label: daysLeft + " days left",
-      className: "deadline-badge today"
+      label: "Closing in " + daysLeft + " days",
+      className: "deadline-badge soon"
     };
+
   }
 
   return {
     label: "Open for applications",
     className: "deadline-badge normal"
   };
+
 }
 
 
+// ========================================
 // DISPLAY OPPORTUNITIES
+// ========================================
 
 function displayOpportunities(opportunities) {
+
   latestContainer.replaceChildren();
 
   if (!opportunities.length) {
-    const message = createElement("div", "opportunity-status");
+
+    const message = createElement(
+      "div",
+      "opportunity-status"
+    );
+
     message.style.gridColumn = "1 / -1";
 
     message.appendChild(createElement(
@@ -1049,29 +1335,54 @@ function displayOpportunities(opportunities) {
     ));
 
     latestContainer.appendChild(message);
+
     return;
+
   }
+
 
   // SHOW SIX LATEST OPPORTUNITIES
 
   opportunities.slice(0, 6).forEach(item => {
-    const card = createElement("article", "opportunity-card");
 
-    card.appendChild(createElement(
+    const card = createElement(
+      "article",
+      "opportunity-card"
+    );
+
+
+    // BADGES CONTAINER
+
+    const badges = createElement(
+      "div",
+      "opportunity-badges"
+    );
+
+
+    // OPPORTUNITY TYPE BADGE
+
+    badges.appendChild(createElement(
       "span",
       "opportunity-type",
       item.type || "Opportunity"
     ));
 
+
+    // DEADLINE BADGE
+    // This is now ALWAYS displayed.
+
     const deadlineStatus = getDeadlineStatus(item.deadline);
 
-    if (deadlineStatus) {
-      card.appendChild(createElement(
-        "span",
-        deadlineStatus.className,
-        deadlineStatus.label
-      ));
-    }
+    badges.appendChild(createElement(
+      "span",
+      deadlineStatus.className,
+      deadlineStatus.label
+    ));
+
+    card.appendChild(badges);
+
+
+    // OPPORTUNITY TITLE
 
     card.appendChild(createElement(
       "h3",
@@ -1079,13 +1390,22 @@ function displayOpportunities(opportunities) {
       item.title || "Untitled opportunity"
     ));
 
+
+    // ORGANISATION
+
     card.appendChild(createElement(
       "p",
       "opportunity-organisation",
       item.organisation || "Organisation not specified"
     ));
 
-    const meta = createElement("div", "opportunity-meta");
+
+    // OPPORTUNITY DETAILS
+
+    const meta = createElement(
+      "div",
+      "opportunity-meta"
+    );
 
     meta.appendChild(createElement(
       "span",
@@ -1101,6 +1421,9 @@ function displayOpportunities(opportunities) {
 
     card.appendChild(meta);
 
+
+    // DETAILS LINK
+
     const link = createElement(
       "a",
       "opportunity-card-link",
@@ -1110,17 +1433,27 @@ function displayOpportunities(opportunities) {
     link.href = "/opportunities.html";
 
     card.appendChild(link);
+
     latestContainer.appendChild(card);
+
   });
+
 }
 
 
+// ========================================
 // LOAD OPPORTUNITIES FROM API
+// ========================================
 
 async function loadLatestOpportunities() {
+
   latestContainer.replaceChildren();
 
-  const loading = createElement("div", "opportunity-status");
+  const loading = createElement(
+    "div",
+    "opportunity-status"
+  );
+
   loading.style.gridColumn = "1 / -1";
 
   loading.appendChild(createElement(
@@ -1135,17 +1468,24 @@ async function loadLatestOpportunities() {
 
   latestContainer.appendChild(loading);
 
+
   try {
-    const response = await fetch("/api/opportunities", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json"
-      },
-      cache: "no-store"
-    });
+
+    const response = await fetch(
+      "/api/opportunities",
+      {
+        method: "GET",
+        headers: {
+          "Accept": "application/json"
+        },
+        cache: "no-store"
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("API returned status " + response.status);
+      throw new Error(
+        "API returned status " + response.status
+      );
     }
 
     const data = await response.json();
@@ -1155,17 +1495,27 @@ async function loadLatestOpportunities() {
       data.success !== true ||
       !Array.isArray(data.opportunities)
     ) {
-      throw new Error("Invalid opportunities response.");
+      throw new Error(
+        "Invalid opportunities response."
+      );
     }
 
     displayOpportunities(data.opportunities);
 
   } catch (error) {
-    console.error("WantokHub opportunity error:", error);
+
+    console.error(
+      "WantokHub opportunity error:",
+      error
+    );
 
     latestContainer.replaceChildren();
 
-    const message = createElement("div", "opportunity-status");
+    const message = createElement(
+      "div",
+      "opportunity-status"
+    );
+
     message.style.gridColumn = "1 / -1";
 
     message.appendChild(createElement(
@@ -1179,17 +1529,23 @@ async function loadLatestOpportunities() {
     ));
 
     latestContainer.appendChild(message);
+
   }
+
 }
 
 
+// ========================================
 // CURRENT YEAR
+// ========================================
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
 
+// ========================================
 // START WEBSITE
+// ========================================
 
 loadLatestOpportunities();
 
