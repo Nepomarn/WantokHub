@@ -1225,7 +1225,7 @@ function formatDate(dateValue) {
   const date = parseDeadline(dateValue);
 
   if (!date) {
-    return "Not specified";
+    return dateValue || "Not specified";
   }
 
   return date.toLocaleDateString("en-PG", {
@@ -1238,22 +1238,16 @@ function formatDate(dateValue) {
 
 
 // ========================================
-// DEADLINE STATUS BADGE
+// DEADLINE STATUS BADGE (Fixed to hide if no valid date)
 // ========================================
 
 function getDeadlineStatus(deadlineValue) {
 
   const deadline = parseDeadline(deadlineValue);
 
-  // ALWAYS RETURN A BADGE
-
+  // Return null if no valid date exists so no fallback bad badge is shown
   if (!deadline) {
-
-    return {
-      label: "Deadline not specified",
-      className: "deadline-badge closed"
-    };
-
+    return null;
   }
 
   const today = new Date();
@@ -1369,16 +1363,17 @@ function displayOpportunities(opportunities) {
     ));
 
 
-    // DEADLINE BADGE
-    // This is now ALWAYS displayed.
+    // DEADLINE BADGE (Only added if a valid deadline status exists)
 
     const deadlineStatus = getDeadlineStatus(item.deadline);
 
-    badges.appendChild(createElement(
-      "span",
-      deadlineStatus.className,
-      deadlineStatus.label
-    ));
+    if (deadlineStatus) {
+      badges.appendChild(createElement(
+        "span",
+        deadlineStatus.className,
+        deadlineStatus.label
+      ));
+    }
 
     card.appendChild(badges);
 
