@@ -95,7 +95,36 @@ function validateOpportunity(data) {
     return "Invalid publication status.";
   }
 
-  for (const field of ["requirements", "deadline"]) {
+    for (const field of [
+    "requirements",
+    "deadline",
+    "source_name"
+  ]) {
+    const maxLength = field === "source_name" ? 200 : 2000;
+
+    if (
+      data[field] !== undefined &&
+      data[field] !== null &&
+      (typeof data[field] !== "string" ||
+       data[field].length > maxLength)
+    ) {
+      return `Invalid ${field}.`;
+    }
+  }
+
+  for (const field of ["date_checked", "expiry_date"]) {
+    if (
+      data[field] !== undefined &&
+      data[field] !== "" &&
+      !/^\\d{4}-\\d{2}-\\d{2}$/.test(data[field])
+    ) {
+      return `Invalid ${field}. Use YYYY-MM-DD.`;
+    }
+  }
+
+  /*
+   * Continue with the existing URL validation below.
+   */
     if (
       data[field] !== undefined &&
       data[field] !== null &&
