@@ -35,7 +35,6 @@ async function isAdmin(request, env) {
 
 function validOrigin(request) {
   const origin = request.headers.get("Origin");
-
   return origin === new URL(request.url).origin;
 }
 
@@ -54,7 +53,7 @@ async function readOpportunity(request) {
 }
 
 function validateOpportunity(data) {
-  if (!data || typeof data !== "object") {
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
     return "Invalid information.";
   }
 
@@ -95,18 +94,20 @@ function validateOpportunity(data) {
     return "Invalid publication status.";
   }
 
-    for (const field of [
-    "requirements",
-    "deadline",
-    "source_name"
-  ]) {
-    const maxLength = field === "source_name" ? 200 : 2000;
+  const textLimits = {
+    requirements: 2000,
+    deadline: 2000,
+    source_name: 200
+  };
 
+  for (const [field, maxLength] of Object.entries(textLimits)) {
     if (
       data[field] !== undefined &&
       data[field] !== null &&
-      (typeof data[field] !== "string" ||
-       data[field].length > maxLength)
+      (
+        typeof data[field] !== "string" ||
+        data[field].length > maxLength
+      )
     ) {
       return `Invalid ${field}.`;
     }
@@ -115,35 +116,45 @@ function validateOpportunity(data) {
   for (const field of ["date_checked", "expiry_date"]) {
     if (
       data[field] !== undefined &&
-      data[field] !== "" &&
-      !/^\\d{4}-\\d{2}-\\d{2}$/.test(data[field])
-    ) {
-      return `Invalid ${field}. Use YYYY-MM-DD.`;
-    }
-  }
-
-  /*
-   * Continue with the existing URL validation below.
-   */
-    if (
-      data[field] !== undefined &&
       data[field] !== null &&
-      (typeof data[field] !== "string" || data[field].length > 2000)
+      data[field] !== ""
     ) {
-      return `Invalid ${field}.`;
+      if (
+        typeof data[field] !== "string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(data[field])
+      ) {
+        return `Invalid ${field}. Use YYYY-MM-DD.`;
+      }
+
+      const date = new Date(`${data[field]}T00:00:00.000Z`);
+
+      if (
+        Number.isNaN(date.getTime()) ||
+        date.toISOString().slice(0, 10) !== data[field]
+      ) {
+        return `Invalid calendar date for ${field}.`;
+      }
     }
   }
 
   for (const field of ["application_url", "source_url"]) {
-    if (data[field] !== undefined && data[field] !== "") {
+    if (
+      data[field] !== undefined &&
+      data[field] !== null &&
+      data[field] !== ""
+    ) {
+      if (
+        typeof data[field] !== "string" ||
+        data[field].length > 2000
+      ) {
+        return `Invalid ${field}.`;
+      }
+
       try {
         const url = new URL(data[field]);
 
-        if (
-          url.protocol !== "https:" ||
-          data[field].length > 2000
-        ) {
-          return `${field} must be a valid HTTPS link.`;
+        if (url.protocol !== "https:") {
+          return `${field} must use HTTPS.`;
         }
       } catch {
         return `${field} is not a valid link.`;
@@ -157,7 +168,10 @@ function validateOpportunity(data) {
 // View all opportunities, including drafts.
 export async function onRequestGet({ request, env }) {
   if (!(await isAdmin(request, env))) {
-    return json({ success: false, message: "Unauthorized." }, 401);
+    return json({
+      success: false,
+      message: "Unauthorized."
+    }, 401);
   }
 
   try {
@@ -183,18 +197,27 @@ export async function onRequestGet({ request, env }) {
 // Add a new opportunity.
 export async function onRequestPost({ request, env }) {
   if (!(await isAdmin(request, env))) {
-    return json({ success: false, message: "Unauthorized." }, 401);
+    return json({
+      success: false,
+      message: "Unauthorized."
+    }, 401);
   }
 
   if (!validOrigin(request)) {
-    return json({ success: false, message: "Invalid request origin." }, 403);
+    return json({
+      success: false,
+      message: "Invalid request origin."
+    }, 403);
   }
 
   const data = await readOpportunity(request);
   const error = validateOpportunity(data);
 
   if (error) {
-    return json({ success: false, message: error }, 400);
+    return json({
+      success: false,
+      message: error
+    }, 400);
   }
 
   try {
@@ -209,9 +232,12 @@ export async function onRequestPost({ request, env }) {
         deadline,
         application_url,
         source_url,
+        source_name,
+        date_checked,
+        expiry_date,
         status
       )
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).bind(
       data.title.trim(),
       data.organisation.trim(),
@@ -222,6 +248,9 @@ export async function onRequestPost({ request, env }) {
       data.deadline || "",
       data.application_url || "",
       data.source_url || "",
+      data.source_name || "",
+      data.date_checked || "",
+      data.expiry_date || "",
       data.status || "draft"
     ).run();
 
@@ -242,22 +271,34 @@ export async function onRequestPost({ request, env }) {
 // Edit an existing opportunity.
 export async function onRequestPut({ request, env }) {
   if (!(await isAdmin(request, env))) {
-    return json({ success: false, message: "Unauthorized." }, 401);
+    return json({
+      success: false,
+      message: "Unauthorized."
+    }, 401);
   }
 
   if (!validOrigin(request)) {
-    return json({ success: false, message: "Invalid request origin." }, 403);
+    return json({
+      success: false,
+      message: "Invalid request origin."
+    }, 403);
   }
 
   const data = await readOpportunity(request);
   const error = validateOpportunity(data);
 
   if (error) {
-    return json({ success: false, message: error }, 400);
+    return json({
+      success: false,
+      message: error
+    }, 400);
   }
 
   if (!Number.isInteger(data.id) || data.id < 1) {
-    return json({ success: false, message: "Invalid opportunity ID." }, 400);
+    return json({
+      success: false,
+      message: "Invalid opportunity ID."
+    }, 400);
   }
 
   try {
@@ -273,6 +314,9 @@ export async function onRequestPut({ request, env }) {
         deadline = ?,
         application_url = ?,
         source_url = ?,
+        source_name = ?,
+        date_checked = ?,
+        expiry_date = ?,
         status = ?
       WHERE id = ?
     `).bind(
@@ -285,6 +329,9 @@ export async function onRequestPut({ request, env }) {
       data.deadline || "",
       data.application_url || "",
       data.source_url || "",
+      data.source_name || "",
+      data.date_checked || "",
+      data.expiry_date || "",
       data.status || "draft",
       data.id
     ).run();
@@ -312,22 +359,34 @@ export async function onRequestPut({ request, env }) {
 // Delete an opportunity.
 export async function onRequestDelete({ request, env }) {
   if (!(await isAdmin(request, env))) {
-    return json({ success: false, message: "Unauthorized." }, 401);
+    return json({
+      success: false,
+      message: "Unauthorized."
+    }, 401);
   }
 
   if (!validOrigin(request)) {
-    return json({ success: false, message: "Invalid request origin." }, 403);
+    return json({
+      success: false,
+      message: "Invalid request origin."
+    }, 403);
   }
 
-  const id = Number(new URL(request.url).searchParams.get("id"));
+  const id = Number(
+    new URL(request.url).searchParams.get("id")
+  );
 
   if (!Number.isInteger(id) || id < 1) {
-    return json({ success: false, message: "Invalid opportunity ID." }, 400);
+    return json({
+      success: false,
+      message: "Invalid opportunity ID."
+    }, 400);
   }
 
   try {
     const result = await env.DB.prepare(`
-      DELETE FROM opportunities WHERE id = ?
+      DELETE FROM opportunities
+      WHERE id = ?
     `).bind(id).run();
 
     if (!result.meta.changes) {
