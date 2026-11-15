@@ -46,8 +46,8 @@ ${JSON.stringify(opportunities, null, 2)}
 
 User Question: ${userMessage}`;
 
-    // 3. Call Google Gemini API (Gemini 1.5 Flash)
-    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${env.GEMINI_API_KEY}`;
+    // 3. Call Google Gemini API using gemini-2.0-flash
+    const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${env.GEMINI_API_KEY}`;
     
     const aiResponse = await fetch(geminiUrl, {
       method: "POST",
@@ -66,7 +66,6 @@ User Question: ${userMessage}`;
     const aiData = await aiResponse.json();
 
     if (!aiResponse.ok) {
-      // Return the exact error from Google Gemini for debugging
       const errorMessage = aiData.error?.message || "Failed to communicate with AI service.";
       return Response.json({ success: false, message: `Gemini Error: ${errorMessage}` }, { status: 500 });
     }
@@ -79,7 +78,6 @@ User Question: ${userMessage}`;
     });
 
   } catch (error) {
-    // Return the exact JavaScript error for debugging
     return Response.json(
       { success: false, message: `Server Error: ${error.message}` },
       { status: 500 }
