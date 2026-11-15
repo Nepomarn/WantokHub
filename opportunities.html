@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunities | WantokHub</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f8f6;
+  color: #24352b;
+}
+
+header {
+  background: #087b43;
+  color: white;
+  padding: 22px 16px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+header p {
+  margin-bottom: 0;
+}
+
+nav {
+  background: white;
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+nav a {
+  color: #087b43;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px 15px;
+}
+
+h2 {
+  color: #087b43;
+}
+
+.search-box {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px #0000000d;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #ccd7ce;
+  border-radius: 7px;
+  font-size: 15px;
+  background: white;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #dcebe2;
+  color: #087b43;
+  font-weight: bold;
+}
+
+.tabs button.active {
+  background: #087b43;
+  color: white;
+}
+
+.card {
+  background: white;
+  padding: 17px;
+  margin-bottom: 13px;
+  border-radius: 11px;
+  border: 1px solid #e1e9e3;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #087b43;
+}
+
+.details {
+  color: #68766d;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.apply {
+  display: inline-block;
+  background: #087b43;
+  color: white;
+  padding: 11px 17px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 8px;
+}
+
+.notice {
+  background: #fff5d9;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #70551a;
+}
+
+footer {
+  background: #123c29;
+  color: white;
+  text-align: center;
+  padding: 22px;
+  margin-top: 35px;
+}
+
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>WantokHub 🇵🇬</h1>
+  <p>PNG Opportunity Hub – Find your next opportunity.</p>
+</header>
+
+<nav>
+  <a href="index.html">← Back to Home</a>
+</nav>
+
+<main class="container">
+
+  <h2>Opportunities Centre</h2>
+  <p>Explore jobs, scholarships, internships and training opportunities across Papua New Guinea.</p>
+
+  <div class="notice">
+    Demo listings are examples only. They are not confirmed vacancies or scholarship offers.
+  </div>
+
+  <div class="search-box">
+    <input
+      type="search"
+      id="search"
+      placeholder="Search jobs, scholarships, organisations..."
+    >
+
+    <select id="province">
+      <option value="">All Provinces</option>
+      <option>National Capital District</option>
+      <option>Morobe</option>
+      <option>Eastern Highlands</option>
+      <option>Western Highlands</option>
+      <option>Madang</option>
+      <option>East New Britain</option>
+      <option>West New Britain</option>
+      <option>Milne Bay</option>
+      <option>Central</option>
+      <option>Enga</option>
+      <option>Southern Highlands</option>
+      <option>Western</option>
+      <option>Gulf</option>
+      <option>Oro</option>
+      <option>New Ireland</option>
+      <option>Manus</option>
+      <option>East Sepik</option>
+      <option>West Sepik</option>
+      <option>Chimbu</option>
+      <option>Jiwaka</option>
+      <option>Hela</option>
+      <option>Autonomous Region of Bougainville</option>
+    </select>
+
+    <select id="type">
+      <option value="">All Opportunity Types</option>
+      <option value="Job">Jobs</option>
+      <option value="Scholarship">Scholarships</option>
+      <option value="Internship">Internships</option>
+      <option value="Training">Training</option>
+    </select>
+  </div>
+
+  <div class="tabs">
+    <button class="active" onclick="setCategory('All', this)">All</button>
+    <button onclick="setCategory('Job', this)">Jobs</button>
+    <button onclick="setCategory('Scholarship', this)">Scholarships</button>
+  </div>
+
+  <h2 id="resultTitle">Available Opportunities</h2>
+
+  <div id="results"></div>
+
+</main>
+
+<footer>
+  <strong>WantokHub 🇵🇬</strong>
+  <p>Your education. Your career. Your opportunities.</p>
+  <small>Connecting Papua New Guineans to opportunities.</small>
+</footer>
+
+<script>
+const opportunities = [
+  {
+    title: "Sample IT Support Officer",
+    organisation: "Example Organisation",
+    type: "Job",
+    province: "Morobe",
+    description: "Example entry-level IT support position.",
+    deadline: "Example deadline – to be confirmed",
+    link: ""
+  },
+  {
+    title: "Sample University Scholarship",
+    organisation: "Example Education Provider",
+    type: "Scholarship",
+    province: "National Capital District",
+    description: "Example scholarship for eligible PNG students.",
+    deadline: "Example deadline – to be confirmed",
+    link: ""
+  },
+  {
+    title: "Sample Graduate Internship",
+    organisation: "Example Company",
+    type: "Internship",
+    province: "Morobe",
+    description: "Example internship opportunity for graduates.",
+    deadline: "Example deadline – to be confirmed",
+    link: ""
+  },
+  {
+    title: "Sample Technical Training",
+    organisation: "Example Training Centre",
+    type: "Training",
+    province: "Madang",
+    description: "Example vocational and skills training opportunity.",
+    deadline: "Example deadline – to be confirmed",
+    link: ""
+  }
+];
+
+let category = "All";
+
+const search = document.getElementById("search");
+const province = document.getElementById("province");
+const type = document.getElementById("type");
+const results = document.getElementById("results");
+
+function setCategory(value, button) {
+  category = value;
+
+  document.querySelectorAll(".tabs button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+  filterOpportunities();
+}
+
+function filterOpportunities() {
+  const keyword = search.value.toLowerCase();
+  const selectedProvince = province.value;
+  const selectedType = type.value;
+
+  const filtered = opportunities.filter(item => {
+    const text = (
+      item.title + " " +
+      item.organisation + " " +
+      item.description
+    ).toLowerCase();
+
+    return (
+      text.includes(keyword) &&
+      (!selectedProvince || item.province === selectedProvince) &&
+      (!selectedType || item.type === selectedType) &&
+      (category === "All" || item.type === category)
+    );
+  });
+
+  results.innerHTML = "";
+
+  if (filtered.length === 0) {
+    results.innerHTML = "<p>No matching opportunities found.</p>";
+    return;
+  }
+
+  filtered.forEach(item => {
+    const card = document.createElement("div");
+    card.className = "card";
+
+    const title = document.createElement("h3");
+    title.textContent = item.title;
+
+    const organisation = document.createElement("p");
+    organisation.textContent = item.organisation;
+
+    const description = document.createElement("p");
+    description.textContent = item.description;
+
+    const details = document.createElement("div");
+    details.className = "details";
+    details.textContent =
+      "Type: " + item.type +
+      " | Province: " + item.province +
+      " | " + item.deadline;
+
+    card.append(title, organisation, description, details);
+
+    if (item.link) {
+      const link = document.createElement("a");
+      link.className = "apply";
+      link.href = item.link;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = "View Application";
+      card.appendChild(link);
+    } else {
+      const note = document.createElement("p");
+      note.className = "details";
+      note.textContent = "Demo listing – application link not available.";
+      card.appendChild(note);
+    }
+
+    results.appendChild(card);
+  });
+}
+
+search.addEventListener("input", filterOpportunities);
+province.addEventListener("change", filterOpportunities);
+type.addEventListener("change", filterOpportunities);
+
+filterOpportunities();
+</script>
+
+</body>
+</html>
