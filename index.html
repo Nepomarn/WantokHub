@@ -904,7 +904,9 @@ footer a:hover { color: white; }
   </div>
 </footer>
 
-<script>
+// ========================================
+// WANTOKHUB - MAIN JAVASCRIPT
+// ========================================
 
 // MOBILE MENU
 
@@ -921,7 +923,10 @@ document.querySelectorAll(".nav-links a").forEach(link => {
   });
 });
 
+
+// ========================================
 // SEARCH SERVICES
+// ========================================
 
 const searchInput = document.getElementById("siteSearch");
 const searchBtn = document.getElementById("searchBtn");
@@ -930,20 +935,24 @@ const noResults = document.getElementById("noResults");
 
 function searchServices() {
   const query = searchInput.value.trim().toLowerCase();
+
   let found = 0;
 
   cards.forEach(card => {
     const content = (
-      card.innerText + " " + card.dataset.search
+      card.innerText + " " +
+      (card.dataset.search || "")
     ).toLowerCase();
 
     const match = content.includes(query);
+
     card.style.display = match ? "" : "none";
 
     if (match) found++;
   });
 
-  noResults.style.display = found === 0 ? "block" : "none";
+  noResults.style.display =
+    found === 0 ? "block" : "none";
 
   document.getElementById("services").scrollIntoView({
     behavior: "smooth"
@@ -953,27 +962,51 @@ function searchServices() {
 searchBtn.addEventListener("click", searchServices);
 
 searchInput.addEventListener("keydown", event => {
-  if (event.key === "Enter") searchServices();
+  if (event.key === "Enter") {
+    searchServices();
+  }
 });
 
-// LOAD LATEST OPPORTUNITIES
+
+// ========================================
+// OPPORTUNITIES
+// ========================================
 
 const latestContainer =
   document.getElementById("latestOpportunities");
 
+
+// CREATE HTML ELEMENTS SAFELY
+
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
 
-  if (className) element.className = className;
-  if (text !== undefined) element.textContent = text;
+  if (className) {
+    element.className = className;
+  }
+
+  if (text !== undefined) {
+    element.textContent = text;
+  }
 
   return element;
 }
 
+
+// FORMAT DEADLINE
+
 function formatDate(dateValue) {
   if (!dateValue) return "Not specified";
 
-  const date = new Date(dateValue + "T00:00:00");
+  const parts = dateValue.split("-");
+
+  if (parts.length !== 3) return dateValue;
+
+  const date = new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2])
+  );
 
   if (Number.isNaN(date.getTime())) {
     return dateValue;
@@ -985,11 +1018,70 @@ function formatDate(dateValue) {
     year: "numeric"
   });
 }
-  
+
+
+// DEADLINE STATUS
+
+function getDeadlineStatus(deadlineValue) {
+  if (!deadlineValue) return null;
+
+  const parts = deadlineValue.split("-");
+
+  if (parts.length !== 3) return null;
+
+  const deadline = new Date(
+    Number(parts[0]),
+    Number(parts[1]) - 1,
+    Number(parts[2])
+  );
+
+  if (Number.isNaN(deadline.getTime())) return null;
+
+  const today = new Date();
+
+  today.setHours(0, 0, 0, 0);
+  deadline.setHours(0, 0, 0, 0);
+
+  const daysLeft = Math.round(
+    (deadline - today) / 86400000
+  );
+
+  if (daysLeft < 0) {
+    return {
+      label: "Deadline passed",
+      className: "deadline-badge closed"
+    };
+  }
+
+  if (daysLeft === 0) {
+    return {
+      label: "Closing today",
+      className: "deadline-badge today"
+    };
+  }
+
+  if (daysLeft <= 7) {
+    return {
+      label: daysLeft + " days left",
+      className: "deadline-badge today"
+    };
+  }
+
+  return {
+    label: "Open for applications",
+    className: "deadline-badge normal"
+  };
+}
+
+
+// DISPLAY OPPORTUNITIES
+
 function displayOpportunities(opportunities) {
+
   latestContainer.replaceChildren();
 
   if (!opportunities.length) {
+
     const message = createElement(
       "div",
       "opportunity-status"
@@ -1008,11 +1100,21 @@ function displayOpportunities(opportunities) {
     ));
 
     latestContainer.appendChild(message);
+
     return;
   }
 
+
+  // SHOW SIX LATEST OPPORTUNITIES
+
   opportunities.slice(0, 6).forEach(item => {
-    const card = createElement("article", "opportunity-card");
+
+    const card = createElement(
+      "article",
+      "opportunity-card"
+    );
+
+    // OPPORTUNITY TYPE
 
     card.appendChild(createElement(
       "span",
@@ -1020,47 +1122,33 @@ function displayOpportunities(opportunities) {
       item.type || "Opportunity"
     ));
 
-    // Calculate deadline status
-    if (item.deadline) {
-      const deadline = new Date(item.deadline + "T00:00:00");
-      const today = new Date();
 
-      today.setHours(0, 0, 0, 0);
+    // DEADLINE BADGE
 
-      if (!Number.isNaN(deadline.getTime())) {
-        const daysLeft = Math.ceil(
-          (deadline - today) / 86400000
-        );
+    const deadlineStatus =
+      getDeadlineStatus(item.deadline);
 
-        let label = "";
-        let badgeClass = "deadline-badge normal";
+    if (deadlineStatus) {
 
-        if (daysLeft < 0) {
-          label = "Deadline passed";
-          badgeClass = "deadline-badge closed";
-        } else if (daysLeft === 0) {
-          label = "Closing today";
-          badgeClass = "deadline-badge today";
-        } else if (daysLeft <= 7) {
-          label = daysLeft + " days left";
-          badgeClass = "deadline-badge today";
-        } else {
-          label = "Open for applications";
-        }
+      card.appendChild(createElement(
+        "span",
+        deadlineStatus.className,
+        deadlineStatus.label
+      ));
 
-        card.appendChild(createElement(
-          "span",
-          badgeClass,
-          label
-        ));
-      }
     }
 
+
+    // TITLE
+
     card.appendChild(createElement(
       "h3",
       "",
       item.title || "Untitled opportunity"
     ));
+
+
+    // ORGANISATION
 
     card.appendChild(createElement(
       "p",
@@ -1068,7 +1156,13 @@ function displayOpportunities(opportunities) {
       item.organisation || "Organisation not specified"
     ));
 
-    const meta = createElement("div", "opportunity-meta");
+
+    // INFORMATION
+
+    const meta = createElement(
+      "div",
+      "opportunity-meta"
+    );
 
     meta.appendChild(createElement(
       "span",
@@ -1084,6 +1178,9 @@ function displayOpportunities(opportunities) {
 
     card.appendChild(meta);
 
+
+    // VIEW DETAILS
+
     const link = createElement(
       "a",
       "opportunity-card-link",
@@ -1091,112 +1188,83 @@ function displayOpportunities(opportunities) {
     );
 
     link.href = "/opportunities.html";
+
     card.appendChild(link);
 
+
     latestContainer.appendChild(card);
+
   });
+
 }
+
+
+// ========================================
+// LOAD OPPORTUNITIES FROM API
+// ========================================
+
+async function loadLatestOpportunities() {
 
   latestContainer.replaceChildren();
 
-  if (!opportunities.length) {
-    const message = createElement(
-      "div",
-      "opportunity-status"
-    );
+  const loading = createElement(
+    "div",
+    "opportunity-status"
+  );
 
-    message.style.gridColumn = "1 / -1";
+  loading.style.gridColumn = "1 / -1";
 
-    message.appendChild(createElement(
-      "strong",
-      "",
-      "No current opportunities"
-    ));
+  loading.appendChild(createElement(
+    "strong",
+    "",
+    "Loading opportunities..."
+  ));
 
-    message.appendChild(document.createTextNode(
-      "New jobs, scholarships and other opportunities will appear here when published."
-    ));
+  loading.appendChild(document.createTextNode(
+    "Please wait while we retrieve the latest listings."
+  ));
 
-    latestContainer.appendChild(message);
-    return;
-  }
+  latestContainer.appendChild(loading);
 
-  // Show up to six latest opportunities
 
-  opportunities.slice(0, 6).forEach(item => {
-    const card = createElement("article", "opportunity-card");
-
-    card.appendChild(createElement(
-      "span",
-      "opportunity-type",
-      item.type || "Opportunity"
-    ));
-
-    card.appendChild(createElement(
-      "h3",
-      "",
-      item.title || "Untitled opportunity"
-    ));
-
-    card.appendChild(createElement(
-      "p",
-      "opportunity-organisation",
-      item.organisation || "Organisation not specified"
-    ));
-
-    const meta = createElement("div", "opportunity-meta");
-
-    meta.appendChild(createElement(
-      "span",
-      "",
-      "📍 " + (item.province || "PNG")
-    ));
-
-    meta.appendChild(createElement(
-      "span",
-      "",
-      "📅 Deadline: " + formatDate(item.deadline)
-    ));
-
-    card.appendChild(meta);
-
-    const link = createElement(
-      "a",
-      "opportunity-card-link",
-      "View opportunity details →"
-    );
-
-    link.href = "/opportunities.html";
-    card.appendChild(link);
-
-    latestContainer.appendChild(card);
-  });
-}
-
-async function loadLatestOpportunities() {
   try {
-    const response = await fetch("/api/opportunities", {
-      method: "GET",
-      headers: {
-        "Accept": "application/json"
-      },
-      cache: "no-store"
-    });
+
+    const response = await fetch(
+      "/api/opportunities",
+      {
+        method: "GET",
+        headers: {
+          "Accept": "application/json"
+        },
+        cache: "no-store"
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Could not retrieve opportunities.");
+      throw new Error(
+        "API returned status " + response.status
+      );
     }
 
     const data = await response.json();
 
-    if (!data.success || !Array.isArray(data.opportunities)) {
-      throw new Error("Invalid opportunities response.");
+    if (
+      !data.success ||
+      !Array.isArray(data.opportunities)
+    ) {
+      throw new Error(
+        "Invalid opportunities response."
+      );
     }
 
     displayOpportunities(data.opportunities);
 
   } catch (error) {
-    console.error("Opportunity loading error:", error);
+
+    console.error(
+      "WantokHub opportunity error:",
+      error
+    );
 
     latestContainer.replaceChildren();
 
@@ -1214,23 +1282,30 @@ async function loadLatestOpportunities() {
     ));
 
     message.appendChild(document.createTextNode(
-      "Please visit the full opportunities page or try again later."
+      "Please try again later or visit the full opportunities page."
     ));
 
     latestContainer.appendChild(message);
+
   }
+
 }
 
+
+// ========================================
 // CURRENT YEAR
+// ========================================
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
-// START
+
+// ========================================
+// START WEBSITE
+// ========================================
 
 loadLatestOpportunities();
 
-</script>
 
 </body>
 </html>
