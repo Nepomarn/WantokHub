@@ -1,1 +1,926 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PNG Opportunity Hub | Jobs, Scholarships & Education</title>
+
+<meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea.">
+
+<meta name="theme-color" content="#15803d">
+
+<style>
+:root {
+  --green: #15803d;
+  --darkgreen: #14532d;
+  --lightgreen: #dcfce7;
+  --bg: #f7faf8;
+  --white: #ffffff;
+  --text: #172b20;
+  --muted: #64748b;
+  --border: #e2e8e5;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button, input {
+  font: inherit;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: auto;
+}
+
+/* HEADER */
+
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--darkgreen);
+}
+
+.logo-icon {
+  background: var(--green);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: var(--green);
+}
+
+.btn {
+  display: inline-block;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 17px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: var(--darkgreen);
+}
+
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+  padding: 75px 0 65px;
+  background: linear-gradient(135deg, #ecfdf3, #ffffff);
+}
+
+.hero-content {
+  max-width: 760px;
+  margin: auto;
+  text-align: center;
+}
+
+.tag {
+  display: inline-block;
+  background: var(--lightgreen);
+  color: var(--darkgreen);
+  border-radius: 30px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 6vw, 55px);
+  line-height: 1.12;
+  margin-bottom: 18px;
+  letter-spacing: -1.5px;
+}
+
+.hero h1 span {
+  color: var(--green);
+}
+
+.hero p {
+  color: var(--muted);
+  font-size: 17px;
+  max-width: 620px;
+  margin: auto;
+}
+
+.search-box {
+  display: flex;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 7px;
+  margin: 30px auto 15px;
+  max-width: 620px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.05);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  font-size: 14px;
+}
+
+.search-box button {
+  border: none;
+}
+
+.hero-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* STATS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.stat {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.stat strong {
+  display: block;
+  color: var(--green);
+  font-size: 23px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 65px 0;
+}
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-heading h2 {
+  font-size: 29px;
+  margin-bottom: 8px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* SERVICES */
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 17px;
+}
+
+.service-card {
+  background: white;
+  padding: 23px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  transition: .2s;
+}
+
+.service-card:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: var(--lightgreen);
+  border-radius: 12px;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.service-card h3 {
+  font-size: 17px;
+  margin-bottom: 7px;
+}
+
+.service-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 15px;
+}
+
+.service-link {
+  color: var(--green);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* OPPORTUNITIES */
+
+.opportunities {
+  background: white;
+}
+
+.opportunity-box {
+  max-width: 750px;
+  margin: auto;
+  border: 1px dashed #86c99e;
+  background: #f0fdf4;
+  border-radius: 14px;
+  padding: 35px 20px;
+  text-align: center;
+}
+
+.opportunity-box .icon {
+  font-size: 38px;
+}
+
+.opportunity-box h3 {
+  margin: 10px 0;
+}
+
+.opportunity-box p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* HOW IT WORKS */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.step-number {
+  background: var(--green);
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* CTA */
+
+.cta {
+  background: var(--darkgreen);
+  color: white;
+  text-align: center;
+  padding: 55px 20px;
+  border-radius: 18px;
+}
+
+.cta p {
+  color: #dcfce7;
+  margin: 10px 0 22px;
+}
+
+.cta .btn {
+  background: white;
+  color: var(--darkgreen);
+}
+
+/* FOOTER */
+
+footer {
+  background: #10251a;
+  color: white;
+  padding: 40px 0 20px;
+  margin-top: 60px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 30px;
+}
+
+footer h3, footer h4 {
+  margin-bottom: 13px;
+}
+
+footer p, footer a {
+  color: #cbd5d1;
+  font-size: 13px;
+}
+
+footer a {
+  display: block;
+  margin-bottom: 8px;
+}
+
+footer a:hover {
+  color: white;
+}
+
+.copyright {
+  border-top: 1px solid #31503c;
+  text-align: center;
+  padding-top: 18px;
+  margin-top: 30px;
+  color: #cbd5d1;
+  font-size: 12px;
+}
+
+/* SEARCH */
+
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+
+/* MOBILE */
+
+@media(max-width: 750px) {
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 20px;
+    flex-direction: column;
+    align-items: stretch;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .nav > .btn {
+    display: none;
+  }
+
+  .hero {
+    padding: 55px 0;
+  }
+
+  .service-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .service-card {
+    padding: 16px;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat {
+    padding: 12px 5px;
+  }
+
+  .stat strong {
+    font-size: 19px;
+  }
+
+  .stat span {
+    font-size: 10px;
+  }
+}
+
+@media(max-width: 380px) {
+  .service-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+  <div class="container nav">
+
+    <a href="#" class="logo">
+      <span class="logo-icon">🇵🇬</span>
+      PNG Opportunity Hub
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#opportunities">Opportunities</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <a href="#register" class="btn">Get Started</a>
+
+    <button class="menu-btn" id="menuBtn"
+      aria-label="Toggle navigation">☰</button>
+
+  </div>
+</header>
+
+<!-- HERO -->
+
+<main>
+
+<section class="hero" id="home">
+  <div class="container hero-content">
+
+    <span class="tag">🇵🇬 BUILT FOR PAPUA NEW GUINEA</span>
+
+    <h1>
+      Your future starts <span>here.</span>
+    </h1>
+
+    <p>
+      Discover jobs, scholarships, education,
+      career opportunities and professional
+      tools. Everything you need in one place.
+    </p>
+
+    <div class="search-box">
+      <input
+        type="search"
+        id="siteSearch"
+        placeholder="Search jobs, CV tools, scholarships..."
+        aria-label="Search website services">
+
+      <button class="btn" id="searchBtn">Search</button>
+    </div>
+
+    <div class="hero-note">
+      Explore opportunities. Build your future.
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong>22</strong>
+        <span>Provinces</span>
+      </div>
+
+      <div class="stat">
+        <strong>All</strong>
+        <span>Career Stages</span>
+      </div>
+
+      <div class="stat">
+        <strong>Free</strong>
+        <span>Platform Access</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>Explore Our Services</h2>
+      <p>Everything students and job seekers need to move forward.</p>
+    </div>
+
+    <div class="service-grid" id="serviceGrid">
+
+      <a href="#opportunities" class="service-card"
+        data-search="jobs employment vacancies recruitment work careers">
+        <div class="service-icon">💼</div>
+        <h3>Jobs & Employment</h3>
+        <p>Explore job vacancies, internships, graduate programs and employment opportunities.</p>
+        <span class="service-link">Explore jobs →</span>
+      </a>
+
+      <a href="#opportunities" class="service-card"
+        data-search="scholarships education university grants overseas study">
+        <div class="service-icon">🎓</div>
+        <h3>Scholarships</h3>
+        <p>Find local and international scholarships, grants and study opportunities.</p>
+        <span class="service-link">Find scholarships →</span>
+      </a>
+
+      <a href="#documents" class="service-card"
+        data-search="cv resume curriculum vitae career profile">
+        <div class="service-icon">📄</div>
+        <h3>CV & Resume Builder</h3>
+        <p>Create professional CVs and resumes for your job applications.</p>
+        <span class="service-link">Build your CV →</span>
+      </a>
+
+      <a href="#documents" class="service-card"
+        data-search="letters documents application cover letters templates">
+        <div class="service-icon">📝</div>
+        <h3>Document Centre</h3>
+        <p>Prepare application letters, cover letters, business documents and more.</p>
+        <span class="service-link">Explore documents →</span>
+      </a>
+
+      <a href="#learning" class="service-card"
+        data-search="student learning courses study notes tutorials education">
+        <div class="service-icon">📚</div>
+        <h3>Student Learning</h3>
+        <p>Access study resources, tutorials, courses and examination preparation.</p>
+        <span class="service-link">Start learning →</span>
+      </a>
+
+      <a href="#learning" class="service-card"
+        data-search="universities colleges institutions training courses">
+        <div class="service-icon">🏫</div>
+        <h3>Institutions Directory</h3>
+        <p>Discover universities, colleges, TVET institutions and training centres.</p>
+        <span class="service-link">Find institutions →</span>
+      </a>
+
+      <a href="#employers" class="service-card"
+        data-search="employers companies recruitment post vacancies">
+        <div class="service-icon">🏢</div>
+        <h3>Employer Centre</h3>
+        <p>Help organisations publish vacancies and connect with qualified applicants.</p>
+        <span class="service-link">For employers →</span>
+      </a>
+
+      <a href="#learning" class="service-card"
+        data-search="career interview skills development guidance">
+        <div class="service-icon">🚀</div>
+        <h3>Career Development</h3>
+        <p>Improve interview skills, communication and workplace readiness.</p>
+        <span class="service-link">Develop your career →</span>
+      </a>
+
+      <a href="#business" class="service-card"
+        data-search="business entrepreneurship startup SME funding">
+        <div class="service-icon">💡</div>
+        <h3>Business & SME Centre</h3>
+        <p>Explore entrepreneurship, business plans, funding and startup guides.</p>
+        <span class="service-link">Start a business →</span>
+      </a>
+
+      <a href="#government" class="service-card"
+        data-search="government public services NID TIN registration">
+        <div class="service-icon">🏛️</div>
+        <h3>Government Services</h3>
+        <p>Find helpful public service information, official links and guidance.</p>
+        <span class="service-link">View services →</span>
+      </a>
+
+      <a href="#opportunities" class="service-card"
+        data-search="internships apprenticeships volunteer youth programs">
+        <div class="service-icon">🌱</div>
+        <h3>Youth Opportunities</h3>
+        <p>Discover volunteering, apprenticeships and youth development programs.</p>
+        <span class="service-link">Discover more →</span>
+      </a>
+
+      <a href="#documents" class="service-card"
+        data-search="business plans invoices quotations budgets proposals">
+        <div class="service-icon">📊</div>
+        <h3>Business Documents</h3>
+        <p>Prepare business profiles, proposals, quotations and invoices.</p>
+        <span class="service-link">Create documents →</span>
+      </a>
+
+      <div class="no-results" id="noResults">
+        No matching services found. Try another search.
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OPPORTUNITIES -->
+
+<section class="opportunities" id="opportunities">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>Latest Opportunities</h2>
+      <p>Find opportunities that can help you build your future.</p>
+    </div>
+
+    <div class="opportunity-box">
+      <div class="icon">🔎</div>
+      <h3>Opportunity listings coming soon</h3>
+      <p>
+        We are preparing a directory of verified
+        jobs, scholarships, internships and
+        education opportunities across PNG.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section id="about">
+  <div class="container">
+
+    <div class="section-heading">
+      <h2>How It Works</h2>
+      <p>Simple steps to help you access opportunities.</p>
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Explore</h3>
+        <p>Discover employment, education and career resources.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Prepare</h3>
+        <p>Build your CV, prepare documents and improve your skills.</p>
+      </div>
+
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Apply</h3>
+        <p>Connect with opportunities and take the next step.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DOCUMENTS PLACEHOLDER -->
+
+<section id="documents" style="background:white;">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Professional Document Tools</h2>
+      <p>Prepare for your next opportunity.</p>
+    </div>
+    <div class="opportunity-box">
+      <div class="icon">📄</div>
+      <h3>CV and Document Builder</h3>
+      <p>Professional templates and downloadable documents will be available here.</p>
+    </div>
+  </div>
+</section>
+
+<!-- OTHER SERVICE PLACEHOLDERS -->
+
+<section id="learning">
+  <div class="container section-heading">
+    <h2>Education & Career Resources</h2>
+    <p>Learning resources, institutions and career development tools are coming soon.</p>
+  </div>
+</section>
+
+<section id="employers" style="background:white;">
+  <div class="container section-heading">
+    <h2>For Employers</h2>
+    <p>Recruitment and employer accounts will be introduced in a future stage.</p>
+  </div>
+</section>
+
+<section id="business">
+  <div class="container section-heading">
+    <h2>Business & Entrepreneurship</h2>
+    <p>Business development resources and tools are coming soon.</p>
+  </div>
+</section>
+
+<section id="government" style="background:white;">
+  <div class="container section-heading">
+    <h2>Government Services Directory</h2>
+    <p>Helpful government information and official service links will be added here.</p>
+  </div>
+</section>
+
+<!-- REGISTER CTA -->
+
+<section id="register">
+  <div class="container">
+    <div class="cta">
+      <h2>Ready to build your future?</h2>
+      <p>PNG Opportunity Hub is being developed to connect people with opportunities.</p>
+      <a href="#contact" class="btn">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer id="contact">
+  <div class="container">
+
+    <div class="footer-grid">
+
+      <div>
+        <h3>🇵🇬 PNG Opportunity Hub</h3>
+        <p>
+          Connecting Papua New Guineans to
+          education, employment and opportunities.
+        </p>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        <a href="#services">Our Services</a>
+        <a href="#opportunities">Opportunities</a>
+        <a href="#about">About Us</a>
+      </div>
+
+      <div>
+        <h4>Information</h4>
+        <a href="#contact">Contact</a>
+        <a href="#government">Government Services</a>
+        <a href="#services">Resources</a>
+      </div>
+
+    </div>
+
+    <div class="copyright">
+      © <span id="year"></span> PNG Opportunity Hub.
+      Built for Papua New Guinea. 🇵🇬
+    </div>
+
+  </div>
+</footer>
+
+<script>
+
+// MOBILE MENU
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+// CLOSE MOBILE MENU AFTER CLICK
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+  });
+});
+
+// SEARCH SERVICES
+
+const searchInput = document.getElementById("siteSearch");
+const searchBtn = document.getElementById("searchBtn");
+const cards = document.querySelectorAll(".service-card");
+const noResults = document.getElementById("noResults");
+
+function searchServices() {
+
+  const query = searchInput.value.trim().toLowerCase();
+
+  let found = 0;
+
+  cards.forEach(card => {
+
+    const content = (
+      card.innerText + " " +
+      card.dataset.search
+    ).toLowerCase();
+
+    const match = content.includes(query);
+
+    card.style.display = match ? "" : "none";
+
+    if (match) found++;
+
+  });
+
+  noResults.style.display =
+    found === 0 ? "block" : "none";
+
+  document.getElementById("services").scrollIntoView({
+    behavior: "smooth"
+  });
+
+}
+
+searchBtn.addEventListener("click", searchServices);
+
+searchInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    searchServices();
+  }
+});
+
+// CURRENT YEAR
+
+document.getElementById("year").textContent =
+  new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
