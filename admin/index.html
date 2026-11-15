@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | WantokHub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f7f3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: white;
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      color: #168447;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #666;
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      background: #168447;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 22px;
+      color: #168447;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-card">
+    <h1>WantokHub</h1>
+    <p class="subtitle">Administrator Login</p>
+
+    <form id="loginForm">
+      <label for="password">Admin Password</label>
+
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your admin password"
+        required
+        autocomplete="current-password"
+      >
+
+      <button type="submit" id="loginButton">
+        Login
+      </button>
+    </form>
+
+    <p id="message" role="status"></p>
+
+    <a class="back-link" href="/">← Back to website</a>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const passwordInput = document.getElementById("password");
+    const message = document.getElementById("message");
+    const loginButton = document.getElementById("loginButton");
+
+    async function checkSession() {
+      try {
+        const response = await fetch("/api/session", {
+          credentials: "same-origin"
+        });
+
+        const data = await response.json();
+
+        if (data.success && data.loggedIn) {
+          message.textContent =
+            "You are already logged in. Your admin dashboard will be available in the next setup step.";
+        }
+      } catch {
+        message.textContent =
+          "Unable to check your login session. Please try again.";
+      }
+    }
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const password = passwordInput.value;
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Checking...";
+      message.textContent = "";
+
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({ password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          passwordInput.value = "";
+          message.textContent =
+            "Login successful! Your administrator session is active. We will build your dashboard next.";
+        } else {
+          message.textContent =
+            data.message || "Login failed. Please try again.";
+        }
+
+      } catch {
+        message.textContent =
+          "Connection error. Please try again.";
+      }
+
+      loginButton.disabled = false;
+      loginButton.textContent = "Login";
+    });
+
+    checkSession();
+  </script>
+
+</body>
+</html>
