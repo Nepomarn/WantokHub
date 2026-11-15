@@ -37,6 +37,11 @@
       font-weight: bold;
     }
 
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
     .logout {
       background: white;
       color: #168447;
@@ -140,6 +145,13 @@
       font-size: 12px;
       background: #edf2ee;
       margin: 8px 0;
+    }
+
+    .verification {
+      background: #f5f8f5;
+      border-radius: 7px;
+      padding: 10px;
+      margin-top: 10px;
     }
 
     .actions {
@@ -286,12 +298,35 @@
       <input id="sourceUrl" type="url"
         placeholder="https://example.com/vacancy">
 
+      <hr style="border:0;border-top:1px solid #e1e8e2;margin:22px 0;">
+
+      <h3>Opportunity Verification</h3>
+      <p class="muted">
+        Record where you found this opportunity, when you checked it,
+        and when it should expire.
+      </p>
+
+      <label for="sourceName">Source Name</label>
+      <input id="sourceName" maxlength="200"
+        placeholder="Example: PNG Job Seek, company website, newspaper">
+
+      <div class="form-grid">
+        <div>
+          <label for="dateChecked">Date Checked</label>
+          <input id="dateChecked" type="date">
+        </div>
+
+        <div>
+          <label for="expiryDate">Expiry Date</label>
+          <input id="expiryDate" type="date">
+        </div>
+      </div>
+
       <button class="primary" type="submit" id="saveButton">
         Save Opportunity
       </button>
 
-      <button class="secondary" type="button" id="cancelButton"
-        hidden>
+      <button class="secondary" type="button" id="cancelButton" hidden>
         Cancel Edit
       </button>
 
@@ -367,8 +402,10 @@
       opportunities = data.opportunities || [];
 
       $("totalCount").textContent = opportunities.length;
+
       $("publishedCount").textContent =
         opportunities.filter(item => item.status === "published").length;
+
       $("draftCount").textContent =
         opportunities.filter(item => item.status === "draft").length;
 
@@ -396,19 +433,39 @@
       card.className = "opportunity";
 
       const heading = document.createElement("h4");
-      heading.textContent = item.title;
+      heading.textContent = item.title || "";
 
       const details = document.createElement("p");
       details.className = "muted";
       details.textContent =
-        `${item.organisation} • ${item.type} • ${item.province}`;
+        `${item.organisation || ""} • ${item.type || ""} • ${item.province || ""}`;
 
       const description = document.createElement("p");
-      description.textContent = item.description;
+      description.textContent = item.description || "";
 
       const status = document.createElement("span");
       status.className = "status";
-      status.textContent = item.status.toUpperCase();
+      status.textContent = (item.status || "draft").toUpperCase();
+
+      const verification = document.createElement("div");
+      verification.className = "verification";
+
+      const source = document.createElement("p");
+      source.className = "muted";
+      source.textContent =
+        `Source: ${item.source_name || "Not recorded"}`;
+
+      const checked = document.createElement("p");
+      checked.className = "muted";
+      checked.textContent =
+        `Date checked: ${item.date_checked || "Not recorded"}`;
+
+      const expiry = document.createElement("p");
+      expiry.className = "muted";
+      expiry.textContent =
+        `Expiry date: ${item.expiry_date || "Not recorded"}`;
+
+      verification.append(source, checked, expiry);
 
       const actions = document.createElement("div");
       actions.className = "actions";
@@ -422,6 +479,7 @@
       publishButton.className = "publish";
       publishButton.textContent =
         item.status === "published" ? "Unpublish" : "Publish";
+
       publishButton.addEventListener("click", () => {
         toggleStatus(item);
       });
@@ -434,33 +492,49 @@
       });
 
       actions.append(editButton, publishButton, deleteButton);
-      card.append(heading, details, description, status, actions);
+
+      card.append(
+        heading,
+        details,
+        description,
+        status,
+        verification,
+        actions
+      );
+
       container.appendChild(card);
     });
   }
 
   function editOpportunity(item) {
     $("opportunityId").value = item.id;
-    $("title").value = item.title;
-    $("organisation").value = item.organisation;
-    $("type").value = item.type;
-    $("province").value = item.province;
-    $("description").value = item.description;
+    $("title").value = item.title || "";
+    $("organisation").value = item.organisation || "";
+    $("type").value = item.type || "Job";
+    $("province").value = item.province || "";
+    $("description").value = item.description || "";
     $("requirements").value = item.requirements || "";
     $("deadline").value = item.deadline || "";
     $("applicationUrl").value = item.application_url || "";
     $("sourceUrl").value = item.source_url || "";
-    $("status").value = item.status;
+
+    $("sourceName").value = item.source_name || "";
+    $("dateChecked").value = item.date_checked || "";
+    $("expiryDate").value = item.expiry_date || "";
+
+    $("status").value = item.status || "draft";
 
     $("formTitle").textContent = "Edit Opportunity";
     $("saveButton").textContent = "Update Opportunity";
     $("cancelButton").hidden = false;
+
     $("formPanel").scrollIntoView({ behavior: "smooth" });
   }
 
   function resetForm() {
     $("opportunityForm").reset();
     $("opportunityId").value = "";
+
     $("formTitle").textContent = "Add New Opportunity";
     $("saveButton").textContent = "Save Opportunity";
     $("cancelButton").hidden = true;
@@ -484,6 +558,11 @@
       deadline: $("deadline").value.trim(),
       application_url: $("applicationUrl").value.trim(),
       source_url: $("sourceUrl").value.trim(),
+
+      source_name: $("sourceName").value.trim(),
+      date_checked: $("dateChecked").value,
+      expiry_date: $("expiryDate").value,
+
       status: $("status").value
     };
 
@@ -528,13 +607,20 @@
       deadline: item.deadline || "",
       application_url: item.application_url || "",
       source_url: item.source_url || "",
+
+      source_name: item.source_name || "",
+      date_checked: item.date_checked || "",
+      expiry_date: item.expiry_date || "",
+
       status: item.status === "published" ? "draft" : "published"
     };
 
     try {
       await apiRequest(API, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(updated)
       });
 
