@@ -3,397 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>All Opportunities | WantokHub PNG</title>
-<meta name="description" content="Browse all active job vacancies, scholarships, internships, and training opportunities across Papua New Guinea.">
-<meta name="theme-color" content="#15803d">
+<meta name="description" content="Find jobs, scholarships, internships and training opportunities across Papua New Guinea.">
+<title>Opportunities | WantokHub</title>
 
 <style>
-:root {
-  --green: #15803d;
-  --darkgreen: #14532d;
-  --lightgreen: #dcfce7;
-  --bg: #f7faf8;
-  --white: #ffffff;
-  --text: #172b20;
-  --muted: #64748b;
-  --border: #e2e8e5;
-}
-
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  background: #f5f8f6;
+  color: #24352b;
 }
 
-a {
+header {
+  background: #087b43;
+  color: white;
+  padding: 22px 16px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 25px;
+}
+
+header p {
+  margin-bottom: 0;
+}
+
+nav {
+  background: white;
+  padding: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+nav a {
+  color: #087b43;
   text-decoration: none;
-  color: inherit;
-}
-
-button, input, select {
-  font: inherit;
+  font-weight: bold;
 }
 
 .container {
-  width: min(1100px, 92%);
+  max-width: 900px;
   margin: auto;
+  padding: 20px 15px;
 }
 
-/* HEADER */
+h2 {
+  color: #087b43;
+}
 
-header {
+.search-box {
   background: white;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.nav {
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 19px;
-  font-weight: 800;
-  color: var(--darkgreen);
-}
-
-.logo-icon {
-  background: var(--green);
-  color: white;
-  width: 40px;
-  height: 40px;
+  padding: 16px;
   border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-size: 22px;
+  margin: 20px 0;
+  box-shadow: 0 2px 8px #0000000d;
 }
 
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.nav-links a:hover {
-  color: var(--green);
-}
-
-.btn {
-  display: inline-block;
-  background: var(--green);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 11px 17px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.btn:hover {
-  background: var(--darkgreen);
-}
-
-.menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  font-size: 27px;
-  cursor: pointer;
-}
-
-/* PAGE HEADER */
-
-.page-header {
-  padding: 50px 0 30px;
-  background: linear-gradient(135deg, #ecfdf3, #ffffff);
-  text-align: center;
-}
-
-.page-header h1 {
-  font-size: clamp(28px, 5vw, 42px);
-  margin-bottom: 10px;
-  color: var(--darkgreen);
-}
-
-.page-header p {
-  color: var(--muted);
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #ccd7ce;
+  border-radius: 7px;
   font-size: 15px;
-}
-
-/* FILTER CONTROLS BAR */
-
-.filters-section {
   background: white;
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
-  margin-bottom: 35px;
 }
 
-.filters-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 12px;
-}
-
-.filter-group {
+.tabs {
   display: flex;
-  flex-direction: column;
+  gap: 8px;
+  margin: 18px 0;
 }
 
-.filter-group label {
-  font-size: 12px;
+.tabs button {
+  flex: 1;
+  padding: 12px;
+  border: 0;
+  border-radius: 7px;
+  background: #dcebe2;
+  color: #087b43;
   font-weight: bold;
-  margin-bottom: 5px;
-  color: var(--muted);
+  cursor: pointer;
 }
 
-.filter-group input, .filter-group select {
-  padding: 10px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+.tabs button.active {
+  background: #087b43;
+  color: white;
+}
+
+.card {
+  background: white;
+  padding: 17px;
+  margin-bottom: 13px;
+  border-radius: 11px;
+  border: 1px solid #e1e9e3;
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #087b43;
+}
+
+.details {
+  color: #68766d;
   font-size: 14px;
-  background: #f9fbf9;
+  line-height: 1.7;
 }
 
-/* OPPORTUNITIES GRID */
-
-.opportunities-container {
-  padding-bottom: 60px;
-}
-
-.opportunity-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-.opportunity-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 13px;
-  padding: 22px;
-  transition: .2s;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.opportunity-card:hover {
-  border-color: var(--green);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.opportunity-badges {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 7px;
-  margin-bottom: 12px;
-}
-
-.opportunity-type,
-.deadline-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px;
-  border-radius: 30px;
-  font-size: 11px;
-  font-weight: 800;
-}
-
-.opportunity-type {
-  background: var(--lightgreen);
-  color: var(--darkgreen);
-}
-
-.deadline-badge {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.deadline-badge.today {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.deadline-badge.soon {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.deadline-badge.closed {
-  background: #e2e8f0;
-  color: #475569;
-}
-
-.opportunity-card h3 {
-  font-size: 18px;
-  margin-bottom: 6px;
-  color: var(--text);
-  overflow-wrap: anywhere;
-}
-
-.opportunity-organisation {
-  color: var(--muted);
+.verification {
+  background: #f1f7f2;
+  border-left: 4px solid #087b43;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 14px;
   font-size: 13px;
-  margin-bottom: 10px;
+  line-height: 1.7;
+  color: #405548;
+}
+
+.verification strong {
+  color: #087b43;
+}
+
+.source-link {
+  color: #087b43;
   font-weight: bold;
+  text-decoration: none;
 }
 
-.opportunity-desc {
-  font-size: 13px;
-  color: #334155;
-  margin-bottom: 15px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.opportunity-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 15px;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 15px;
-  border-top: 1px solid var(--border);
-  padding-top: 12px;
-}
-
-.opportunity-links {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: auto;
-}
-
-.opportunity-card-link {
-  color: var(--green);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.opportunity-card-link:hover {
+.source-link:hover {
   text-decoration: underline;
 }
 
-.opportunity-status {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 40px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--muted);
+.apply {
+  display: inline-block;
+  background: #087b43;
+  color: white;
+  padding: 11px 17px;
+  border-radius: 6px;
+  text-decoration: none;
+  margin-top: 12px;
 }
 
-.opportunity-status strong {
-  display: block;
-  color: var(--text);
-  font-size: 18px;
-  margin-bottom: 5px;
+.notice {
+  background: #fff5d9;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #70551a;
+  line-height: 1.5;
 }
-
-/* FOOTER */
 
 footer {
-  background: #10251a;
+  background: #123c29;
   color: white;
-  padding: 40px 0 20px;
-  margin-top: 60px;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 30px;
-}
-
-footer h3,
-footer h4 {
-  margin-bottom: 13px;
-}
-
-footer p,
-footer a {
-  color: #cbd5d1;
-  font-size: 13px;
-}
-
-footer a {
-  display: block;
-  margin-bottom: 8px;
-}
-
-footer a:hover {
-  color: white;
-}
-
-.copyright {
-  border-top: 1px solid #31503c;
   text-align: center;
-  padding-top: 18px;
-  margin-top: 30px;
-  color: #cbd5d1;
-  font-size: 12px;
+  padding: 22px;
+  margin-top: 35px;
 }
 
-/* MOBILE */
-
-@media(max-width: 850px) {
-  .filters-grid {
-    grid-template-columns: 1fr 1fr;
-  }
+.empty {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  color: #68766d;
+  text-align: center;
 }
 
-@media(max-width: 600px) {
-  .filters-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 500px) {
+  .tabs {
+    flex-wrap: wrap;
   }
-  .opportunity-grid {
-    grid-template-columns: 1fr;
-  }
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: white;
-    padding: 20px;
-    flex-direction: column;
-    align-items: stretch;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-links.active {
-    display: flex;
-  }
-  .menu-btn {
-    display: block;
-  }
-  .nav > .btn {
-    display: none;
+
+  .tabs button {
+    min-width: 28%;
   }
 }
 </style>
@@ -401,357 +188,335 @@ footer a:hover {
 
 <body>
 
-<!-- HEADER -->
-
 <header>
-  <div class="container nav">
-    <a href="/index.html" class="logo">
-      <span class="logo-icon">🇵🇬</span>
-      WantokHub
-    </a>
-
-    <nav class="nav-links" id="navLinks">
-      <a href="/index.html">Home</a>
-      <a href="/opportunities.html" style="color: var(--green);">Opportunities</a>
-      <a href="/index.html#documents">CV Builder</a>
-      <a href="/submit.html">Post a Job</a>
-    </nav>
-
-    <a href="/submit.html" class="btn">Post a Job</a>
-
-    <button class="menu-btn" id="menuBtn"
-      type="button"
-      aria-label="Toggle navigation"
-      aria-expanded="false">☰</button>
-  </div>
+  <h1>WantokHub 🇵🇬</h1>
+  <p>PNG Opportunity Hub – Find your next opportunity[span_1](start_span)[span_1](end_span).</p>
 </header>
 
-<main>
+<nav>
+  <a href="index.html">← Back to Home</a>
+</nav>
 
-  <!-- PAGE HEADER -->
-  <section class="page-header">
-    <div class="container">
-      <h1>All Opportunities in Papua New Guinea</h1>
-      <p>Browse and filter verified job vacancies, scholarships, internships, and training programs.</p>
-    </div>
-  </section>
+<main class="container">
 
-  <!-- FILTER & SEARCH CONTROLS -->
-  <div class="filters-section">
-    <div class="container">
-      <div class="filters-grid">
-        
-        <div class="filter-group">
-          <label for="searchInput">Search Keyword</label>
-          <input type="search" id="searchInput" placeholder="Search title, company, skills...">
-        </div>
+  <h2>Opportunities Centre</h2>
 
-        <div class="filter-group">
-          <label for="categoryFilter">Category Type</label>
-          <select id="categoryFilter">
-            <option value="">All Categories</option>
-            <option value="Job">Job</option>
-            <option value="Scholarship">Scholarship</option>
-            <option value="Internship">Internship</option>
-            <option value="Training">Training</option>
-            <option value="Apprenticeship">Apprenticeship</option>
-            <option value="Graduate Program">Graduate Program</option>
-            <option value="Casual/Part-time">Casual/Part-time</option>
-            <option value="Remote Job">Remote Job</option>
-            <option value="Education Grant">Education Grant</option>
-          </select>
-        </div>
+  <p>
+    Explore jobs, scholarships, internships and training opportunities
+    across Papua New Guinea[span_2](start_span)[span_2](end_span).
+  </p>
 
-        <div class="filter-group">
-          <label for="provinceFilter">Province / Location</label>
-          <select id="provinceFilter">
-            <option value="">All Provinces</option>
-            <option>National Capital District</option>
-            <option>Morobe</option>
-            <option>Eastern Highlands</option>
-            <option>Western Highlands</option>
-            <option>Madang</option>
-            <option>East New Britain</option>
-            <option>West New Britain</option>
-            <option>Milne Bay</option>
-            <option>Central</option>
-            <option>Enga</option>
-            <option>Southern Highlands</option>
-            <option>Western</option>
-            <option>Gulf</option>
-            <option>Oro</option>
-            <option>New Ireland</option>
-            <option>Manus</option>
-            <option>East Sepik</option>
-            <option>West Sepik</option>
-            <option>Chimbu</option>
-            <option>Jiwaka</option>
-            <option>Hela</option>
-            <option>Autonomous Region of Bougainville</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label for="sortFilter">Sort By</label>
-          <select id="sortFilter">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
-            <option value="deadline">Deadline: Soonest First</option>
-          </select>
-        </div>
-
-      </div>
-    </div>
+  <div class="notice">
+    Always check the original source and application requirements before
+    applying. WantokHub shares opportunities but does not guarantee that
+    an organisation is still accepting applications[span_3](start_span)[span_3](end_span).
   </div>
 
-  <!-- OPPORTUNITIES LIST -->
-  <div class="container opportunities-container">
-    <div id="opportunitiesGrid" class="opportunity-grid">
-      <div class="opportunity-status">
-        <strong>Loading opportunities...</strong>
-        Please wait while we retrieve the latest listings.
-      </div>
-    </div>
+  <div class="search-box">
+
+    <input
+      type="search"
+      id="search"
+      placeholder="Search jobs, scholarships, organisations..."
+      aria-label="Search opportunities"
+    >
+
+    <select id="province" aria-label="Filter by province">
+      <option value="">All Provinces</option>
+      <option>National Capital District</option>
+      <option>Morobe</option>
+      <option>Eastern Highlands</option>
+      <option>Western Highlands</option>
+      <option>Madang</option>
+      <option>East New Britain</option>
+      <option>West New Britain</option>
+      <option>Milne Bay</option>
+      <option>Central</option>
+      <option>Enga</option>
+      <option>Southern Highlands</option>
+      <option>Western</option>
+      <option>Gulf</option>
+      <option>Oro</option>
+      <option>New Ireland</option>
+      <option>Manus</option>
+      <option>East Sepik</option>
+      <option>West Sepik</option>
+      <option>Chimbu</option>
+      <option>Jiwaka</option>
+      <option>Hela</option>
+      <option>Autonomous Region of Bougainville</option>
+    </select>
+
+    <select id="type" aria-label="Filter by opportunity type">
+      <option value="">All Opportunity Types</option>
+      <option value="Job">Jobs</option>
+      <option value="Scholarship">Scholarships</option>
+      <option value="Internship">Internships</option>
+      <option value="Training">Training</option>
+      <option value="Apprenticeship">Apprenticeships</option>
+      <option value="Graduate Program">Graduate Programs</option>
+      <option value="Casual/Part-time">Casual/Part-time</option>
+      <option value="Remote Job">Remote Jobs</option>
+      <option value="Education Grant">Education Grants</option>
+    </select>
+
+  </div>
+
+  <div class="tabs">
+    <button class="active" data-category="All" type="button">All</button>
+    <button data-category="Job" type="button">Jobs</button>
+    <button data-category="Scholarship" type="button">Scholarships</button>
+    <button data-category="Saved" type="button">Saved ⭐️</button>
+  </div>
+
+  <h2 id="resultTitle">Available Opportunities</h2>
+
+  <div id="results" aria-live="polite">
+    <p class="empty">Loading opportunities...</p>
   </div>
 
 </main>
 
-<!-- FOOTER -->
-
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h3>🇵🇬 WantokHub</h3>
-        <p>PNG Opportunity Hub — connecting Papua New Guineans to education, employment and opportunities.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <a href="/opportunities.html">Opportunities</a>
-        <a href="/index.html#documents">CV Builder</a>
-        <a href="/submit.html">Post a Job</a>
-      </div>
-      <div>
-        <h4>Information</h4>
-        <a href="/submit.html">Employer Support</a>
-        <a href="/opportunities.html">All Listings</a>
-      </div>
-    </div>
-    <div class="copyright">
-      © <span id="year"></span> WantokHub. Built for Papua New Guinea. 🇵🇬
-    </div>
-  </div>
+  <strong>WantokHub 🇵🇬</strong>
+  <p>Your education. Your career. Your opportunities.</p>
+  <small>Connecting Papua New Guineans to opportunities[span_4](start_span)[span_4](end_span).</small>
 </footer>
 
 <script>
+let opportunities = [];
+let category = "All";
 
-// MOBILE MENU
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
+const search = document.getElementById("search");
+const province = document.getElementById("province");
+const type = document.getElementById("type");
+const results = document.getElementById("results");
 
-menuBtn.addEventListener("click", () => {
-  const isOpen = navLinks.classList.toggle("active");
-  menuBtn.setAttribute("aria-expanded", String(isOpen));
+async function loadOpportunities() {
+  results.textContent = "Loading opportunities...";
+
+  try {
+    const response = await fetch("/api/opportunities");
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error("Could not load opportunities");
+    }
+
+    opportunities = data.opportunities || [];
+
+    filterOpportunities();
+
+  } catch (error) {
+    results.textContent =
+      "Unable to load opportunities. Please try again later[span_5](start_span)[span_5](end_span).";
+  }
+}
+
+function setCategory(value, button) {
+  category = value;
+
+  document.querySelectorAll(".tabs button")
+    .forEach(btn => btn.classList.remove("active"));
+
+  button.classList.add("active");
+
+  filterOpportunities();
+}
+
+document.querySelectorAll(".tabs button").forEach(button => {
+  button.addEventListener("click", () => {
+    setCategory(button.dataset.category, button);
+  });
 });
 
-// GLOBAL STATE
-let allOpportunities = [];
-
-const gridContainer = document.getElementById("opportunitiesGrid");
-const searchInput = document.getElementById("searchInput");
-const categoryFilter = document.getElementById("categoryFilter");
-const provinceFilter = document.getElementById("provinceFilter");
-const sortFilter = document.getElementById("sortFilter");
-
-// HELPER: CREATE ELEMENT SAFELY
-function createElement(tag, className, text) {
+function createTextElement(tag, text, className = "") {
   const element = document.createElement(tag);
-  if (className) element.className = className;
-  if (text !== undefined && text !== null) element.textContent = text;
+  element.textContent = text || "";
+
+  if (className) {
+    element.className = className;
+  }
+
   return element;
 }
 
-// DATE PARSER
-function parseDeadline(dateValue) {
-  if (!dateValue) return null;
-  const value = String(dateValue).trim();
-  let match = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-  let year, month, day;
+function filterOpportunities() {
+  const keyword = search.value.toLowerCase().trim();
+  const selectedProvince = province.value;
+  const selectedType = type.value;
 
-  if (match) {
-    year = Number(match[1]);
-    month = Number(match[2]);
-    day = Number(match[3]);
-  } else {
-    match = value.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
-    if (!match) return null;
-    day = Number(match[1]);
-    month = Number(match[2]);
-    year = Number(match[3]);
-  }
+  const savedIDs = JSON.parse(localStorage.getItem("wantokhub_saved") || "[]");
+  const isSavedCategory = (category === "Saved");
 
-  const date = new Date(year, month - 1, day);
-  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
-    return null;
-  }
-  date.setHours(0, 0, 0, 0);
-  return date;
-}
+  const filtered = opportunities.filter(item => {
+    const text = (
+      (item.title || "") + " " +
+      (item.organisation || "") + " " +
+      (item.description || "") + " " +
+      (item.source_name || "")
+    ).toLowerCase();
 
-function formatDate(dateValue) {
-  const date = parseDeadline(dateValue);
-  if (!date) return dateValue || "Not specified";
-  return date.toLocaleDateString("en-PG", { day: "numeric", month: "short", year: "numeric" });
-}
+    const matchesSearch = (
+      text.includes(keyword) &&
+      (!selectedProvince || item.province === selectedProvince) &&
+      (!selectedType || item.type === selectedType)
+    );
 
-function getDeadlineStatus(deadlineValue) {
-  const deadline = parseDeadline(deadlineValue);
-  if (!deadline) return null;
-
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const daysLeft = Math.round((deadline.getTime() - today.getTime()) / 86400000);
-
-  if (daysLeft < 0) return { label: "Closed", className: "deadline-badge closed" };
-  if (daysLeft === 0) return { label: "Closing today", className: "deadline-badge today" };
-  if (daysLeft === 1) return { label: "Closing tomorrow", className: "deadline-badge today" };
-  if (daysLeft <= 7) return { label: "Closing in " + daysLeft + " days", className: "deadline-badge soon" };
-  return { label: "Open for applications", className: "deadline-badge normal" };
-}
-
-// RENDER FUNCTION
-function renderOpportunities() {
-  gridContainer.replaceChildren();
-
-  const query = searchInput.value.trim().toLowerCase();
-  const selectedCategory = categoryFilter.value;
-  const selectedProvince = provinceFilter.value;
-  const sortBy = sortFilter.value;
-
-  // Filter
-  let filtered = allOpportunities.filter(item => {
-    const matchesSearch = !query || 
-      (item.title && item.title.toLowerCase().includes(query)) ||
-      (item.organisation && item.organisation.toLowerCase().includes(query)) ||
-      (item.description && item.description.toLowerCase().includes(query));
-
-    const matchesCategory = !selectedCategory || item.type === selectedCategory;
-    const matchesProvince = !selectedProvince || item.province === selectedProvince;
-
-    return matchesSearch && matchesCategory && matchesProvince;
-  });
-
-  // Sort
-  filtered.sort((a, b) => {
-    if (sortBy === "newest") {
-      return (b.id || 0) - (a.id || 0);
-    } else if (sortBy === "oldest") {
-      return (a.id || 0) - (b.id || 0);
-    } else if (sortBy === "deadline") {
-      const dateA = parseDeadline(a.deadline);
-      const dateB = parseDeadline(b.deadline);
-      if (!dateA) return 1;
-      if (!dateB) return -1;
-      return dateA.getTime() - dateB.getTime();
+    if (isSavedCategory) {
+      return matchesSearch && savedIDs.includes(item.id);
     }
-    return 0;
+
+    return matchesSearch && (category === "All" || item.type === category);
   });
 
-  if (!filtered.length) {
-    const statusBox = createElement("div", "opportunity-status");
-    statusBox.appendChild(createElement("strong", "", "No opportunities found"));
-    statusBox.appendChild(document.createTextNode("Try adjusting your search keywords, province, or category filters."));
-    gridContainer.appendChild(statusBox);
+  results.replaceChildren();
+
+  if (filtered.length === 0) {
+    const message = createTextElement(
+      "p",
+      isSavedCategory
+        ? "No saved opportunities yet. Click 'Save Opportunity' on listings you want to keep."
+        : opportunities.length === 0
+          ? "No published opportunities yet. Please check back soon[span_6](start_span)[span_6](end_span)."
+          : "No matching opportunities found[span_7](start_span)[span_7](end_span).",
+      "empty"
+    );
+
+    results.appendChild(message);
     return;
   }
 
   filtered.forEach(item => {
-    const card = createElement("article", "opportunity-card");
-    const topContent = createElement("div");
+    const card = document.createElement("div");
+    card.className = "card";
 
-    const badges = createElement("div", "opportunity-badges");
-    badges.appendChild(createElement("span", "opportunity-type", item.type || "Opportunity"));
+    const title = createTextElement("h3", item.title);
+    const organisation = createTextElement("p", item.organisation);
+    const description = createTextElement("p", item.description);
 
-    const deadlineStatus = getDeadlineStatus(item.deadline);
-    if (deadlineStatus) {
-      badges.appendChild(createElement("span", deadlineStatus.className, deadlineStatus.label));
+    const details = createTextElement(
+      "div",
+      "Type: " + (item.type || "Not specified") +
+      " | Province: " + (item.province || "Not specified") +
+      " | Deadline: " + (item.deadline || "Not specified"),
+      "details"
+    );
+
+    const verification = document.createElement("div");
+    verification.className = "verification";
+
+    const verificationHeading = createTextElement(
+      "strong",
+      "Opportunity Verification"
+    );
+
+    const source = createTextElement(
+      "div",
+      "Source: " + (item.source_name || "Not provided")
+    );
+
+    const checked = createTextElement(
+      "div",
+      "Last checked: " + (item.date_checked || "Not recorded")
+    );
+
+    const expiry = createTextElement(
+      "div",
+      "Expiry date: " + (item.expiry_date || "Not specified")
+    );
+
+    verification.append(
+      verificationHeading,
+      source,
+      checked,
+      expiry
+    );
+
+    card.append(
+      title,
+      organisation,
+      description,
+      details,
+      verification
+    );
+
+    if (item.source_url) {
+      try {
+        const sourceURL = new URL(item.source_url);
+
+        if (sourceURL.protocol === "https:") {
+          const sourceLink = document.createElement("a");
+          sourceLink.className = "source-link";
+          sourceLink.href = sourceURL.href;
+          sourceLink.target = "_blank";
+          sourceLink.rel = "noopener noreferrer";
+          sourceLink.textContent = "View Original Source";
+
+          verification.appendChild(sourceLink);
+        }
+      } catch (error) {
+        // Ignore invalid source links[span_8](start_span)[span_8](end_span).
+      }
     }
-    topContent.appendChild(badges);
 
-    topContent.appendChild(createElement("h3", "", item.title || "Untitled opportunity"));
-    topContent.appendChild(createElement("p", "opportunity-organisation", item.organisation || "Organisation not specified"));
+    // Save / Bookmark button integration
+    const isBookmarked = savedIDs.includes(item.id);
+    const saveBtn = document.createElement("button");
+    saveBtn.type = "button";
+    saveBtn.className = "apply";
+    saveBtn.style.background = isBookmarked ? "#dcebe2" : "#f1f7f2";
+    saveBtn.style.color = "#087b43";
+    saveBtn.style.marginRight = "8px";
+    saveBtn.style.border = "1px solid #087b43";
+    saveBtn.textContent = isBookmarked ? "Saved ⭐️" : "Save Opportunity 🤍";
 
-    const descText = item.description || "No description provided.";
-    topContent.appendChild(createElement("p", "opportunity-desc", descText));
+    saveBtn.addEventListener("click", () => {
+      let currentSaved = JSON.parse(localStorage.getItem("wantokhub_saved") || "[]");
+      if (currentSaved.includes(item.id)) {
+        currentSaved = currentSaved.filter(id => id !== item.id);
+      } else {
+        currentSaved.push(item.id);
+      }
+      localStorage.setItem("wantokhub_saved", JSON.stringify(currentSaved));
+      filterOpportunities();
+    });
 
-    card.appendChild(topContent);
+    card.appendChild(saveBtn);
 
-    const bottomContent = createElement("div");
-    const meta = createElement("div", "opportunity-meta");
-    meta.appendChild(createElement("span", "", "📍 " + (item.province || "PNG")));
-    meta.appendChild(createElement("span", "", "📅 Deadline: " + formatDate(item.deadline)));
-    bottomContent.appendChild(meta);
-
-    const linksDiv = createElement("div", "opportunity-links");
-    
     if (item.application_url) {
-      const applyLink = createElement("a", "opportunity-card-link", "Apply Online →");
-      applyLink.href = item.application_url;
-      applyLink.target = "_blank";
-      applyLink.rel = "noopener noreferrer";
-      linksDiv.appendChild(applyLink);
-    } else {
-      linksDiv.appendChild(createElement("span", "opportunity-card-link", "See description for how to apply"));
+      try {
+        const applicationURL = new URL(item.application_url);
+
+        if (applicationURL.protocol === "https:") {
+          const link = document.createElement("a");
+          link.className = "apply";
+          link.href = applicationURL.href;
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = "Apply Now";
+
+          card.appendChild(link);
+        }
+      } catch (error) {
+        // Ignore invalid application links[span_9](start_span)[span_9](end_span).
+      }
     }
 
-    if (item.source_name) {
-      linksDiv.appendChild(createElement("span", "", "Source: " + item.source_name));
-    }
-
-    bottomContent.appendChild(linksDiv);
-    card.appendChild(bottomContent);
-
-    gridContainer.appendChild(card);
+    results.appendChild(card);
   });
 }
 
-// FETCH DATA FROM API
-async function fetchOpportunities() {
-  try {
-    const response = await fetch("/api/opportunities", {
-      method: "GET",
-      headers: { "Accept": "application/json" },
-      cache: "no-store"
-    });
+search.addEventListener("input", filterOpportunities);
+province.addEventListener("change", filterOpportunities);
+type.addEventListener("change", filterOpportunities);
 
-    if (!response.ok) throw new Error("Failed to fetch opportunities");
-
-    const data = await response.json();
-    if (data && data.success && Array.isArray(data.opportunities)) {
-      allOpportunities = data.opportunities;
-      renderOpportunities();
-    } else {
-      throw new Error("Invalid data format");
-    }
-  } catch (error) {
-    gridContainer.replaceChildren();
-    const errorBox = createElement("div", "opportunity-status");
-    errorBox.appendChild(createElement("strong", "", "Unable to load opportunities"));
-    errorBox.appendChild(document.createTextNode("Please check your connection and refresh the page."));
-    gridContainer.appendChild(errorBox);
-  }
-}
-
-// EVENT LISTENERS FOR FILTERS
-searchInput.addEventListener("input", renderOpportunities);
-categoryFilter.addEventListener("change", renderOpportunities);
-provinceFilter.addEventListener("change", renderOpportunities);
-sortFilter.addEventListener("change", renderOpportunities);
-
-// INITIALIZE
-document.getElementById("year").textContent = new Date().getFullYear();
-fetchOpportunities();
-
+loadOpportunities();
 </script>
 
 </body>
