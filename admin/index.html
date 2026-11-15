@@ -167,10 +167,12 @@
         const data = await response.json();
 
         if (response.ok && data.success) {
-          passwordInput.value = "";
-          message.textContent =
-            "Login successful! Your administrator session is active. We will build your dashboard next.";
-        } else {
+  passwordInput.value = "";
+  message.textContent = "Login successful! Redirecting...";
+
+  window.location.href = "/admin/dashboard.html";
+}
+         else {
           message.textContent =
             data.message || "Login failed. Please try again.";
         }
