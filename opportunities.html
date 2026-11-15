@@ -226,51 +226,39 @@ footer {
 </footer>
 
 <script>
-const opportunities = [
-  {
-    title: "Sample IT Support Officer",
-    organisation: "Example Organisation",
-    type: "Job",
-    province: "Morobe",
-    description: "Example entry-level IT support position.",
-    deadline: "Example deadline – to be confirmed",
-    link: ""
-  },
-  {
-    title: "Sample University Scholarship",
-    organisation: "Example Education Provider",
-    type: "Scholarship",
-    province: "National Capital District",
-    description: "Example scholarship for eligible PNG students.",
-    deadline: "Example deadline – to be confirmed",
-    link: ""
-  },
-  {
-    title: "Sample Graduate Internship",
-    organisation: "Example Company",
-    type: "Internship",
-    province: "Morobe",
-    description: "Example internship opportunity for graduates.",
-    deadline: "Example deadline – to be confirmed",
-    link: ""
-  },
-  {
-    title: "Sample Technical Training",
-    organisation: "Example Training Centre",
-    type: "Training",
-    province: "Madang",
-    description: "Example vocational and skills training opportunity.",
-    deadline: "Example deadline – to be confirmed",
-    link: ""
-  }
-];
 
+let opportunities = [];
 let category = "All";
 
 const search = document.getElementById("search");
 const province = document.getElementById("province");
 const type = document.getElementById("type");
 const results = document.getElementById("results");
+
+async function loadOpportunities() {
+  results.textContent = "Loading opportunities...";
+
+  try {
+    const response = await fetch("/api/opportunities");
+
+    if (!response.ok) {
+      throw new Error("API request failed");
+    }
+
+    const data = await response.json();
+
+    if (!data.success) {
+      throw new Error("Could not load opportunities");
+    }
+
+    opportunities = data.opportunities || [];
+    filterOpportunities();
+
+  } catch (error) {
+    results.textContent =
+      "Unable to load opportunities. Please try again later.";
+  }
+}
 
 function setCategory(value, button) {
   category = value;
@@ -279,6 +267,7 @@ function setCategory(value, button) {
     .forEach(btn => btn.classList.remove("active"));
 
   button.classList.add("active");
+
   filterOpportunities();
 }
 
@@ -302,10 +291,15 @@ function filterOpportunities() {
     );
   });
 
-  results.innerHTML = "";
+  results.replaceChildren();
 
   if (filtered.length === 0) {
-    results.innerHTML = "<p>No matching opportunities found.</p>";
+    const message = document.createElement("p");
+    message.textContent = opportunities.length === 0
+      ? "No published opportunities yet. Please check back soon."
+      : "No matching opportunities found.";
+
+    results.appendChild(message);
     return;
   }
 
@@ -327,23 +321,18 @@ function filterOpportunities() {
     details.textContent =
       "Type: " + item.type +
       " | Province: " + item.province +
-      " | " + item.deadline;
+      " | Deadline: " + (item.deadline || "Not specified");
 
     card.append(title, organisation, description, details);
 
-    if (item.link) {
+    if (item.application_url) {
       const link = document.createElement("a");
       link.className = "apply";
-      link.href = item.link;
+      link.href = item.application_url;
       link.target = "_blank";
       link.rel = "noopener noreferrer";
-      link.textContent = "View Application";
+      link.textContent = "Apply Now";
       card.appendChild(link);
-    } else {
-      const note = document.createElement("p");
-      note.className = "details";
-      note.textContent = "Demo listing – application link not available.";
-      card.appendChild(note);
     }
 
     results.appendChild(card);
@@ -354,7 +343,8 @@ search.addEventListener("input", filterOpportunities);
 province.addEventListener("change", filterOpportunities);
 type.addEventListener("change", filterOpportunities);
 
-filterOpportunities();
+loadOpportunities();
+
 </script>
 
 </body>
