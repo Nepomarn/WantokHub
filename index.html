@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WantokHub | PNG Opportunity Hub</title>
-<meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea.">
+<meta name="description" content="Find jobs, scholarships, and professional CV tools in Papua New Guinea.">
 <meta name="theme-color" content="#15803d">
 
 <style>
@@ -243,17 +243,17 @@ section {
   font-size: 14px;
 }
 
-/* SERVICES */
+/* SERVICES (Streamlined to 4 core pillars) */
 
 .service-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .service-card {
   background: white;
-  padding: 23px;
+  padding: 26px;
   border: 1px solid var(--border);
   border-radius: 13px;
   transition: .2s;
@@ -276,12 +276,12 @@ section {
 }
 
 .service-card h3 {
-  font-size: 17px;
+  font-size: 18px;
   margin-bottom: 7px;
 }
 
 .service-card p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
   margin-bottom: 15px;
 }
@@ -430,53 +430,6 @@ section {
   background: var(--darkgreen);
 }
 
-/* HOW IT WORKS */
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.step {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 22px;
-}
-
-.step-number {
-  background: var(--green);
-  color: white;
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-weight: bold;
-  margin-bottom: 12px;
-}
-
-/* CTA */
-
-.cta {
-  background: var(--darkgreen);
-  color: white;
-  text-align: center;
-  padding: 55px 20px;
-  border-radius: 18px;
-}
-
-.cta p {
-  color: #dcfce7;
-  margin: 10px 0 22px;
-}
-
-.cta .btn {
-  background: white;
-  color: var(--darkgreen);
-}
-
 /* FOOTER */
 
 footer {
@@ -519,16 +472,6 @@ footer a:hover {
   margin-top: 30px;
   color: #cbd5d1;
   font-size: 12px;
-}
-
-/* SEARCH */
-
-.no-results {
-  display: none;
-  text-align: center;
-  padding: 20px;
-  color: var(--muted);
-  grid-column: 1 / -1;
 }
 
 /* CV BUILDER STYLES */
@@ -627,41 +570,8 @@ footer a:hover {
     display: none;
   }
 
-  .hero {
-    padding: 55px 0;
-  }
-
   .service-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .service-card {
-    padding: 16px;
-  }
-
-  .steps {
     grid-template-columns: 1fr;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats {
-    gap: 8px;
-  }
-
-  .stat {
-    padding: 12px 5px;
-  }
-
-  .stat strong {
-    font-size: 19px;
-  }
-
-  .stat span {
-    font-size: 10px;
   }
 
   .opportunity-grid {
@@ -669,12 +579,6 @@ footer a:hover {
   }
 
   .cv-builder-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media(max-width: 380px) {
-  .service-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -713,13 +617,12 @@ footer a:hover {
 
     <nav class="nav-links" id="navLinks">
       <a href="#home">Home</a>
-      <a href="#services">Services</a>
       <a href="#opportunities">Opportunities</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#documents">CV Builder</a>
+      <a href="/submit.html">Post a Job</a>
     </nav>
 
-    <a href="#register" class="btn">Get Started</a>
+    <a href="/submit.html" class="btn">Post a Job</a>
 
     <button class="menu-btn" id="menuBtn"
       type="button"
@@ -742,193 +645,87 @@ footer a:hover {
     <h1>Your future starts <span>here.</span></h1>
 
     <p>
-      Discover jobs, scholarships, education,
-      career opportunities and professional
-      tools. Everything you need in one place.
+      Discover jobs, scholarships, and build professional CVs
+      for career opportunities across Papua New Guinea.
     </p>
 
     <div class="search-box">
-
       <input
         type="search"
         id="siteSearch"
-        placeholder="Search jobs, CV tools, scholarships..."
+        placeholder="Search jobs, scholarships..."
         aria-label="Search website services">
-
       <button class="btn" id="searchBtn" type="button">
         Search
       </button>
-
-    </div>
-
-    <div class="hero-note">
-      Explore opportunities. Build your future.
     </div>
 
     <div class="stats">
-
       <div class="stat">
         <strong>22</strong>
         <span>Provinces</span>
       </div>
-
       <div class="stat">
-        <strong>All</strong>
-        <span>Career Stages</span>
+        <strong>Active</strong>
+        <span>Job Listings</span>
       </div>
-
       <div class="stat">
         <strong>Free</strong>
         <span>Platform Access</span>
       </div>
-
     </div>
 
   </div>
 
 </section>
 
-<!-- SERVICES -->
+<!-- CORE SERVICES (Streamlined to 4 primary pillars) -->
 
 <section id="services">
-
   <div class="container">
 
     <div class="section-heading">
-      <h2>Explore Our Services</h2>
-      <p>Everything students and job seekers need to move forward.</p>
+      <h2>Platform Features</h2>
+      <p>Everything job seekers and employers need in one place.</p>
     </div>
 
     <div class="service-grid" id="serviceGrid">
 
       <a href="#opportunities" class="service-card"
         data-search="jobs employment vacancies recruitment work careers">
-
         <div class="service-icon">💼</div>
-        <h3>Jobs & Employment</h3>
-        <p>Explore job vacancies, internships, graduate programs and employment opportunities.</p>
-        <span class="service-link">Explore jobs →</span>
-
-      </a>
-
-      <a href="#opportunities" class="service-card"
-        data-search="scholarships education university grants overseas study">
-
-        <div class="service-icon">🎓</div>
-        <h3>Scholarships</h3>
-        <p>Find local and international scholarships, grants and study opportunities.</p>
-        <span class="service-link">Find scholarships →</span>
-
+        <h3>Jobs & Opportunities</h3>
+        <p>Explore active job vacancies, internships, and scholarships across PNG provinces.</p>
+        <span class="service-link">Browse opportunities →</span>
       </a>
 
       <a href="#documents" class="service-card"
         data-search="cv resume curriculum vitae career profile">
-
         <div class="service-icon">📄</div>
         <h3>CV & Resume Builder</h3>
-        <p>Create professional CVs and resumes for your job applications.</p>
+        <p>Fill in your details and instantly print or save a professional CV as a PDF.</p>
         <span class="service-link">Build your CV →</span>
-
-      </a>
-
-      <a href="#documents" class="service-card"
-        data-search="letters documents application cover letters templates">
-
-        <div class="service-icon">📝</div>
-        <h3>Document Centre</h3>
-        <p>Prepare application letters, cover letters, business documents and more.</p>
-        <span class="service-link">Explore documents →</span>
-
-      </a>
-
-      <a href="#learning" class="service-card"
-        data-search="student learning courses study notes tutorials education">
-
-        <div class="service-icon">📚</div>
-        <h3>Student Learning</h3>
-        <p>Access study resources, tutorials, courses and examination preparation.</p>
-        <span class="service-link">Start learning →</span>
-
-      </a>
-
-      <a href="#learning" class="service-card"
-        data-search="universities colleges institutions training courses">
-
-        <div class="service-icon">🏫</div>
-        <h3>Institutions Directory</h3>
-        <p>Discover universities, colleges, TVET institutions and training centres.</p>
-        <span class="service-link">Find institutions →</span>
-
       </a>
 
       <a href="/submit.html" class="service-card"
         data-search="employers companies recruitment post vacancies">
-
         <div class="service-icon">🏢</div>
         <h3>Employer Centre</h3>
-        <p>Publish free job vacancies and connect with qualified applicants across PNG.</p>
+        <p>Publish free job vacancies and connect with qualified local applicants.</p>
         <span class="service-link">Post a free job →</span>
-
-      </a>
-
-      <a href="#learning" class="service-card"
-        data-search="career interview skills development guidance">
-
-        <div class="service-icon">🚀</div>
-        <h3>Career Development</h3>
-        <p>Improve interview skills, communication and workplace readiness.</p>
-        <span class="service-link">Develop your career →</span>
-
-      </a>
-
-      <a href="#business" class="service-card"
-        data-search="business entrepreneurship startup SME funding">
-
-        <div class="service-icon">💡</div>
-        <h3>Business & SME Centre</h3>
-        <p>Explore entrepreneurship, business plans, funding and startup guides.</p>
-        <span class="service-link">Start a business →</span>
-
-      </a>
-
-      <a href="#government" class="service-card"
-        data-search="government public services NID TIN registration">
-
-        <div class="service-icon">🏛️</div>
-        <h3>Government Services</h3>
-        <p>Find helpful public service information, official links and guidance.</p>
-        <span class="service-link">View services →</span>
-
       </a>
 
       <a href="#opportunities" class="service-card"
-        data-search="internships apprenticeships volunteer youth programs">
-
-        <div class="service-icon">🌱</div>
-        <h3>Youth Opportunities</h3>
-        <p>Discover volunteering, apprenticeships and youth development programs.</p>
-        <span class="service-link">Discover more →</span>
-
+        data-search="scholarships education university grants overseas study">
+        <div class="service-icon">🎓</div>
+        <h3>Scholarships & Grants</h3>
+        <p>Find education grants, training programs, and study opportunities.</p>
+        <span class="service-link">Find scholarships →</span>
       </a>
-
-      <a href="#documents" class="service-card"
-        data-search="business plans invoices quotations budgets proposals">
-
-        <div class="service-icon">📊</div>
-        <h3>Business Documents</h3>
-        <p>Prepare business profiles, proposals, quotations and invoices.</p>
-        <span class="service-link">Create documents →</span>
-
-      </a>
-
-      <div class="no-results" id="noResults">
-        No matching services found. Try another search.
-      </div>
 
     </div>
 
   </div>
-
 </section>
 
 <!-- LATEST OPPORTUNITIES -->
@@ -941,7 +738,7 @@ footer a:hover {
       <h2>Latest Opportunities</h2>
       <p>
         Explore recently published jobs, scholarships,
-        internships and more across PNG.
+        and internships across PNG.
       </p>
     </div>
 
@@ -955,48 +752,9 @@ footer a:hover {
     </div>
 
     <div class="opportunity-actions">
-
       <a href="/opportunities.html" class="view-all-btn">
         View All Opportunities →
       </a>
-
-    </div>
-
-  </div>
-
-</section>
-
-<!-- HOW IT WORKS -->
-
-<section id="about">
-
-  <div class="container">
-
-    <div class="section-heading">
-      <h2>How It Works</h2>
-      <p>Simple steps to help you access opportunities.</p>
-    </div>
-
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <h3>Explore</h3>
-        <p>Discover employment, education and career resources.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <h3>Prepare</h3>
-        <p>Build your CV, prepare documents and improve your skills.</p>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <h3>Apply</h3>
-        <p>Connect with opportunities and take the next step.</p>
-      </div>
-
     </div>
 
   </div>
@@ -1074,74 +832,6 @@ footer a:hover {
   </div>
 </section>
 
-<!-- EDUCATION -->
-
-<section id="learning">
-
-  <div class="container section-heading">
-    <h2>Education & Career Resources</h2>
-    <p>Learning resources, institutions and career development tools are coming soon.</p>
-  </div>
-
-</section>
-
-<!-- EMPLOYERS -->
-
-<section id="employers" style="background:white;">
-  <div class="container section-heading">
-    <h2>For Employers & Organisations</h2>
-    <p>Have a job vacancy, internship, or scholarship? Share it with thousands of job seekers across PNG for free.</p>
-    <div style="margin-top: 20px;">
-      <a href="/submit.html" class="btn">Post a Free Opportunity →</a>
-    </div>
-  </div>
-</section>
-
-<!-- BUSINESS -->
-
-<section id="business">
-
-  <div class="container section-heading">
-    <h2>Business & Entrepreneurship</h2>
-    <p>Business development resources and tools are coming soon.</p>
-  </div>
-
-</section>
-
-<!-- GOVERNMENT -->
-
-<section id="government" style="background:white;">
-
-  <div class="container section-heading">
-    <h2>Government Services Directory</h2>
-    <p>Helpful government information and official service links will be added here.</p>
-  </div>
-
-</section>
-
-<!-- REGISTER -->
-
-<section id="register">
-
-  <div class="container">
-
-    <div class="cta">
-
-      <h2>Ready to build your future?</h2>
-
-      <p>
-        WantokHub connects Papua New Guineans
-        to education, employment and opportunities.
-      </p>
-
-      <a href="#contact" class="btn">Get in Touch</a>
-
-    </div>
-
-  </div>
-
-</section>
-
 </main>
 
 <!-- FOOTER -->
@@ -1162,17 +852,15 @@ footer a:hover {
 
       <div>
         <h4>Explore</h4>
-        <a href="#services">Our Services</a>
         <a href="/opportunities.html">Opportunities</a>
+        <a href="#documents">CV Builder</a>
         <a href="/submit.html">Post a Job</a>
-        <a href="#about">About Us</a>
       </div>
 
       <div>
         <h4>Information</h4>
-        <a href="#contact">Contact</a>
-        <a href="#government">Government Services</a>
-        <a href="#services">Resources</a>
+        <a href="/submit.html">Employer Support</a>
+        <a href="/opportunities.html">All Listings</a>
       </div>
 
     </div>
@@ -1192,484 +880,170 @@ footer a:hover {
 // WANTOKHUB MAIN JAVASCRIPT
 // ========================================
 
-
-// MOBILE MENU
-
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
 menuBtn.addEventListener("click", () => {
-
   const isOpen = navLinks.classList.toggle("active");
-
   menuBtn.setAttribute("aria-expanded", String(isOpen));
-
 });
 
 document.querySelectorAll(".nav-links a").forEach(link => {
-
   link.addEventListener("click", () => {
-
     navLinks.classList.remove("active");
-
     menuBtn.setAttribute("aria-expanded", "false");
-
   });
-
 });
 
-
 // SEARCH SERVICES
-
 const searchInput = document.getElementById("siteSearch");
 const searchBtn = document.getElementById("searchBtn");
 const serviceCards = document.querySelectorAll(".service-card");
-const noResults = document.getElementById("noResults");
 
 function searchServices() {
-
   const query = searchInput.value.trim().toLowerCase();
-
-  let found = 0;
-
-  serviceCards.forEach(card => {
-
-    const content = (
-      card.innerText + " " +
-      (card.dataset.search || "")
-    ).toLowerCase();
-
-    const match = !query || content.includes(query);
-
-    card.style.display = match ? "" : "none";
-
-    if (match) found++;
-
-  });
-
-  noResults.style.display =
-    found === 0 ? "block" : "none";
-
-  document.getElementById("services").scrollIntoView({
-    behavior: "smooth"
-  });
-
+  document.getElementById("services").scrollIntoView({ behavior: "smooth" });
 }
 
 searchBtn.addEventListener("click", searchServices);
-
 searchInput.addEventListener("keydown", event => {
-
   if (event.key === "Enter") {
     searchServices();
   }
-
 });
-
 
 // ========================================
 // OPPORTUNITY DISPLAY
 // ========================================
 
-const latestContainer =
-  document.getElementById("latestOpportunities");
-
-
-// CREATE HTML ELEMENTS SAFELY
+const latestContainer = document.getElementById("latestOpportunities");
 
 function createElement(tag, className, text) {
-
   const element = document.createElement(tag);
-
-  if (className) {
-    element.className = className;
-  }
-
-  if (text !== undefined && text !== null) {
-    element.textContent = text;
-  }
-
+  if (className) element.className = className;
+  if (text !== undefined && text !== null) element.textContent = text;
   return element;
-
 }
 
-
-// ========================================
-// PARSE DEADLINE DATE
-// Supports YYYY-MM-DD and DD/MM/YYYY
-// ========================================
-
 function parseDeadline(dateValue) {
-
   if (!dateValue) return null;
-
   const value = String(dateValue).trim();
-
-  let match;
-  let year;
-  let month;
-  let day;
-
-  // YYYY-MM-DD or ISO date/time
-
-  match = value.match(
-    /^(\d{4})-(\d{1,2})-(\d{1,2})/
-  );
+  let match = value.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  let year, month, day;
 
   if (match) {
-
     year = Number(match[1]);
     month = Number(match[2]);
     day = Number(match[3]);
-
   } else {
-
-    // DD/MM/YYYY or DD-MM-YYYY
-
-    match = value.match(
-      /^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/
-    );
-
+    match = value.match(/^(\d{1,2})[/-](\d{1,2})[/-](\d{4})$/);
     if (!match) return null;
-
     day = Number(match[1]);
     month = Number(match[2]);
     year = Number(match[3]);
-
   }
 
   const date = new Date(year, month - 1, day);
-
-  // Reject invalid calendar dates
-
-  if (
-    date.getFullYear() !== year ||
-    date.getMonth() !== month - 1 ||
-    date.getDate() !== day
-  ) {
+  if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) {
     return null;
   }
-
   date.setHours(0, 0, 0, 0);
-
   return date;
-
 }
-
-
-// ========================================
-// FORMAT DEADLINE DATE
-// ========================================
 
 function formatDate(dateValue) {
-
   const date = parseDeadline(dateValue);
-
-  if (!date) {
-    return dateValue || "Not specified";
-  }
-
-  return date.toLocaleDateString("en-PG", {
-    day: "numeric",
-    month: "short",
-    year: "numeric"
-  });
-
+  if (!date) return dateValue || "Not specified";
+  return date.toLocaleDateString("en-PG", { day: "numeric", month: "short", year: "numeric" });
 }
-
-
-// ========================================
-// DEADLINE STATUS BADGE (Fixed to hide if no valid date)
-// ========================================
 
 function getDeadlineStatus(deadlineValue) {
-
   const deadline = parseDeadline(deadlineValue);
-
-  if (!deadline) {
-    return null;
-  }
+  if (!deadline) return null;
 
   const today = new Date();
-
   today.setHours(0, 0, 0, 0);
+  const daysLeft = Math.round((deadline.getTime() - today.getTime()) / 86400000);
 
-  const daysLeft = Math.round(
-    (deadline.getTime() - today.getTime()) / 86400000
-  );
-
-  if (daysLeft < 0) {
-
-    return {
-      label: "Closed",
-      className: "deadline-badge closed"
-    };
-
-  }
-
-  if (daysLeft === 0) {
-
-    return {
-      label: "Closing today",
-      className: "deadline-badge today"
-    };
-
-  }
-
-  if (daysLeft === 1) {
-
-    return {
-      label: "Closing tomorrow",
-      className: "deadline-badge today"
-    };
-
-  }
-
-  if (daysLeft <= 7) {
-
-    return {
-      label: "Closing in " + daysLeft + " days",
-      className: "deadline-badge soon"
-    };
-
-  }
-
-  return {
-    label: "Open for applications",
-    className: "deadline-badge normal"
-  };
-
+  if (daysLeft < 0) return { label: "Closed", className: "deadline-badge closed" };
+  if (daysLeft === 0) return { label: "Closing today", className: "deadline-badge today" };
+  if (daysLeft === 1) return { label: "Closing tomorrow", className: "deadline-badge today" };
+  if (daysLeft <= 7) return { label: "Closing in " + daysLeft + " days", className: "deadline-badge soon" };
+  return { label: "Open for applications", className: "deadline-badge normal" };
 }
 
-
-// ========================================
-// DISPLAY OPPORTUNITIES
-// ========================================
-
 function displayOpportunities(opportunities) {
-
   latestContainer.replaceChildren();
 
   if (!opportunities.length) {
-
-    const message = createElement(
-      "div",
-      "opportunity-status"
-    );
-
+    const message = createElement("div", "opportunity-status");
     message.style.gridColumn = "1 / -1";
-
-    message.appendChild(createElement(
-      "strong",
-      "",
-      "No current opportunities"
-    ));
-
-    message.appendChild(document.createTextNode(
-      "New jobs, scholarships and other opportunities will appear here when published."
-    ));
-
+    message.appendChild(createElement("strong", "", "No current opportunities"));
+    message.appendChild(document.createTextNode("New jobs, scholarships and other opportunities will appear here when published."));
     latestContainer.appendChild(message);
-
     return;
-
   }
 
-
-  // SHOW SIX LATEST OPPORTUNITIES
-
   opportunities.slice(0, 6).forEach(item => {
+    const card = createElement("article", "opportunity-card");
+    const badges = createElement("div", "opportunity-badges");
 
-    const card = createElement(
-      "article",
-      "opportunity-card"
-    );
-
-
-    // BADGES CONTAINER
-
-    const badges = createElement(
-      "div",
-      "opportunity-badges"
-    );
-
-
-    // OPPORTUNITY TYPE BADGE
-
-    badges.appendChild(createElement(
-      "span",
-      "opportunity-type",
-      item.type || "Opportunity"
-    ));
-
-
-    // DEADLINE BADGE
+    badges.appendChild(createElement("span", "opportunity-type", item.type || "Opportunity"));
 
     const deadlineStatus = getDeadlineStatus(item.deadline);
-
     if (deadlineStatus) {
-      badges.appendChild(createElement(
-        "span",
-        deadlineStatus.className,
-        deadlineStatus.label
-      ));
+      badges.appendChild(createElement("span", deadlineStatus.className, deadlineStatus.label));
     }
-
     card.appendChild(badges);
 
+    card.appendChild(createElement("h3", "", item.title || "Untitled opportunity"));
+    card.appendChild(createElement("p", "opportunity-organisation", item.organisation || "Organisation not specified"));
 
-    // OPPORTUNITY TITLE
-
-    card.appendChild(createElement(
-      "h3",
-      "",
-      item.title || "Untitled opportunity"
-    ));
-
-
-    // ORGANISATION
-
-    card.appendChild(createElement(
-      "p",
-      "opportunity-organisation",
-      item.organisation || "Organisation not specified"
-    ));
-
-
-    // OPPORTUNITY DETAILS
-
-    const meta = createElement(
-      "div",
-      "opportunity-meta"
-    );
-
-    meta.appendChild(createElement(
-      "span",
-      "",
-      "📍 " + (item.province || "PNG")
-    ));
-
-    meta.appendChild(createElement(
-      "span",
-      "",
-      "📅 Deadline: " + formatDate(item.deadline)
-    ));
-
+    const meta = createElement("div", "opportunity-meta");
+    meta.appendChild(createElement("span", "", "📍 " + (item.province || "PNG")));
+    meta.appendChild(createElement("span", "", "📅 Deadline: " + formatDate(item.deadline)));
     card.appendChild(meta);
 
-
-    // DETAILS LINK
-
-    const link = createElement(
-      "a",
-      "opportunity-card-link",
-      "View opportunity details →"
-    );
-
+    const link = createElement("a", "opportunity-card-link", "View opportunity details →");
     link.href = "/opportunities.html";
-
     card.appendChild(link);
 
     latestContainer.appendChild(card);
-
   });
-
 }
 
-
-// ========================================
-// LOAD OPPORTUNITIES FROM API
-// ========================================
-
 async function loadLatestOpportunities() {
-
   latestContainer.replaceChildren();
-
-  const loading = createElement(
-    "div",
-    "opportunity-status"
-  );
-
+  const loading = createElement("div", "opportunity-status");
   loading.style.gridColumn = "1 / -1";
-
-  loading.appendChild(createElement(
-    "strong",
-    "",
-    "Loading opportunities..."
-  ));
-
-  loading.appendChild(document.createTextNode(
-    "Please wait while we retrieve the latest listings."
-  ));
-
+  loading.appendChild(createElement("strong", "", "Loading opportunities..."));
+  loading.appendChild(document.createTextNode("Please wait while we retrieve the latest listings."));
   latestContainer.appendChild(loading);
 
-
   try {
+    const response = await fetch("/api/opportunities", {
+      method: "GET",
+      headers: { "Accept": "application/json" },
+      cache: "no-store"
+    });
 
-    const response = await fetch(
-      "/api/opportunities",
-      {
-        method: "GET",
-        headers: {
-          "Accept": "application/json"
-        },
-        cache: "no-store"
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(
-        "API returned status " + response.status
-      );
-    }
+    if (!response.ok) throw new Error("API returned status " + response.status);
 
     const data = await response.json();
-
-    if (
-      !data ||
-      data.success !== true ||
-      !Array.isArray(data.opportunities)
-    ) {
-      throw new Error(
-        "Invalid opportunities response."
-      );
+    if (!data || data.success !== true || !Array.isArray(data.opportunities)) {
+      throw new Error("Invalid opportunities response.");
     }
 
     displayOpportunities(data.opportunities);
-
   } catch (error) {
-
-    console.error(
-      "WantokHub opportunity error:",
-      error
-    );
-
     latestContainer.replaceChildren();
-
-    const message = createElement(
-      "div",
-      "opportunity-status"
-    );
-
+    const message = createElement("div", "opportunity-status");
     message.style.gridColumn = "1 / -1";
-
-    message.appendChild(createElement(
-      "strong",
-      "",
-      "Unable to load opportunities"
-    ));
-
-    message.appendChild(document.createTextNode(
-      "Please try again later or visit the full opportunities page."
-    ));
-
+    message.appendChild(createElement("strong", "", "Unable to load opportunities"));
+    message.appendChild(document.createTextNode("Please try again later or visit the full opportunities page."));
     latestContainer.appendChild(message);
-
   }
-
 }
-
 
 // ========================================
 // LIVE CV BUILDER PREVIEW SCRIPT
@@ -1696,19 +1070,8 @@ cvFields.forEach(field => {
   }
 });
 
-
-// ========================================
-// CURRENT YEAR
-// ========================================
-
-document.getElementById("year").textContent =
-  new Date().getFullYear();
-
-
-// ========================================
-// START WEBSITE
-// ========================================
-
+// CURRENT YEAR & STARTUP
+document.getElementById("year").textContent = new Date().getFullYear();
 loadLatestOpportunities();
 
 </script>
