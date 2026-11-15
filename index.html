@@ -6,9 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>WantokHub | PNG Opportunity Hub</title>
-
 <meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea.">
-
 <meta name="theme-color" content="#15803d">
 
 <style>
@@ -553,8 +551,7 @@ footer a:hover { color: white; }
 
 <header>
   <div class="container nav">
-
-    <a href="#" class="logo">
+    <a href="#home" class="logo">
       <span class="logo-icon">🇵🇬</span>
       WantokHub
     </a>
@@ -570,23 +567,18 @@ footer a:hover { color: white; }
     <a href="#register" class="btn">Get Started</a>
 
     <button class="menu-btn" id="menuBtn"
-      aria-label="Toggle navigation">☰</button>
-
+      type="button" aria-label="Toggle navigation"
+      aria-expanded="false">☰</button>
   </div>
 </header>
 
 <main>
 
-<!-- HERO -->
-
 <section class="hero" id="home">
   <div class="container hero-content">
-
     <span class="tag">🇵🇬 BUILT FOR PAPUA NEW GUINEA</span>
 
-    <h1>
-      Your future starts <span>here.</span>
-    </h1>
+    <h1>Your future starts <span>here.</span></h1>
 
     <p>
       Discover jobs, scholarships, education,
@@ -595,13 +587,13 @@ footer a:hover { color: white; }
     </p>
 
     <div class="search-box">
-      <input
-        type="search"
-        id="siteSearch"
+      <input type="search" id="siteSearch"
         placeholder="Search jobs, CV tools, scholarships..."
         aria-label="Search website services">
 
-      <button class="btn" id="searchBtn">Search</button>
+      <button class="btn" id="searchBtn" type="button">
+        Search
+      </button>
     </div>
 
     <div class="hero-note">
@@ -613,26 +605,20 @@ footer a:hover { color: white; }
         <strong>22</strong>
         <span>Provinces</span>
       </div>
-
       <div class="stat">
         <strong>All</strong>
         <span>Career Stages</span>
       </div>
-
       <div class="stat">
         <strong>Free</strong>
         <span>Platform Access</span>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- SERVICES -->
-
 <section id="services">
   <div class="container">
-
     <div class="section-heading">
       <h2>Explore Our Services</h2>
       <p>Everything students and job seekers need to move forward.</p>
@@ -739,28 +725,22 @@ footer a:hover { color: white; }
       <div class="no-results" id="noResults">
         No matching services found. Try another search.
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- LATEST OPPORTUNITIES -->
-
 <section class="opportunities" id="opportunities">
   <div class="container">
-
     <div class="section-heading">
       <h2>Latest Opportunities</h2>
       <p>Explore recently published jobs, scholarships, internships and more across PNG.</p>
     </div>
 
     <div id="latestOpportunities" class="opportunity-grid">
-
       <div class="opportunity-status" style="grid-column:1/-1;">
         <strong>Loading opportunities...</strong>
         Please wait while we retrieve the latest listings.
       </div>
-
     </div>
 
     <div class="opportunity-actions">
@@ -768,22 +748,17 @@ footer a:hover { color: white; }
         View All Opportunities →
       </a>
     </div>
-
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-
 <section id="about">
   <div class="container">
-
     <div class="section-heading">
       <h2>How It Works</h2>
       <p>Simple steps to help you access opportunities.</p>
     </div>
 
     <div class="steps">
-
       <div class="step">
         <div class="step-number">1</div>
         <h3>Explore</h3>
@@ -801,12 +776,9 @@ footer a:hover { color: white; }
         <h3>Apply</h3>
         <p>Connect with opportunities and take the next step.</p>
       </div>
-
     </div>
   </div>
 </section>
-
-<!-- DOCUMENTS -->
 
 <section id="documents" style="background:white;">
   <div class="container">
@@ -820,8 +792,6 @@ footer a:hover { color: white; }
     </div>
   </div>
 </section>
-
-<!-- OTHER SERVICES -->
 
 <section id="learning">
   <div class="container section-heading">
@@ -851,8 +821,6 @@ footer a:hover { color: white; }
   </div>
 </section>
 
-<!-- REGISTER CTA -->
-
 <section id="register">
   <div class="container">
     <div class="cta">
@@ -865,13 +833,9 @@ footer a:hover { color: white; }
 
 </main>
 
-<!-- FOOTER -->
-
 <footer id="contact">
   <div class="container">
-
     <div class="footer-grid">
-
       <div>
         <h3>🇵🇬 WantokHub</h3>
         <p>
@@ -893,20 +857,20 @@ footer a:hover { color: white; }
         <a href="#government">Government Services</a>
         <a href="#services">Resources</a>
       </div>
-
     </div>
 
     <div class="copyright">
       © <span id="year"></span> WantokHub.
       Built for Papua New Guinea. 🇵🇬
     </div>
-
   </div>
 </footer>
 
+<script>
 // ========================================
 // WANTOKHUB - MAIN JAVASCRIPT
 // ========================================
+
 
 // MOBILE MENU
 
@@ -914,45 +878,43 @@ const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
 menuBtn.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
+  const isOpen = navLinks.classList.toggle("active");
+  menuBtn.setAttribute("aria-expanded", String(isOpen));
 });
 
 document.querySelectorAll(".nav-links a").forEach(link => {
   link.addEventListener("click", () => {
     navLinks.classList.remove("active");
+    menuBtn.setAttribute("aria-expanded", "false");
   });
 });
 
 
-// ========================================
 // SEARCH SERVICES
-// ========================================
 
 const searchInput = document.getElementById("siteSearch");
 const searchBtn = document.getElementById("searchBtn");
-const cards = document.querySelectorAll(".service-card");
+const serviceCards = document.querySelectorAll(".service-card");
 const noResults = document.getElementById("noResults");
 
 function searchServices() {
   const query = searchInput.value.trim().toLowerCase();
-
   let found = 0;
 
-  cards.forEach(card => {
+  serviceCards.forEach(card => {
     const content = (
       card.innerText + " " +
       (card.dataset.search || "")
     ).toLowerCase();
 
-    const match = content.includes(query);
+    const match = !query || content.includes(query);
 
     card.style.display = match ? "" : "none";
 
     if (match) found++;
   });
 
-  noResults.style.display =
-    found === 0 ? "block" : "none";
+  noResults.style.display = found === 0 ? "block" : "none";
 
   document.getElementById("services").scrollIntoView({
     behavior: "smooth"
@@ -968,15 +930,9 @@ searchInput.addEventListener("keydown", event => {
 });
 
 
-// ========================================
-// OPPORTUNITIES
-// ========================================
+// OPPORTUNITY DISPLAY
 
-const latestContainer =
-  document.getElementById("latestOpportunities");
-
-
-// CREATE HTML ELEMENTS SAFELY
+const latestContainer = document.getElementById("latestOpportunities");
 
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -985,7 +941,7 @@ function createElement(tag, className, text) {
     element.className = className;
   }
 
-  if (text !== undefined) {
+  if (text !== undefined && text !== null) {
     element.textContent = text;
   }
 
@@ -993,12 +949,12 @@ function createElement(tag, className, text) {
 }
 
 
-// FORMAT DEADLINE
+// FORMAT DEADLINE DATE
 
 function formatDate(dateValue) {
   if (!dateValue) return "Not specified";
 
-  const parts = dateValue.split("-");
+  const parts = String(dateValue).split("-");
 
   if (parts.length !== 3) return dateValue;
 
@@ -1025,7 +981,7 @@ function formatDate(dateValue) {
 function getDeadlineStatus(deadlineValue) {
   if (!deadlineValue) return null;
 
-  const parts = deadlineValue.split("-");
+  const parts = String(deadlineValue).split("-");
 
   if (parts.length !== 3) return null;
 
@@ -1038,7 +994,6 @@ function getDeadlineStatus(deadlineValue) {
   if (Number.isNaN(deadline.getTime())) return null;
 
   const today = new Date();
-
   today.setHours(0, 0, 0, 0);
   deadline.setHours(0, 0, 0, 0);
 
@@ -1077,16 +1032,10 @@ function getDeadlineStatus(deadlineValue) {
 // DISPLAY OPPORTUNITIES
 
 function displayOpportunities(opportunities) {
-
   latestContainer.replaceChildren();
 
   if (!opportunities.length) {
-
-    const message = createElement(
-      "div",
-      "opportunity-status"
-    );
-
+    const message = createElement("div", "opportunity-status");
     message.style.gridColumn = "1 / -1";
 
     message.appendChild(createElement(
@@ -1100,21 +1049,13 @@ function displayOpportunities(opportunities) {
     ));
 
     latestContainer.appendChild(message);
-
     return;
   }
-
 
   // SHOW SIX LATEST OPPORTUNITIES
 
   opportunities.slice(0, 6).forEach(item => {
-
-    const card = createElement(
-      "article",
-      "opportunity-card"
-    );
-
-    // OPPORTUNITY TYPE
+    const card = createElement("article", "opportunity-card");
 
     card.appendChild(createElement(
       "span",
@@ -1122,24 +1063,15 @@ function displayOpportunities(opportunities) {
       item.type || "Opportunity"
     ));
 
-
-    // DEADLINE BADGE
-
-    const deadlineStatus =
-      getDeadlineStatus(item.deadline);
+    const deadlineStatus = getDeadlineStatus(item.deadline);
 
     if (deadlineStatus) {
-
       card.appendChild(createElement(
         "span",
         deadlineStatus.className,
         deadlineStatus.label
       ));
-
     }
-
-
-    // TITLE
 
     card.appendChild(createElement(
       "h3",
@@ -1147,22 +1079,13 @@ function displayOpportunities(opportunities) {
       item.title || "Untitled opportunity"
     ));
 
-
-    // ORGANISATION
-
     card.appendChild(createElement(
       "p",
       "opportunity-organisation",
       item.organisation || "Organisation not specified"
     ));
 
-
-    // INFORMATION
-
-    const meta = createElement(
-      "div",
-      "opportunity-meta"
-    );
+    const meta = createElement("div", "opportunity-meta");
 
     meta.appendChild(createElement(
       "span",
@@ -1178,9 +1101,6 @@ function displayOpportunities(opportunities) {
 
     card.appendChild(meta);
 
-
-    // VIEW DETAILS
-
     const link = createElement(
       "a",
       "opportunity-card-link",
@@ -1190,28 +1110,17 @@ function displayOpportunities(opportunities) {
     link.href = "/opportunities.html";
 
     card.appendChild(link);
-
-
     latestContainer.appendChild(card);
-
   });
-
 }
 
 
-// ========================================
 // LOAD OPPORTUNITIES FROM API
-// ========================================
 
 async function loadLatestOpportunities() {
-
   latestContainer.replaceChildren();
 
-  const loading = createElement(
-    "div",
-    "opportunity-status"
-  );
-
+  const loading = createElement("div", "opportunity-status");
   loading.style.gridColumn = "1 / -1";
 
   loading.appendChild(createElement(
@@ -1226,53 +1135,37 @@ async function loadLatestOpportunities() {
 
   latestContainer.appendChild(loading);
 
-
   try {
-
-    const response = await fetch(
-      "/api/opportunities",
-      {
-        method: "GET",
-        headers: {
-          "Accept": "application/json"
-        },
-        cache: "no-store"
-      }
-    );
+    const response = await fetch("/api/opportunities", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json"
+      },
+      cache: "no-store"
+    });
 
     if (!response.ok) {
-      throw new Error(
-        "API returned status " + response.status
-      );
+      throw new Error("API returned status " + response.status);
     }
 
     const data = await response.json();
 
     if (
-      !data.success ||
+      !data ||
+      data.success !== true ||
       !Array.isArray(data.opportunities)
     ) {
-      throw new Error(
-        "Invalid opportunities response."
-      );
+      throw new Error("Invalid opportunities response.");
     }
 
     displayOpportunities(data.opportunities);
 
   } catch (error) {
-
-    console.error(
-      "WantokHub opportunity error:",
-      error
-    );
+    console.error("WantokHub opportunity error:", error);
 
     latestContainer.replaceChildren();
 
-    const message = createElement(
-      "div",
-      "opportunity-status"
-    );
-
+    const message = createElement("div", "opportunity-status");
     message.style.gridColumn = "1 / -1";
 
     message.appendChild(createElement(
@@ -1286,26 +1179,21 @@ async function loadLatestOpportunities() {
     ));
 
     latestContainer.appendChild(message);
-
   }
-
 }
 
 
-// ========================================
 // CURRENT YEAR
-// ========================================
 
 document.getElementById("year").textContent =
   new Date().getFullYear();
 
 
-// ========================================
 // START WEBSITE
-// ========================================
 
 loadLatestOpportunities();
 
+</script>
 
 </body>
 </html>
