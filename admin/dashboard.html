@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard | WantokHub</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f7f4;
+      color: #24332a;
+    }
+
+    header {
+      background: #168447;
+      color: white;
+      padding: 17px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    header h2 { margin: 0; }
+
+    button {
+      border: 0;
+      padding: 11px 15px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .logout {
+      background: white;
+      color: #168447;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: auto;
+      padding: 22px 15px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat, .panel {
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 2px 9px rgba(0,0,0,.05);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      color: #168447;
+      margin-top: 8px;
+    }
+
+    .panel { margin-bottom: 20px; }
+
+    h3 { margin-top: 0; }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 13px 0 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd6ce;
+      border-radius: 7px;
+      font-size: 15px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 85px;
+      resize: vertical;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .primary {
+      background: #168447;
+      color: white;
+      margin-top: 16px;
+    }
+
+    .secondary {
+      background: #e8eee9;
+      color: #24332a;
+      margin-top: 16px;
+      margin-left: 6px;
+    }
+
+    .message {
+      margin-top: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .opportunity {
+      border: 1px solid #e1e8e2;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+
+    .opportunity h4 { margin: 0 0 7px; }
+
+    .muted {
+      color: #65736a;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      background: #edf2ee;
+      margin: 8px 0;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .edit { background: #e7f0ff; color: #24549a; }
+    .publish { background: #e2f5e8; color: #16713c; }
+    .delete { background: #ffe9e9; color: #a52a2a; }
+
+    .empty {
+      padding: 20px;
+      text-align: center;
+      color: #65736a;
+    }
+
+    @media (max-width: 600px) {
+      .stats { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div>
+    <h2>WantokHub Admin</h2>
+    <small>Opportunity Management</small>
+  </div>
+  <button class="logout" id="logoutButton">Logout</button>
+</header>
+
+<main>
+
+  <section class="stats">
+    <div class="stat">
+      Total Opportunities
+      <strong id="totalCount">0</strong>
+    </div>
+    <div class="stat">
+      Published
+      <strong id="publishedCount">0</strong>
+    </div>
+    <div class="stat">
+      Drafts
+      <strong id="draftCount">0</strong>
+    </div>
+  </section>
+
+  <section class="panel" id="formPanel">
+    <h3 id="formTitle">Add New Opportunity</h3>
+
+    <form id="opportunityForm">
+
+      <input type="hidden" id="opportunityId">
+
+      <label for="title">Opportunity Title *</label>
+      <input id="title" maxlength="200" required
+        placeholder="Example: IT Support Officer">
+
+      <div class="form-grid">
+        <div>
+          <label for="organisation">Organisation *</label>
+          <input id="organisation" maxlength="200" required
+            placeholder="Company or institution">
+        </div>
+
+        <div>
+          <label for="type">Opportunity Type *</label>
+          <select id="type" required>
+            <option value="Job">Job</option>
+            <option value="Scholarship">Scholarship</option>
+            <option value="Internship">Internship</option>
+            <option value="Training">Training</option>
+            <option value="Apprenticeship">Apprenticeship</option>
+            <option value="Graduate Program">Graduate Program</option>
+            <option value="Casual/Part-time">Casual/Part-time</option>
+            <option value="Remote Job">Remote Job</option>
+            <option value="Education Grant">Education Grant</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="province">Province *</label>
+      <select id="province" required>
+        <option value="">Select province</option>
+        <option>National Capital District</option>
+        <option>Central</option>
+        <option>Morobe</option>
+        <option>Eastern Highlands</option>
+        <option>Western Highlands</option>
+        <option>Southern Highlands</option>
+        <option>Enga</option>
+        <option>Hela</option>
+        <option>Jiwaka</option>
+        <option>Chimbu</option>
+        <option>East Sepik</option>
+        <option>West Sepik</option>
+        <option>Madang</option>
+        <option>East New Britain</option>
+        <option>West New Britain</option>
+        <option>New Ireland</option>
+        <option>Manus</option>
+        <option>Milne Bay</option>
+        <option>Oro</option>
+        <option>Gulf</option>
+        <option>Western</option>
+        <option>Autonomous Region of Bougainville</option>
+      </select>
+
+      <label for="description">Description *</label>
+      <textarea id="description" maxlength="5000" required
+        placeholder="Describe the opportunity..."></textarea>
+
+      <label for="requirements">Requirements</label>
+      <textarea id="requirements" maxlength="2000"
+        placeholder="Qualifications, experience and eligibility..."></textarea>
+
+      <div class="form-grid">
+        <div>
+          <label for="deadline">Application Deadline</label>
+          <input id="deadline" maxlength="2000"
+            placeholder="Example: 30 November 2026">
+        </div>
+
+        <div>
+          <label for="status">Publication Status</label>
+          <select id="status">
+            <option value="draft">Save as Draft</option>
+            <option value="published">Publish Now</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="applicationUrl">Application Link (HTTPS)</label>
+      <input id="applicationUrl" type="url"
+        placeholder="https://example.com/apply">
+
+      <label for="sourceUrl">Original Source Link (HTTPS)</label>
+      <input id="sourceUrl" type="url"
+        placeholder="https://example.com/vacancy">
+
+      <button class="primary" type="submit" id="saveButton">
+        Save Opportunity
+      </button>
+
+      <button class="secondary" type="button" id="cancelButton"
+        hidden>
+        Cancel Edit
+      </button>
+
+      <p class="message" id="formMessage" role="status"></p>
+
+    </form>
+  </section>
+
+  <section class="panel">
+    <h3>Manage Opportunities</h3>
+    <p class="muted">
+      Review your listings, edit details, publish drafts or remove outdated opportunities.
+    </p>
+    <div id="opportunityList">
+      <p class="empty">Loading opportunities...</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  const API = "/api/admin/opportunities";
+
+  const $ = id => document.getElementById(id);
+
+  let opportunities = [];
+
+  async function checkSession() {
+    try {
+      const response = await fetch("/api/session", {
+        credentials: "same-origin"
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.loggedIn) {
+        window.location.replace("/admin/");
+        return false;
+      }
+
+      return true;
+
+    } catch {
+      window.location.replace("/admin/");
+      return false;
+    }
+  }
+
+  async function apiRequest(url, options = {}) {
+    const response = await fetch(url, {
+      credentials: "same-origin",
+      ...options
+    });
+
+    const data = await response.json();
+
+    if (response.status === 401) {
+      window.location.replace("/admin/");
+      throw new Error("Your session has expired.");
+    }
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "Request failed.");
+    }
+
+    return data;
+  }
+
+  async function loadOpportunities() {
+    try {
+      const data = await apiRequest(API);
+
+      opportunities = data.opportunities || [];
+
+      $("totalCount").textContent = opportunities.length;
+      $("publishedCount").textContent =
+        opportunities.filter(item => item.status === "published").length;
+      $("draftCount").textContent =
+        opportunities.filter(item => item.status === "draft").length;
+
+      renderOpportunities();
+
+    } catch (error) {
+      $("opportunityList").textContent = error.message;
+    }
+  }
+
+  function renderOpportunities() {
+    const container = $("opportunityList");
+    container.replaceChildren();
+
+    if (opportunities.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = "No opportunities yet. Add your first listing above.";
+      container.appendChild(empty);
+      return;
+    }
+
+    opportunities.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "opportunity";
+
+      const heading = document.createElement("h4");
+      heading.textContent = item.title;
+
+      const details = document.createElement("p");
+      details.className = "muted";
+      details.textContent =
+        `${item.organisation} • ${item.type} • ${item.province}`;
+
+      const description = document.createElement("p");
+      description.textContent = item.description;
+
+      const status = document.createElement("span");
+      status.className = "status";
+      status.textContent = item.status.toUpperCase();
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const editButton = document.createElement("button");
+      editButton.className = "edit";
+      editButton.textContent = "Edit";
+      editButton.addEventListener("click", () => editOpportunity(item));
+
+      const publishButton = document.createElement("button");
+      publishButton.className = "publish";
+      publishButton.textContent =
+        item.status === "published" ? "Unpublish" : "Publish";
+      publishButton.addEventListener("click", () => {
+        toggleStatus(item);
+      });
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "delete";
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => {
+        deleteOpportunity(item);
+      });
+
+      actions.append(editButton, publishButton, deleteButton);
+      card.append(heading, details, description, status, actions);
+      container.appendChild(card);
+    });
+  }
+
+  function editOpportunity(item) {
+    $("opportunityId").value = item.id;
+    $("title").value = item.title;
+    $("organisation").value = item.organisation;
+    $("type").value = item.type;
+    $("province").value = item.province;
+    $("description").value = item.description;
+    $("requirements").value = item.requirements || "";
+    $("deadline").value = item.deadline || "";
+    $("applicationUrl").value = item.application_url || "";
+    $("sourceUrl").value = item.source_url || "";
+    $("status").value = item.status;
+
+    $("formTitle").textContent = "Edit Opportunity";
+    $("saveButton").textContent = "Update Opportunity";
+    $("cancelButton").hidden = false;
+    $("formPanel").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function resetForm() {
+    $("opportunityForm").reset();
+    $("opportunityId").value = "";
+    $("formTitle").textContent = "Add New Opportunity";
+    $("saveButton").textContent = "Save Opportunity";
+    $("cancelButton").hidden = true;
+    $("formMessage").textContent = "";
+  }
+
+  $("cancelButton").addEventListener("click", resetForm);
+
+  $("opportunityForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const id = $("opportunityId").value;
+
+    const data = {
+      title: $("title").value.trim(),
+      organisation: $("organisation").value.trim(),
+      type: $("type").value,
+      province: $("province").value,
+      description: $("description").value.trim(),
+      requirements: $("requirements").value.trim(),
+      deadline: $("deadline").value.trim(),
+      application_url: $("applicationUrl").value.trim(),
+      source_url: $("sourceUrl").value.trim(),
+      status: $("status").value
+    };
+
+    if (id) data.id = Number(id);
+
+    $("saveButton").disabled = true;
+    $("formMessage").textContent = "Saving...";
+
+    try {
+      await apiRequest(API, {
+        method: id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      $("formMessage").textContent =
+        id ? "Opportunity updated successfully." :
+        "Opportunity added successfully.";
+
+      resetForm();
+      await loadOpportunities();
+
+    } catch (error) {
+      $("formMessage").textContent = error.message;
+
+    } finally {
+      $("saveButton").disabled = false;
+    }
+  });
+
+  async function toggleStatus(item) {
+    const updated = {
+      id: item.id,
+      title: item.title,
+      organisation: item.organisation,
+      type: item.type,
+      province: item.province,
+      description: item.description,
+      requirements: item.requirements || "",
+      deadline: item.deadline || "",
+      application_url: item.application_url || "",
+      source_url: item.source_url || "",
+      status: item.status === "published" ? "draft" : "published"
+    };
+
+    try {
+      await apiRequest(API, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updated)
+      });
+
+      await loadOpportunities();
+
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function deleteOpportunity(item) {
+    if (!confirm(`Delete "${item.title}" permanently?`)) return;
+
+    try {
+      await apiRequest(`${API}?id=${encodeURIComponent(item.id)}`, {
+        method: "DELETE"
+      });
+
+      await loadOpportunities();
+
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  $("logoutButton").addEventListener("click", async () => {
+    try {
+      await fetch("/api/logout", {
+        method: "POST",
+        credentials: "same-origin"
+      });
+    } finally {
+      window.location.replace("/admin/");
+    }
+  });
+
+  (async function startDashboard() {
+    if (await checkSession()) {
+      await loadOpportunities();
+    }
+  })();
+</script>
+
+</body>
+</html>
