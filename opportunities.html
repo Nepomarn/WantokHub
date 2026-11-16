@@ -3,550 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Find jobs, scholarships, internships and training opportunities across Papua New Guinea.">
-<title>Opportunities | WantokHub</title>
-
+<meta name="description" content="Find jobs, scholarships, internships and training opportunities across Papua New Guinea on WantokHub.">
+<meta name="theme-color" content="#087b43">
+<title>Jobs & Opportunities | WantokHub</title>
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f5f8f6;
-  color: #24352b;
-}
-
-header {
-  background: #087b43;
-  color: white;
-  padding: 22px 16px;
-}
-
-header h1 {
-  margin: 0;
-  font-size: 25px;
-}
-
-header p {
-  margin-bottom: 0;
-}
-
-nav {
-  background: white;
-  padding: 14px;
-  border-bottom: 1px solid #ddd;
-}
-
-nav a {
-  color: #087b43;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px 15px;
-}
-
-h2 {
-  color: #087b43;
-}
-
-.search-box {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  margin: 20px 0;
-  box-shadow: 0 2px 8px #0000000d;
-}
-
-input, select {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0;
-  border: 1px solid #ccd7ce;
-  border-radius: 7px;
-  font-size: 15px;
-  background: white;
-}
-
-.tabs {
-  display: flex;
-  gap: 8px;
-  margin: 18px 0;
-}
-
-.tabs button {
-  flex: 1;
-  padding: 12px;
-  border: 0;
-  border-radius: 7px;
-  background: #dcebe2;
-  color: #087b43;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.tabs button.active {
-  background: #087b43;
-  color: white;
-}
-
-.card {
-  background: white;
-  padding: 17px;
-  margin-bottom: 13px;
-  border-radius: 11px;
-  border: 1px solid #e1e9e3;
-}
-
-.card h3 {
-  margin-top: 0;
-  color: #087b43;
-}
-
-.details {
-  color: #68766d;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.verification {
-  background: #f1f7f2;
-  border-left: 4px solid #087b43;
-  padding: 12px;
-  border-radius: 6px;
-  margin-top: 14px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: #405548;
-}
-
-.verification strong {
-  color: #087b43;
-}
-
-.source-link {
-  display: inline-block;
-  color: #087b43;
-  font-weight: bold;
-  text-decoration: none;
-  margin-top: 8px;
-  margin-right: 12px;
-}
-
-.source-link:hover {
-  text-decoration: underline;
-}
-
-.apply {
-  display: inline-block;
-  background: #087b43;
-  color: white;
-  padding: 11px 17px;
-  border-radius: 6px;
-  text-decoration: none;
-  margin-top: 12px;
-}
-
-.btn-group {
-  margin-top: 12px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.bookmark-btn {
-  background: #f1f7f2;
-  color: #087b43;
-  border: 1px solid #087b43;
-  padding: 11px 17px;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.bookmark-btn.saved {
-  background: #dcebe2;
-}
-
-.notice {
-  background: #fff5d9;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  color: #70551a;
-  line-height: 1.5;
-}
-
-footer {
-  background: #123c29;
-  color: white;
-  text-align: center;
-  padding: 22px;
-  margin-top: 35px;
-}
-
-.empty {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  color: #68766d;
-  text-align: center;
-}
-
-@media (max-width: 500px) {
-  .tabs {
-    flex-wrap: wrap;
-  }
-
-  .tabs button {
-    min-width: 28%;
-  }
-}
+:root{--green:#087b43;--green-dark:#075d34;--green-light:#eaf5ee;--ink:#203329;--muted:#66756c;--line:#dfe8e1;--page:#f4f8f5;--white:#fff;--gold:#fff5d9}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--page);color:var(--ink);line-height:1.55}
+header{background:linear-gradient(135deg,#087b43,#075d34);color:#fff;padding:24px 16px}
+.header-inner,.container{max-width:1050px;margin:0 auto}
+header h1{margin:0;font-size:25px;letter-spacing:.1px}
+header p{margin:5px 0 0;color:#e5f4ea;font-size:14px}
+nav{background:#fff;padding:12px 16px;border-bottom:1px solid var(--line)}
+nav a{max-width:1050px;display:block;margin:auto;color:var(--green);font-weight:bold;text-decoration:none}
+.container{padding:22px 15px 36px}
+.intro{margin-bottom:18px}
+.intro h2{color:var(--green-dark);font-size:25px;margin:0 0 5px}
+.intro p{margin:0;color:var(--muted)}
+.notice{background:var(--gold);border:1px solid #f0e2b6;color:#70551a;padding:12px 14px;border-radius:10px;font-size:13px;margin:17px 0}
+.search-panel{background:#fff;padding:16px;border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #173b2410}
+.search-panel h3{font-size:16px;margin:0 0 10px;color:var(--ink)}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+input,select{width:100%;min-width:0;padding:13px;border:1px solid #cbd8ce;border-radius:8px;background:#fff;color:var(--ink);font-size:15px}
+input:focus,select:focus{outline:2px solid #8ac6a2;outline-offset:1px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.tabs button{border:1px solid #cfe0d4;border-radius:999px;padding:10px 16px;background:#fff;color:var(--green-dark);font-weight:bold;font-size:14px;cursor:pointer}
+.tabs button.active{background:var(--green);border-color:var(--green);color:#fff}
+.results-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 12px}
+.results-heading h2{font-size:20px;color:var(--green-dark);margin:0}
+#resultCount{font-size:13px;color:var(--muted);white-space:nowrap}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px;margin-bottom:13px;box-shadow:0 2px 8px #173b2408}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.card h3{font-size:19px;line-height:1.3;color:var(--green-dark);margin:0 0 4px;overflow-wrap:anywhere}
+.organisation{margin:0 0 10px;font-weight:bold;color:#46584d}
+.pill{display:inline-block;background:var(--green-light);color:var(--green-dark);font-size:12px;font-weight:bold;padding:5px 9px;border-radius:999px;white-space:nowrap}
+.description{margin:10px 0;color:#46564c;white-space:pre-line;overflow-wrap:anywhere}
+.meta{display:flex;flex-wrap:wrap;gap:7px 14px;color:var(--muted);font-size:13px;margin:10px 0}
+.meta span{overflow-wrap:anywhere}
+.requirements{background:#f7faf8;border-radius:9px;padding:11px 13px;margin-top:12px;font-size:14px;white-space:pre-line}
+.requirements strong{display:block;color:var(--green-dark);margin-bottom:4px}
+.verification{background:#f1f7f2;border-left:4px solid var(--green);padding:11px 13px;border-radius:7px;margin-top:13px;font-size:12px;color:#405548;overflow-wrap:anywhere}
+.verification strong{color:var(--green-dark)}
+.source-link{display:inline-block;color:var(--green-dark);font-weight:bold;text-decoration:none;margin:8px 12px 0 0;font-size:13px}
+.source-link:hover{text-decoration:underline}
+.btn-group{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.apply,.bookmark-btn{display:inline-block;border-radius:8px;padding:10px 15px;font-size:14px;font-weight:bold;text-decoration:none;cursor:pointer}
+.apply{background:var(--green);color:#fff}
+.apply:hover{background:var(--green-dark)}
+.bookmark-btn{background:#fff;color:var(--green-dark);border:1px solid var(--green)}
+.bookmark-btn.saved{background:var(--green-light)}
+.empty{background:#fff;border:1px dashed #cbd8ce;border-radius:12px;padding:25px 16px;text-align:center;color:var(--muted)}
+.empty strong{display:block;color:var(--ink);margin-bottom:5px}
+footer{background:#123c29;color:#fff;text-align:center;padding:23px 15px;margin-top:25px}
+footer p{margin:5px 0;color:#dcebe2}
+@media(max-width:680px){.filters{grid-template-columns:1fr}.container{padding-top:18px}.intro h2{font-size:23px}.card{padding:15px}.card-top{display:block}.pill{margin-top:7px}.results-heading{align-items:flex-start}}
 </style>
 </head>
-
 <body>
-
-<header>
-  <h1>WantokHub 🇵🇬</h1>
-  <p>PNG Opportunity Hub – Find your next opportunity.</p>
-</header>
-
-<nav>
-  <a href="index.html">← Back to Home</a>
-</nav>
-
+<header><div class="header-inner"><h1>WantokHub 馃嚨馃嚞</h1><p>PNG Opportunity Hub 鈥� Find your next opportunity.</p></div></header>
+<nav><a href="index.html">鈫� Back to Home</a></nav>
 <main class="container">
-
-  <h2>Opportunities Centre</h2>
-
-  <p>
-    Explore jobs, scholarships, internships and training opportunities
-    across Papua New Guinea.
-  </p>
-
-  <div class="notice">
-    Always check the original source and application requirements before
-    applying. WantokHub shares opportunities but does not guarantee that
-    an organisation is still accepting applications.
-  </div>
-
-  <div class="search-box">
-    <input
-      type="search"
-      id="search"
-      placeholder="Search jobs, scholarships, organisations..."
-      aria-label="Search opportunities"
-    >
-
-    <select id="province" aria-label="Filter by province">
-      <option value="">All Provinces / Nationwide</option>
-      <option value="Morobe">Morobe Province (Lae)</option>
-      <option value="National Capital District">National Capital District (Port Moresby)</option>
-      <option value="East New Britain">East New Britain</option>
-      <option value="West New Britain">West New Britain</option>
-      <option value="Madang">Madang</option>
-      <option value="Eastern Highlands">Eastern Highlands</option>
-      <option value="Western Highlands">Western Highlands</option>
-      <option value="East Sepik">East Sepik</option>
-      <option value="West Sepik">West Sepik (Sandaun)</option>
-      <option value="Enga">Enga</option>
-      <option value="Southern Highlands">Southern Highlands</option>
-      <option value="Hela">Hela</option>
-      <option value="Jiwaka">Jiwaka</option>
-      <option value="Chimbu">Chimbu (Simbu)</option>
-      <option value="Milne Bay">Milne Bay</option>
-      <option value="Oro">Oro (Northern)</option>
-      <option value="Central">Central</option>
-      <option value="Gulf">Gulf</option>
-      <option value="Western">Western (Fly)</option>
-      <option value="New Ireland">New Ireland</option>
-      <option value="Manus">Manus</option>
-      <option value="Autonomous Region of Bougainville">Autonomous Region of Bougainville</option>
-    </select>
-
-    <select id="type" aria-label="Filter by opportunity type">
-      <option value="">All Opportunity Types</option>
-      <option value="Job">Jobs</option>
-      <option value="Scholarship">Scholarships</option>
-      <option value="Internship">Internships</option>
-      <option value="Training">Training</option>
-      <option value="Apprenticeship">Apprenticeships</option>
-      <option value="Graduate Program">Graduate Programs</option>
-      <option value="Casual/Part-time">Casual/Part-time</option>
-      <option value="Remote Job">Remote Jobs</option>
-      <option value="Education Grant">Education Grants</option>
-    </select>
-  </div>
-
-  <div class="tabs">
-    <button class="active" data-category="All" type="button">All</button>
-    <button data-category="Job" type="button">Jobs</button>
+  <section class="intro">
+    <h2>Jobs & Opportunities Centre</h2>
+    <p>Discover employment, scholarships, internships and training opportunities across Papua New Guinea.</p>
+  </section>
+  <div class="notice">Safety reminder: Always check the original vacancy notice, employer identity, closing date and application requirements before applying. Never pay a person to secure a job. WantokHub shares opportunities but does not guarantee that an employer is still accepting applications.</div>
+  <section class="search-panel" aria-label="Search and filter opportunities">
+    <h3>Find an opportunity</h3>
+    <div class="filters">
+      <input type="search" id="search" placeholder="Search job title, employer or keyword..." aria-label="Search by title, employer or keyword">
+      <select id="province" aria-label="Filter by province">
+        <option value="">All Provinces / Nationwide</option>
+        <option value="Morobe">Morobe</option><option value="National Capital District">National Capital District</option><option value="East New Britain">East New Britain</option><option value="West New Britain">West New Britain</option><option value="Madang">Madang</option><option value="Eastern Highlands">Eastern Highlands</option><option value="Western Highlands">Western Highlands</option><option value="East Sepik">East Sepik</option><option value="West Sepik">West Sepik</option><option value="Enga">Enga</option><option value="Southern Highlands">Southern Highlands</option><option value="Hela">Hela</option><option value="Jiwaka">Jiwaka</option><option value="Chimbu">Chimbu</option><option value="Milne Bay">Milne Bay</option><option value="Oro">Oro</option><option value="Central">Central</option><option value="Gulf">Gulf</option><option value="Western">Western</option><option value="New Ireland">New Ireland</option><option value="Manus">Manus</option><option value="Autonomous Region of Bougainville">Autonomous Region of Bougainville</option>
+      </select>
+      <select id="type" aria-label="Filter by opportunity type">
+        <option value="">All employment types</option><option value="Job">Full-time / General Job</option><option value="Casual/Part-time">Casual / Part-time</option><option value="Remote Job">Remote Job</option><option value="Graduate Program">Graduate Program</option><option value="Internship">Internship</option><option value="Apprenticeship">Apprenticeship</option><option value="Scholarship">Scholarship</option><option value="Training">Training</option><option value="Education Grant">Education Grant</option>
+      </select>
+    </div>
+  </section>
+  <div class="tabs" role="group" aria-label="Opportunity categories">
+    <button class="active" data-category="All" type="button">All Opportunities</button>
+    <button data-category="Employment" type="button">Jobs & Employment</button>
     <button data-category="Scholarship" type="button">Scholarships</button>
-    <button data-category="Saved" type="button">Saved ⭐️</button>
+    <button data-category="Saved" type="button">Saved 猸�</button>
   </div>
-
-  <h2 id="resultTitle">Available Opportunities</h2>
-
-  <div id="results" aria-live="polite">
-    <p class="empty">Loading opportunities...</p>
-  </div>
-
+  <div class="results-heading"><h2 id="resultTitle">Latest Opportunities</h2><span id="resultCount" aria-live="polite">Loading...</span></div>
+  <div id="results" aria-live="polite"><p class="empty">Loading opportunities...</p></div>
 </main>
-
-<footer>
-  <strong>WantokHub 🇵🇬</strong>
-  <p>Your education. Your career. Your opportunities.</p>
-  <small>Connecting Papua New Guineans to opportunities.</small>
-</footer>
-
+<footer><strong>WantokHub 馃嚨馃嚞</strong><p>Your education. Your career. Your opportunities.</p><small>Connecting Papua New Guineans to opportunities.</small></footer>
 <script>
-// Bookmark Utility Manager
-const BookmarkManager = {
-    getBookmarks() {
-        return JSON.parse(localStorage.getItem('wantok_bookmarks') || '[]');
-    },
-    toggleBookmark(id) {
-        let bookmarks = this.getBookmarks();
-        if (bookmarks.includes(id)) {
-            bookmarks = bookmarks.filter(bId => bId !== id);
-        } else {
-            bookmarks.push(id);
-        }
-        localStorage.setItem('wantok_bookmarks', JSON.stringify(bookmarks));
-        return bookmarks;
-    },
-    isBookmarked(id) {
-        return this.getBookmarks().includes(id);
-    }
+'use strict';
+const BookmarkManager={
+  getBookmarks(){try{return JSON.parse(localStorage.getItem('wantok_bookmarks')||'[]')}catch{return[]}},
+  toggleBookmark(id){let saved=this.getBookmarks();saved=saved.includes(id)?saved.filter(value=>value!==id):[...saved,id];localStorage.setItem('wantok_bookmarks',JSON.stringify(saved));return saved},
+  isBookmarked(id){return this.getBookmarks().includes(id)}
 };
-
-let opportunities = [];
-let category = "All";
-
-const search = document.getElementById("search");
-const province = document.getElementById("province");
-const type = document.getElementById("type");
-const results = document.getElementById("results");
-
-async function loadOpportunities() {
-  results.textContent = "Loading opportunities...";
-
-  try {
-    const response = await fetch("/api/opportunities");
-
-    if (!response.ok) {
-      throw new Error("API request failed");
-    }
-
-    const data = await response.json();
-
-    if (!data.success) {
-      throw new Error("Could not load opportunities");
-    }
-
-    opportunities = data.opportunities || [];
+const employmentTypes=['Job','Casual/Part-time','Remote Job','Graduate Program','Internship','Apprenticeship'];
+let opportunities=[];
+let category='All';
+const search=document.getElementById('search');
+const province=document.getElementById('province');
+const type=document.getElementById('type');
+const results=document.getElementById('results');
+const resultTitle=document.getElementById('resultTitle');
+const resultCount=document.getElementById('resultCount');
+function textElement(tag,text,className=''){
+  const element=document.createElement(tag);element.textContent=text||'';if(className)element.className=className;return element;
+}
+function safeLink(value,label,className){
+  if(!value)return null;
+  try{const url=new URL(value);if(url.protocol!=='https:')return null;const link=document.createElement('a');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';link.className=className;link.textContent=label;return link}catch{return null}
+}
+async function loadOpportunities(){
+  results.replaceChildren(textElement('p','Loading published opportunities...','empty'));
+  try{
+    const response=await fetch('/api/opportunities',{headers:{'Accept':'application/json'}});
+    if(!response.ok)throw new Error('Request failed');
+    const data=await response.json();
+    if(!data.success||!Array.isArray(data.opportunities))throw new Error('Invalid response');
+    opportunities=data.opportunities;
     filterOpportunities();
-
-  } catch (error) {
-    results.textContent = "Unable to load opportunities. Please try again later.";
+  }catch(error){
+    results.replaceChildren();
+    const message=textElement('p','We could not load vacancies right now. Please check your internet connection and try again.','empty');
+    const retry=document.createElement('button');retry.type='button';retry.className='bookmark-btn';retry.textContent='Try again';retry.addEventListener('click',loadOpportunities);message.appendChild(document.createElement('br'));message.appendChild(retry);results.appendChild(message);resultCount.textContent='';
   }
 }
-
-function setCategory(value, button) {
-  category = value;
-
-  document.querySelectorAll(".tabs button")
-    .forEach(btn => btn.classList.remove("active"));
-
-  button.classList.add("active");
-
+function setCategory(value,button){
+  category=value;
+  document.querySelectorAll('.tabs button').forEach(item=>{item.classList.toggle('active',item===button)});
+  resultTitle.textContent=value==='Employment'?'Jobs & Employment':value==='Scholarship'?'Scholarships':value==='Saved'?'Saved Opportunities':'Latest Opportunities';
   filterOpportunities();
 }
-
-document.querySelectorAll(".tabs button").forEach(button => {
-  button.addEventListener("click", () => {
-    setCategory(button.dataset.category, button);
-  });
-});
-
-function createTextElement(tag, text, className = "") {
-  const element = document.createElement(tag);
-  element.textContent = text || "";
-  if (className) {
-    element.className = className;
-  }
-  return element;
+document.querySelectorAll('.tabs button').forEach(button=>button.addEventListener('click',()=>setCategory(button.dataset.category,button)));
+function createCard(item){
+  const card=document.createElement('article');card.className='card';
+  const top=document.createElement('div');top.className='card-top';
+  const heading=document.createElement('div');
+  heading.append(textElement('h3',item.title),textElement('p',item.organisation,'organisation'));
+  top.appendChild(heading);top.appendChild(textElement('span',item.type||'Opportunity','pill'));
+  const description=textElement('p',item.description,'description');
+  const meta=document.createElement('div');meta.className='meta';
+  [['Location',item.province],['Closing date',item.deadline]].forEach(([label,value])=>{const span=document.createElement('span');span.textContent=label+': '+(value||'Not specified');meta.appendChild(span)});
+  card.append(top,description,meta);
+  if(item.requirements){const req=document.createElement('div');req.className='requirements';req.append(textElement('strong','Requirements / Qualifications'),document.createTextNode(item.requirements));card.appendChild(req)}
+  const verification=document.createElement('div');verification.className='verification';
+  verification.append(textElement('strong','Vacancy source information'),textElement('div','Source: '+(item.source_name||'Not provided')),textElement('div','Last checked: '+(item.date_checked||'Not recorded')),textElement('div','Expiry date: '+(item.expiry_date||'Not specified')));
+  const sourceLink=safeLink(item.source_url,'View Original Source','source-link');if(sourceLink)verification.appendChild(sourceLink);
+  card.appendChild(verification);
+  const actions=document.createElement('div');actions.className='btn-group';
+  const saved=BookmarkManager.isBookmarked(item.id);const save=document.createElement('button');save.type='button';save.className='bookmark-btn'+(saved?' saved':'');save.textContent=saved?'Saved 猸�':'Save Job 鈾�';
+  save.addEventListener('click',()=>{BookmarkManager.toggleBookmark(item.id);filterOpportunities()});actions.appendChild(save);
+  const apply=safeLink(item.application_url,'Apply Now','apply');if(apply)actions.appendChild(apply);
+  card.appendChild(actions);return card;
 }
-
-function filterOpportunities() {
-  const keyword = search.value.toLowerCase().trim();
-  const selectedProvince = province.value;
-  const selectedType = type.value;
-
-  const isSavedCategory = (category === "Saved");
-  const savedIDs = BookmarkManager.getBookmarks();
-
-  const filtered = opportunities.filter(item => {
-    const text = (
-      (item.title || "") + " " +
-      (item.organisation || "") + " " +
-      (item.description || "") + " " +
-      (item.source_name || "")
-    ).toLowerCase();
-
-    const matchesSearch = (
-      text.includes(keyword) &&
-      (!selectedProvince || item.province === selectedProvince) &&
-      (!selectedType || item.type === selectedType)
-    );
-
-    if (isSavedCategory) {
-      return matchesSearch && savedIDs.includes(item.id);
-    }
-
-    return matchesSearch && (category === "All" || item.type === category);
+function filterOpportunities(){
+  const keyword=search.value.toLowerCase().trim();const selectedProvince=province.value;const selectedType=type.value;const savedIDs=BookmarkManager.getBookmarks();
+  const filtered=opportunities.filter(item=>{
+    const searchable=[item.title,item.organisation,item.description,item.requirements,item.source_name,item.province,item.type].join(' ').toLowerCase();
+    const matchesSearch=searchable.includes(keyword);
+    const matchesProvince=!selectedProvince||item.province===selectedProvince;
+    const matchesType=!selectedType||item.type===selectedType;
+    const isEmployment=employmentTypes.includes(item.type);
+    const matchesCategory=category==='Saved'?savedIDs.includes(item.id):category==='Employment'?isEmployment:category==='Scholarship'?item.type==='Scholarship':true;
+    return matchesSearch&&matchesProvince&&matchesType&&matchesCategory;
   });
-
-  results.replaceChildren();
-
-  if (filtered.length === 0) {
-    const message = createTextElement(
-      "p",
-      isSavedCategory
-        ? "No saved opportunities yet. Click 'Save Opportunity' on listings you want to keep."
-        : opportunities.length === 0
-          ? "No published opportunities yet. Please check back soon."
-          : "No matching opportunities found.",
-      "empty"
-    );
-
-    results.appendChild(message);
-    return;
+  results.replaceChildren();resultCount.textContent=filtered.length+' found';
+  if(!filtered.length){
+    const title=category==='Saved'?'No saved opportunities yet':opportunities.length===0?'No published opportunities yet':'No matching opportunities found';
+    const detail=category==='Saved'?'Use the Save Job button on a vacancy to keep it here.':opportunities.length===0?'New vacancies will appear here when they are published by the WantokHub admin.':'Try changing your search words or filters.';
+    const empty=document.createElement('div');empty.className='empty';empty.append(textElement('strong',title),textElement('span',detail));results.appendChild(empty);return;
   }
-
-  filtered.forEach(item => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    const title = createTextElement("h3", item.title);
-    const organisation = createTextElement("p", item.organisation);
-    const description = createTextElement("p", item.description);
-
-    const details = createTextElement(
-      "div",
-      "Type: " + (item.type || "Not specified") +
-      " | Province: " + (item.province || "Not specified") +
-      " | Deadline: " + (item.deadline || "Not specified"),
-      "details"
-    );
-
-    const verification = document.createElement("div");
-    verification.className = "verification";
-
-    const verificationHeading = createTextElement(
-      "strong",
-      "Opportunity Verification"
-    );
-
-    const source = createTextElement(
-      "div",
-      "Source: " + (item.source_name || "Not provided")
-    );
-
-    const checked = createTextElement(
-      "div",
-      "Last checked: " + (item.date_checked || "Not recorded")
-    );
-
-    const expiry = createTextElement(
-      "div",
-      "Expiry date: " + (item.expiry_date || "Not specified")
-    );
-
-    verification.append(
-      verificationHeading,
-      source,
-      checked,
-      expiry
-    );
-
-    if (item.source_url) {
-      try {
-        const sourceURL = new URL(item.source_url);
-        if (sourceURL.protocol === "https:") {
-          const sourceLink = document.createElement("a");
-          sourceLink.className = "source-link";
-          sourceLink.href = sourceURL.href;
-          sourceLink.target = "_blank";
-          sourceLink.rel = "noopener noreferrer";
-          sourceLink.textContent = "View Original Source";
-          verification.appendChild(sourceLink);
-        }
-      } catch (error) {
-        // Ignore invalid URLs
-      }
-    }
-
-    card.append(
-      title,
-      organisation,
-      description,
-      details,
-      verification
-    );
-
-    // Button container for Save and Apply actions
-    const btnGroup = document.createElement("div");
-    btnGroup.className = "btn-group";
-
-    const isBookmarked = BookmarkManager.isBookmarked(item.id);
-    const saveBtn = document.createElement("button");
-    saveBtn.type = "button";
-    saveBtn.className = `bookmark-btn ${isBookmarked ? "saved" : ""}`;
-    saveBtn.textContent = isBookmarked ? "Saved ⭐️" : "Save Opportunity 🤍";
-
-    saveBtn.addEventListener("click", () => {
-      BookmarkManager.toggleBookmark(item.id);
-      filterOpportunities();
-    });
-
-    btnGroup.appendChild(saveBtn);
-
-    if (item.application_url) {
-      try {
-        const applicationURL = new URL(item.application_url);
-        if (applicationURL.protocol === "https:") {
-          const link = document.createElement("a");
-          link.className = "apply";
-          link.href = applicationURL.href;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-          link.textContent = "Apply Now";
-          btnGroup.appendChild(link);
-        }
-      } catch (error) {
-        // Ignore invalid URLs
-      }
-    }
-
-    card.appendChild(btnGroup);
-    results.appendChild(card);
-  });
+  filtered.forEach(item=>results.appendChild(createCard(item)));
 }
-
-search.addEventListener("input", filterOpportunities);
-province.addEventListener("change", filterOpportunities);
-type.addEventListener("change", filterOpportunities);
-
+search.addEventListener('input',filterOpportunities);
+province.addEventListener('change',filterOpportunities);
+type.addEventListener('change',filterOpportunities);
 loadOpportunities();
 </script>
-
 </body>
 </html>
