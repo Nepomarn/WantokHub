@@ -60,8 +60,8 @@ footer p{margin:5px 0;color:#dcebe2}
 </style>
 </head>
 <body>
-<header><div class="header-inner"><h1>WantokHub 馃嚨馃嚞</h1><p>PNG Opportunity Hub 鈥� Find your next opportunity.</p></div></header>
-<nav><a href="index.html">鈫� Back to Home</a></nav>
+<header><div class="header-inner"><h1>WantokHub</h1><p>PNG Opportunity Hub - Find your next opportunity.</p></div></header>
+<nav><a href="index.html">&larr; Back to Home</a></nav>
 <main class="container">
   <section class="intro">
     <h2>Jobs & Opportunities Centre</h2>
@@ -85,12 +85,12 @@ footer p{margin:5px 0;color:#dcebe2}
     <button class="active" data-category="All" type="button">All Opportunities</button>
     <button data-category="Employment" type="button">Jobs & Employment</button>
     <button data-category="Scholarship" type="button">Scholarships</button>
-    <button data-category="Saved" type="button">Saved 猸�</button>
+    <button data-category="Saved" type="button">Saved</button>
   </div>
   <div class="results-heading"><h2 id="resultTitle">Latest Opportunities</h2><span id="resultCount" aria-live="polite">Loading...</span></div>
   <div id="results" aria-live="polite"><p class="empty">Loading opportunities...</p></div>
 </main>
-<footer><strong>WantokHub 馃嚨馃嚞</strong><p>Your education. Your career. Your opportunities.</p><small>Connecting Papua New Guineans to opportunities.</small></footer>
+<footer><strong>WantokHub</strong><p>Your education. Your career. Your opportunities.</p><small>Connecting Papua New Guineans to opportunities.</small></footer>
 <script>
 'use strict';
 const BookmarkManager={
@@ -152,7 +152,7 @@ function createCard(item){
   const sourceLink=safeLink(item.source_url,'View Original Source','source-link');if(sourceLink)verification.appendChild(sourceLink);
   card.appendChild(verification);
   const actions=document.createElement('div');actions.className='btn-group';
-  const saved=BookmarkManager.isBookmarked(item.id);const save=document.createElement('button');save.type='button';save.className='bookmark-btn'+(saved?' saved':'');save.textContent=saved?'Saved 猸�':'Save Job 鈾�';
+  const saved=BookmarkManager.isBookmarked(item.id);const save=document.createElement('button');save.type='button';save.className='bookmark-btn'+(saved?' saved':'');save.textContent=saved?'Saved':'Save Job';
   save.addEventListener('click',()=>{BookmarkManager.toggleBookmark(item.id);filterOpportunities()});actions.appendChild(save);
   const apply=safeLink(item.application_url,'Apply Now','apply');if(apply)actions.appendChild(apply);
   card.appendChild(actions);return card;
