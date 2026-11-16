@@ -130,9 +130,12 @@ input, select {
 }
 
 .source-link {
+  display: inline-block;
   color: #087b43;
   font-weight: bold;
   text-decoration: none;
+  margin-top: 8px;
+  margin-right: 12px;
 }
 
 .source-link:hover {
@@ -147,6 +150,28 @@ input, select {
   border-radius: 6px;
   text-decoration: none;
   margin-top: 12px;
+}
+
+.btn-group {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bookmark-btn {
+  background: #f1f7f2;
+  color: #087b43;
+  border: 1px solid #087b43;
+  padding: 11px 17px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.bookmark-btn.saved {
+  background: #dcebe2;
 }
 
 .notice {
@@ -213,7 +238,6 @@ footer {
   </div>
 
   <div class="search-box">
-
     <input
       type="search"
       id="search"
@@ -222,29 +246,29 @@ footer {
     >
 
     <select id="province" aria-label="Filter by province">
-      <option value="">All Provinces</option>
-      <option>National Capital District</option>
-      <option>Morobe</option>
-      <option>Eastern Highlands</option>
-      <option>Western Highlands</option>
-      <option>Madang</option>
-      <option>East New Britain</option>
-      <option>West New Britain</option>
-      <option>Milne Bay</option>
-      <option>Central</option>
-      <option>Enga</option>
-      <option>Southern Highlands</option>
-      <option>Western</option>
-      <option>Gulf</option>
-      <option>Oro</option>
-      <option>New Ireland</option>
-      <option>Manus</option>
-      <option>East Sepik</option>
-      <option>West Sepik</option>
-      <option>Chimbu</option>
-      <option>Jiwaka</option>
-      <option>Hela</option>
-      <option>Autonomous Region of Bougainville</option>
+      <option value="">All Provinces / Nationwide</option>
+      <option value="Morobe">Morobe Province (Lae)</option>
+      <option value="National Capital District">National Capital District (Port Moresby)</option>
+      <option value="East New Britain">East New Britain</option>
+      <option value="West New Britain">West New Britain</option>
+      <option value="Madang">Madang</option>
+      <option value="Eastern Highlands">Eastern Highlands</option>
+      <option value="Western Highlands">Western Highlands</option>
+      <option value="East Sepik">East Sepik</option>
+      <option value="West Sepik">West Sepik (Sandaun)</option>
+      <option value="Enga">Enga</option>
+      <option value="Southern Highlands">Southern Highlands</option>
+      <option value="Hela">Hela</option>
+      <option value="Jiwaka">Jiwaka</option>
+      <option value="Chimbu">Chimbu (Simbu)</option>
+      <option value="Milne Bay">Milne Bay</option>
+      <option value="Oro">Oro (Northern)</option>
+      <option value="Central">Central</option>
+      <option value="Gulf">Gulf</option>
+      <option value="Western">Western (Fly)</option>
+      <option value="New Ireland">New Ireland</option>
+      <option value="Manus">Manus</option>
+      <option value="Autonomous Region of Bougainville">Autonomous Region of Bougainville</option>
     </select>
 
     <select id="type" aria-label="Filter by opportunity type">
@@ -259,7 +283,6 @@ footer {
       <option value="Remote Job">Remote Jobs</option>
       <option value="Education Grant">Education Grants</option>
     </select>
-
   </div>
 
   <div class="tabs">
@@ -284,6 +307,26 @@ footer {
 </footer>
 
 <script>
+// Bookmark Utility Manager
+const BookmarkManager = {
+    getBookmarks() {
+        return JSON.parse(localStorage.getItem('wantok_bookmarks') || '[]');
+    },
+    toggleBookmark(id) {
+        let bookmarks = this.getBookmarks();
+        if (bookmarks.includes(id)) {
+            bookmarks = bookmarks.filter(bId => bId !== id);
+        } else {
+            bookmarks.push(id);
+        }
+        localStorage.setItem('wantok_bookmarks', JSON.stringify(bookmarks));
+        return bookmarks;
+    },
+    isBookmarked(id) {
+        return this.getBookmarks().includes(id);
+    }
+};
+
 let opportunities = [];
 let category = "All";
 
@@ -309,12 +352,10 @@ async function loadOpportunities() {
     }
 
     opportunities = data.opportunities || [];
-
     filterOpportunities();
 
   } catch (error) {
-    results.textContent =
-      "Unable to load opportunities. Please try again later.";
+    results.textContent = "Unable to load opportunities. Please try again later.";
   }
 }
 
@@ -338,11 +379,9 @@ document.querySelectorAll(".tabs button").forEach(button => {
 function createTextElement(tag, text, className = "") {
   const element = document.createElement(tag);
   element.textContent = text || "";
-
   if (className) {
     element.className = className;
   }
-
   return element;
 }
 
@@ -351,8 +390,8 @@ function filterOpportunities() {
   const selectedProvince = province.value;
   const selectedType = type.value;
 
-  const savedIDs = JSON.parse(localStorage.getItem("wantokhub_saved") || "[]");
   const isSavedCategory = (category === "Saved");
+  const savedIDs = BookmarkManager.getBookmarks();
 
   const filtered = opportunities.filter(item => {
     const text = (
@@ -438,6 +477,23 @@ function filterOpportunities() {
       expiry
     );
 
+    if (item.source_url) {
+      try {
+        const sourceURL = new URL(item.source_url);
+        if (sourceURL.protocol === "https:") {
+          const sourceLink = document.createElement("a");
+          sourceLink.className = "source-link";
+          sourceLink.href = sourceURL.href;
+          sourceLink.target = "_blank";
+          sourceLink.rel = "noopener noreferrer";
+          sourceLink.textContent = "View Original Source";
+          verification.appendChild(sourceLink);
+        }
+      } catch (error) {
+        // Ignore invalid URLs
+      }
+    }
+
     card.append(
       title,
       organisation,
@@ -446,53 +502,26 @@ function filterOpportunities() {
       verification
     );
 
-    if (item.source_url) {
-      try {
-        const sourceURL = new URL(item.source_url);
+    // Button container for Save and Apply actions
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "btn-group";
 
-        if (sourceURL.protocol === "https:") {
-          const sourceLink = document.createElement("a");
-          sourceLink.className = "source-link";
-          sourceLink.href = sourceURL.href;
-          sourceLink.target = "_blank";
-          sourceLink.rel = "noopener noreferrer";
-          sourceLink.textContent = "View Original Source";
-
-          verification.appendChild(sourceLink);
-        }
-      } catch (error) {
-        // Ignore invalid source links.
-      }
-    }
-
-    // Save / Bookmark button integration
-    const isBookmarked = savedIDs.includes(item.id);
+    const isBookmarked = BookmarkManager.isBookmarked(item.id);
     const saveBtn = document.createElement("button");
     saveBtn.type = "button";
-    saveBtn.className = "apply";
-    saveBtn.style.background = isBookmarked ? "#dcebe2" : "#f1f7f2";
-    saveBtn.style.color = "#087b43";
-    saveBtn.style.marginRight = "8px";
-    saveBtn.style.border = "1px solid #087b43";
+    saveBtn.className = `bookmark-btn ${isBookmarked ? "saved" : ""}`;
     saveBtn.textContent = isBookmarked ? "Saved ⭐️" : "Save Opportunity 🤍";
 
     saveBtn.addEventListener("click", () => {
-      let currentSaved = JSON.parse(localStorage.getItem("wantokhub_saved") || "[]");
-      if (currentSaved.includes(item.id)) {
-        currentSaved = currentSaved.filter(id => id !== item.id);
-      } else {
-        currentSaved.push(item.id);
-      }
-      localStorage.setItem("wantokhub_saved", JSON.stringify(currentSaved));
+      BookmarkManager.toggleBookmark(item.id);
       filterOpportunities();
     });
 
-    card.appendChild(saveBtn);
+    btnGroup.appendChild(saveBtn);
 
     if (item.application_url) {
       try {
         const applicationURL = new URL(item.application_url);
-
         if (applicationURL.protocol === "https:") {
           const link = document.createElement("a");
           link.className = "apply";
@@ -500,14 +529,14 @@ function filterOpportunities() {
           link.target = "_blank";
           link.rel = "noopener noreferrer";
           link.textContent = "Apply Now";
-
-          card.appendChild(link);
+          btnGroup.appendChild(link);
         }
       } catch (error) {
-        // Ignore invalid application links.
+        // Ignore invalid URLs
       }
     }
 
+    card.appendChild(btnGroup);
     results.appendChild(card);
   });
 }
@@ -518,40 +547,6 @@ type.addEventListener("change", filterOpportunities);
 
 loadOpportunities();
 </script>
-// Bookmark Utility Script
-const BookmarkManager = {
-    getBookmarks() {
-        return JSON.parse(localStorage.getItem('wantok_bookmarks') || '[]');
-    },
-    toggleBookmark(id) {
-        let bookmarks = this.getBookmarks();
-        if (bookmarks.includes(id)) {
-            bookmarks = bookmarks.filter(bId => bId !== id);
-        } else {
-            bookmarks.push(id);
-        }
-        localStorage.setItem('wantok_bookmarks', JSON.stringify(bookmarks));
-        return bookmarks;
-    },
-    isBookmarked(id) {
-        return this.getBookmarks().includes(id);
-    }
-};
-
-// Function to render bookmark button inside each opportunity card
-function createBookmarkButton(opportunityId) {
-    const isSaved = BookmarkManager.isBookmarked(opportunityId);
-    const btn = document.createElement('button');
-    btn.className = `bookmark-btn ${isSaved ? 'saved' : ''}`;
-    btn.innerHTML = isSaved ? '⭐ Saved' : '☆ Save';
-    btn.onclick = (e) => {
-        e.stopPropagation();
-        BookmarkManager.toggleBookmark(opportunityId);
-        btn.innerHTML = BookmarkManager.isBookmarked(opportunityId) ? '⭐ Saved' : '☆ Save';
-        btn.classList.toggle('saved');
-    };
-    return btn;
-}
 
 </body>
 </html>
