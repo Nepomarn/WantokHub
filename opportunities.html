@@ -518,6 +518,40 @@ type.addEventListener("change", filterOpportunities);
 
 loadOpportunities();
 </script>
+// Bookmark Utility Script
+const BookmarkManager = {
+    getBookmarks() {
+        return JSON.parse(localStorage.getItem('wantok_bookmarks') || '[]');
+    },
+    toggleBookmark(id) {
+        let bookmarks = this.getBookmarks();
+        if (bookmarks.includes(id)) {
+            bookmarks = bookmarks.filter(bId => bId !== id);
+        } else {
+            bookmarks.push(id);
+        }
+        localStorage.setItem('wantok_bookmarks', JSON.stringify(bookmarks));
+        return bookmarks;
+    },
+    isBookmarked(id) {
+        return this.getBookmarks().includes(id);
+    }
+};
+
+// Function to render bookmark button inside each opportunity card
+function createBookmarkButton(opportunityId) {
+    const isSaved = BookmarkManager.isBookmarked(opportunityId);
+    const btn = document.createElement('button');
+    btn.className = `bookmark-btn ${isSaved ? 'saved' : ''}`;
+    btn.innerHTML = isSaved ? '⭐ Saved' : '☆ Save';
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        BookmarkManager.toggleBookmark(opportunityId);
+        btn.innerHTML = BookmarkManager.isBookmarked(opportunityId) ? '⭐ Saved' : '☆ Save';
+        btn.classList.toggle('saved');
+    };
+    return btn;
+}
 
 </body>
 </html>
