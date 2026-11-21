@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WantokHub | PNG Opportunity Hub</title>
-<meta name="description" content="Find jobs, scholarships, education, career resources and professional document tools in Papua New Guinea[span_0](start_span)[span_0](end_span).">
+<meta name="description" content="Find jobs, scholarships, education, career resources, local businesses and professional document tools in Papua New Guinea.">
 <meta name="theme-color" content="#15803d">
 
 <style>
@@ -44,7 +44,7 @@ a {
   color: inherit;
 }
 
-button, input {
+button, input, select {
   font: inherit;
 }
 
@@ -357,39 +357,15 @@ section {
   margin-bottom: 14px;
 }
 
-.opportunity-type,
-.deadline-badge {
+.opportunity-type {
   display: inline-flex;
   align-items: center;
   padding: 6px 12px;
   border-radius: 30px;
   font-size: 12px;
   font-weight: 800;
-}
-
-.opportunity-type {
   background: var(--lightgreen);
   color: var(--darkgreen);
-}
-
-.deadline-badge {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.deadline-badge.today {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.deadline-badge.soon {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.deadline-badge.closed {
-  background: #e2e8f0;
-  color: #475569;
 }
 
 .opportunity-card h3 {
@@ -457,6 +433,160 @@ section {
 
 .view-all-btn:hover {
   background: var(--darkgreen);
+}
+
+/* LOCAL BUSINESSES */
+
+.businesses-section {
+  background: var(--bg);
+}
+
+.businesses-top-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+
+.businesses-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.businesses-filters input,
+.businesses-filters select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: white;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+.businesses-filters input:focus,
+.businesses-filters select:focus {
+  border-color: var(--green);
+}
+
+.biz-status-msg {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.biz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.biz-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.biz-card:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(21,128,61,0.08);
+}
+
+.biz-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.biz-name {
+  font-size: 18px;
+  color: var(--darkgreen);
+  overflow-wrap: anywhere;
+}
+
+.biz-verified-badge {
+  flex-shrink: 0;
+  background: var(--lightgreen);
+  color: var(--darkgreen);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 30px;
+}
+
+.biz-meta {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.biz-address {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.biz-desc {
+  font-size: 14px;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.biz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.biz-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--lightgreen);
+  color: var(--darkgreen);
+  transition: background 0.2s, color 0.2s;
+}
+
+.biz-action-btn:hover {
+  background: var(--green);
+  color: white;
+}
+
+.biz-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: var(--darkgreen);
+  border: 1.5px solid var(--green);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.biz-submit-btn:hover {
+  background: var(--green);
+  color: white;
 }
 
 /* HOW IT WORKS */
@@ -575,7 +705,7 @@ footer a:hover {
   font-size: 13px;
 }
 
-/* MOBILE NAV DRAWER */
+/* MOBILE NAV DRAWER & RESPONSIVE */
 
 @media(max-width: 768px) {
   .nav-links {
@@ -603,6 +733,10 @@ footer a:hover {
   .nav > .btn {
     display: none;
   }
+
+  .businesses-filters {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
@@ -621,6 +755,7 @@ footer a:hover {
       <a href="#home">Home</a>
       <a href="#services">Services</a>
       <a href="#opportunities">Opportunities</a>
+      <a href="#businesses">Businesses</a>
       <a href="/cv-builder.html">CV Builder</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
@@ -639,10 +774,10 @@ footer a:hover {
   <div class="container hero-content">
     <span class="tag">🇵🇬 BUILT FOR PAPUA NEW GUINEA</span>
     <h1>Your future starts <span>here.</span></h1>
-    <p>Discover jobs, scholarships, education, career opportunities and professional tools. Everything you need in one place.</p>
+    <p>Discover jobs, scholarships, education, career opportunities, local businesses and professional tools. Everything you need in one place.</p>
 
     <div class="search-box">
-      <input type="search" id="siteSearch" placeholder="Search jobs, CV tools, scholarships..." aria-label="Search website services">
+      <input type="search" id="siteSearch" placeholder="Search jobs, CV tools, scholarships, businesses..." aria-label="Search website services">
       <button class="btn" id="searchBtn" type="button">Search</button>
     </div>
 
@@ -670,7 +805,7 @@ footer a:hover {
   <div class="container">
     <div class="section-heading">
       <h2>Explore Our Services</h2>
-      <p>Everything students and job seekers need to move forward.</p>
+      <p>Everything students, job seekers and local businesses need to move forward.</p>
     </div>
 
     <div class="service-grid" id="serviceGrid">
@@ -695,18 +830,18 @@ footer a:hover {
         <span class="service-link">Build your CV →</span>
       </a>
 
+      <a href="#businesses" class="service-card" data-search="business directory local shops services companies morobe lae">
+        <div class="service-icon">🏪</div>
+        <h3>Local Businesses</h3>
+        <p>Browse local and verified businesses across Papua New Guinea or list your own.</p>
+        <span class="service-link">Browse businesses →</span>
+      </a>
+
       <a href="/opportunities.html" class="service-card" data-search="letters documents application cover letters templates">
         <div class="service-icon">📝</div>
         <h3>Document Centre</h3>
         <p>Prepare application letters, cover letters, business documents and more.</p>
         <span class="service-link">Explore documents →</span>
-      </a>
-
-      <a href="#learning" class="service-card" data-search="student learning courses study notes tutorials education">
-        <div class="service-icon">📚</div>
-        <h3>Student Learning</h3>
-        <p>Access study resources, tutorials, courses and examination preparation.</p>
-        <span class="service-link">Start learning →</span>
       </a>
 
       <a href="/opportunities.html" class="service-card" data-search="internships apprenticeships volunteer youth programs">
@@ -740,8 +875,54 @@ footer a:hover {
   </div>
 </section>
 
+<!-- LOCAL BUSINESSES -->
+<section class="businesses-section" id="businesses">
+  <div class="container">
+    <div class="businesses-top-bar">
+      <div>
+        <h2 style="color: var(--darkgreen); font-size: clamp(24px, 4vw, 32px);">Local Businesses</h2>
+        <p style="color: var(--muted); font-size: 15px;">Discover verified and community-listed businesses across Papua New Guinea.</p>
+      </div>
+      <a href="/business-submit.html" class="biz-submit-btn">+ List Your Business</a>
+    </div>
+
+    <div class="businesses-filters">
+      <input
+        type="search"
+        id="bizSearch"
+        placeholder="Search business name, town, or service..."
+        aria-label="Search businesses"
+      >
+
+      <select id="bizProvince" aria-label="Filter by province">
+        <option value="all">All Provinces</option>
+        <option value="Morobe" selected>Morobe</option>
+        <option value="National Capital District">NCD (Port Moresby)</option>
+        <option value="Eastern Highlands">Eastern Highlands</option>
+        <option value="Western Highlands">Western Highlands</option>
+        <option value="East New Britain">East New Britain</option>
+        <option value="Madang">Madang</option>
+      </select>
+
+      <select id="bizCategory" aria-label="Filter by category">
+        <option value="all">All Categories</option>
+        <option value="Retail & Trade">Retail &amp; Trade</option>
+        <option value="Food & Hospitality">Food &amp; Hospitality</option>
+        <option value="IT & Tech Services">IT &amp; Tech Services</option>
+        <option value="Construction & Hardware">Construction &amp; Hardware</option>
+        <option value="Transport & Logistics">Transport &amp; Logistics</option>
+        <option value="Health & Wellness">Health &amp; Wellness</option>
+        <option value="Agriculture & Services">Agriculture &amp; Services</option>
+      </select>
+    </div>
+
+    <div id="bizStatusMsg" class="biz-status-msg">Loading businesses...</div>
+    <div id="bizGrid" class="biz-grid"></div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
-<section id="about">
+<section id="about" style="background: white; border-top: 1px solid var(--border);">
   <div class="container">
     <div class="section-heading">
       <h2>How It Works</h2>
@@ -752,7 +933,7 @@ footer a:hover {
       <div class="step">
         <div class="step-number">1</div>
         <h3>Explore</h3>
-        <p>Discover employment, education and career resources tailored for PNG.</p>
+        <p>Discover employment, education, local businesses and career resources tailored for PNG.</p>
       </div>
       <div class="step">
         <div class="step-number">2</div>
@@ -761,8 +942,8 @@ footer a:hover {
       </div>
       <div class="step">
         <div class="step-number">3</div>
-        <h3>Apply</h3>
-        <p>Connect with verified opportunities and take the next step.</p>
+        <h3>Apply &amp; Connect</h3>
+        <p>Connect with verified opportunities and local businesses across PNG.</p>
       </div>
     </div>
   </div>
@@ -773,7 +954,7 @@ footer a:hover {
   <div class="container">
     <div class="cta">
       <h2>Ready to build your future?</h2>
-      <p>WantokHub connects Papua New Guineans to education, employment and opportunities.</p>
+      <p>WantokHub connects Papua New Guineans to education, employment, local businesses and opportunities.</p>
       <a href="/opportunities.html" class="btn">Explore Opportunities Now</a>
     </div>
   </div>
@@ -787,12 +968,14 @@ footer a:hover {
     <div class="footer-grid">
       <div>
         <h3>🇵🇬 WantokHub</h3>
-        <p>PNG Opportunity Hub — connecting Papua New Guineans to education, employment and opportunities.</p>
+        <p>PNG Opportunity Hub — connecting Papua New Guineans to education, employment, local businesses and opportunities.</p>
       </div>
       <div>
         <h4>Explore</h4>
         <a href="#services">Our Services</a>
         <a href="/opportunities.html">Opportunities</a>
+        <a href="#businesses">Local Businesses</a>
+        <a href="/business-submit.html">List a Business</a>
         <a href="/cv-builder.html">CV Builder</a>
       </div>
       <div>
@@ -846,11 +1029,10 @@ footer a:hover {
     background: white;
     border-radius: 16px;
     box-shadow: 0 10px 35px rgba(0,0,0,0.2);
-    display: flex;
+    display: none;
     flex-direction: column;
     overflow: hidden;
     border: 1px solid #e2e8e5;
-    display: none;
   }
   #wantok-chat-window.active {
     display: flex;
@@ -945,7 +1127,7 @@ footer a:hover {
     </div>
     <div class="chat-messages" id="wantokChatMessages">
       <div class="chat-message bot">
-        Ia! I am your Wantok Assistant. Ask me anything about current jobs, scholarships, or training opportunities in PNG! (e.g., "What scholarships are available?")
+        Ia! I am your Wantok Assistant. Ask me anything about current jobs, scholarships, local businesses, or training opportunities in PNG! (e.g., "What scholarships are available?")
       </div>
     </div>
     <form class="chat-input-area" id="wantokChatForm">
@@ -1047,7 +1229,7 @@ chatForm.addEventListener("submit", async (e) => {
     });
 
     const data = await response.json();
-    document.getElementById(typingId).remove();
+    document.getElementById(typingId)?.remove();
 
     if (response.ok && data.success) {
       appendMessage(data.reply, "bot");
@@ -1082,15 +1264,25 @@ async function loadLatestOpportunities() {
 
       const badges = document.createElement("div");
       badges.className = "opportunity-badges";
-      badges.appendChild(Object.assign(document.createElement("span"), { className: "opportunity-type", textContent: item.type || "Opportunity" }));
+      badges.appendChild(Object.assign(document.createElement("span"), {
+        className: "opportunity-type",
+        textContent: item.type || "Opportunity"
+      }));
 
       card.appendChild(badges);
-      card.appendChild(Object.assign(document.createElement("h3"), { textContent: item.title || "Untitled" }));
-      card.appendChild(Object.assign(document.createElement("p"), { className: "opportunity-organisation", textContent: item.organisation || "Organisation not specified" }));
+      card.appendChild(Object.assign(document.createElement("h3"), {
+        textContent: item.title || "Untitled"
+      }));
+      card.appendChild(Object.assign(document.createElement("p"), {
+        className: "opportunity-organisation",
+        textContent: item.organisation || "Organisation not specified"
+      }));
 
       const meta = document.createElement("div");
       meta.className = "opportunity-meta";
-      meta.innerHTML = `<span>📍 ${item.province || "PNG"}</span>`;
+      const locSpan = document.createElement("span");
+      locSpan.textContent = `📍 ${item.province || "PNG"}`;
+      meta.appendChild(locSpan);
       card.appendChild(meta);
 
       const link = document.createElement("a");
@@ -1101,12 +1293,171 @@ async function loadLatestOpportunities() {
 
       latestContainer.appendChild(card);
     });
-  } catch (error) {
+  } catch {
     latestContainer.innerHTML = '<div class="opportunity-status" style="grid-column:1/-1;"><strong>Unable to load opportunities</strong>Please check back later.</div>';
   }
 }
 
 loadLatestOpportunities();
+
+// Load Published Businesses
+(function () {
+  const gridEl = document.getElementById("bizGrid");
+  const statusEl = document.getElementById("bizStatusMsg");
+  const searchEl = document.getElementById("bizSearch");
+  const provinceEl = document.getElementById("bizProvince");
+  const categoryEl = document.getElementById("bizCategory");
+
+  if (!gridEl || !statusEl) return;
+
+  function sanitizeHttpUrl(url) {
+    if (!url) return "";
+    const trimmed = String(url).trim();
+    return /^https?:\/\//i.test(trimmed) ? trimmed : "";
+  }
+
+  function formatWhatsAppUrl(wa) {
+    if (!wa) return "";
+    const digits = String(wa).replace(/[^\d]/g, "");
+    return digits ? `https://wa.me/${digits}` : "";
+  }
+
+  function formatTelUrl(phone) {
+    if (!phone) return "";
+    const cleaned = String(phone).replace(/[^\d+]/g, "");
+    return cleaned ? `tel:${cleaned}` : "";
+  }
+
+  function createActionLink(label, href, external = true) {
+    const a = document.createElement("a");
+    a.textContent = label;
+    a.href = href;
+    a.className = "biz-action-btn";
+    if (external) {
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    }
+    return a;
+  }
+
+  function renderBusinesses(items) {
+    gridEl.replaceChildren();
+
+    if (!Array.isArray(items) || items.length === 0) {
+      statusEl.textContent = "No published businesses match your current filters.";
+      return;
+    }
+
+    statusEl.textContent = `${items.length} business${items.length === 1 ? "" : "es"} found`;
+
+    const fragment = document.createDocumentFragment();
+
+    for (const biz of items) {
+      const card = document.createElement("article");
+      card.className = "biz-card";
+
+      const topRow = document.createElement("div");
+      topRow.className = "biz-card-top";
+
+      const title = document.createElement("h3");
+      title.className = "biz-name";
+      title.textContent = biz.business_name || "Unnamed Business";
+      topRow.appendChild(title);
+
+      if (Number(biz.is_verified) === 1) {
+        const badge = document.createElement("span");
+        badge.className = "biz-verified-badge";
+        badge.textContent = "Verified";
+        topRow.appendChild(badge);
+      }
+
+      card.appendChild(topRow);
+
+      const meta = document.createElement("p");
+      meta.className = "biz-meta";
+      const locationParts = [biz.town, biz.province].filter(Boolean).join(", ");
+      meta.textContent = [biz.category, locationParts].filter(Boolean).join(" • ");
+      card.appendChild(meta);
+
+      if (biz.address) {
+        const addr = document.createElement("p");
+        addr.className = "biz-address";
+        addr.textContent = `📍 ${biz.address}`;
+        card.appendChild(addr);
+      }
+
+      const desc = document.createElement("p");
+      desc.className = "biz-desc";
+      desc.textContent = biz.description || "";
+      card.appendChild(desc);
+
+      const actions = document.createElement("div");
+      actions.className = "biz-actions";
+
+      const waUrl = formatWhatsAppUrl(biz.whatsapp);
+      if (waUrl) actions.appendChild(createActionLink("WhatsApp", waUrl, true));
+
+      const telUrl = formatTelUrl(biz.phone);
+      if (telUrl) actions.appendChild(createActionLink("Call", telUrl, false));
+
+      const webUrl = sanitizeHttpUrl(biz.website_url);
+      if (webUrl) actions.appendChild(createActionLink("Website", webUrl, true));
+
+      if (actions.childNodes.length > 0) {
+        card.appendChild(actions);
+      }
+
+      fragment.appendChild(card);
+    }
+
+    gridEl.appendChild(fragment);
+  }
+
+  async function loadBusinesses() {
+    statusEl.textContent = "Loading businesses...";
+    const params = new URLSearchParams();
+
+    const q = searchEl ? searchEl.value.trim() : "";
+    const province = provinceEl ? provinceEl.value : "all";
+    const category = categoryEl ? categoryEl.value : "all";
+
+    if (q) params.set("q", q);
+    if (province && province !== "all") params.set("province", province);
+    if (category && category !== "all") params.set("category", category);
+
+    const qs = params.toString();
+    const url = qs ? `/api/businesses?${qs}` : "/api/businesses";
+
+    try {
+      const res = await fetch(url, {
+        headers: { "Accept": "application/json" },
+        cache: "no-store"
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Could not load businesses.");
+      }
+
+      renderBusinesses(data.businesses || []);
+    } catch (err) {
+      gridEl.replaceChildren();
+      statusEl.textContent = err.message || "Unable to load businesses right now.";
+    }
+  }
+
+  let debounceTimer = null;
+  if (searchEl) {
+    searchEl.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(loadBusinesses, 250);
+    });
+  }
+  if (provinceEl) provinceEl.addEventListener("change", loadBusinesses);
+  if (categoryEl) categoryEl.addEventListener("change", loadBusinesses);
+
+  loadBusinesses();
+})();
 </script>
 
 </body>
