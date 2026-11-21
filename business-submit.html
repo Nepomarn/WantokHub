@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Submit your business to the WantokHub Business Directory and help customers discover your services in Papua New Guinea.">
+  <meta name="theme-color" content="#087b43">
+  <title>List Your Business | WantokHub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f7f5;
+      color: #26352d;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #087b43;
+      color: white;
+      padding: 18px 20px;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .brand {
+      font-size: 22px;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 35px auto;
+      padding: 0 16px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .intro h1 {
+      margin-bottom: 8px;
+      color: #087b43;
+      font-size: 30px;
+    }
+
+    .intro p {
+      color: #607067;
+    }
+
+    .form-card {
+      background: white;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    }
+
+    h2 {
+      font-size: 19px;
+      margin: 25px 0 14px;
+      color: #087b43;
+    }
+
+    h2:first-child {
+      margin-top: 0;
+    }
+
+    .field {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccd7d0;
+      border-radius: 7px;
+      font: inherit;
+      font-size: 15px;
+      background: white;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid #087b43;
+      border-color: #087b43;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .help {
+      display: block;
+      color: #68766e;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+
+    .required {
+      color: #c62828;
+    }
+
+    .notice {
+      background: #eef7f1;
+      border-left: 4px solid #087b43;
+      padding: 13px;
+      border-radius: 5px;
+      font-size: 13px;
+      margin: 20px 0;
+    }
+
+    .permission {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    .permission input {
+      width: auto;
+      margin-top: 5px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 7px;
+      padding: 14px;
+      background: #087b43;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #066536;
+    }
+
+    button:disabled {
+      background: #8ca99a;
+      cursor: not-allowed;
+    }
+
+    #message {
+      display: none;
+      padding: 13px;
+      border-radius: 7px;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    #message.success {
+      display: block;
+      background: #e8f5ec;
+      color: #176b36;
+    }
+
+    #message.error {
+      display: block;
+      background: #fdecec;
+      color: #a51f1f;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px;
+      color: #68766e;
+      font-size: 13px;
+    }
+
+    /* Hidden spam-prevention field */
+    .website-check {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
+
+    @media (max-width: 600px) {
+      .form-card {
+        padding: 20px 16px;
+      }
+
+      .intro h1 {
+        font-size: 25px;
+      }
+
+      .header-inner {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">WantokHub</a>
+    <a href="index.html">← Back to Home</a>
+  </div>
+</header>
+
+<main>
+  <div class="intro">
+    <h1>List Your Business</h1>
+    <p>Help customers discover your business and services through WantokHub.</p>
+  </div>
+
+  <div class="form-card">
+
+    <div id="message" role="status" aria-live="polite"></div>
+
+    <form id="businessForm">
+
+      <h2>Business Information</h2>
+
+      <div class="field">
+        <label for="business_name">Business Name <span class="required">*</span></label>
+        <input type="text" id="business_name" name="business_name" maxlength="120" required>
+      </div>
+
+      <div class="field">
+        <label for="category">Business Category <span class="required">*</span></label>
+        <select id="category" name="category" required>
+          <option value="">Select a category</option>
+          <option>Trades & Construction</option>
+          <option>Automotive</option>
+          <option>Food & Hospitality</option>
+          <option>Retail</option>
+          <option>Professional Services</option>
+          <option>Health & Beauty</option>
+          <option>Transport</option>
+          <option>Agriculture</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="description">Business Description <span class="required">*</span></label>
+        <textarea id="description" name="description" maxlength="2000" required placeholder="Describe your business, products or services..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="address">Business Address or Location</label>
+        <input type="text" id="address" name="address" maxlength="250" placeholder="Example: Lae, Morobe Province">
+      </div>
+
+      <h2>Public Contact Information</h2>
+      <p class="help">At least one contact method is required. These details may be displayed publicly after approval.</p>
+
+      <div class="field">
+        <label for="phone">Business Phone Number</label>
+        <input type="tel" id="phone" name="phone" maxlength="40" placeholder="Example: 7XX XXXXX">
+      </div>
+
+      <div class="field">
+        <label for="whatsapp">WhatsApp Number</label>
+        <input type="tel" id="whatsapp" name="whatsapp" maxlength="40" placeholder="Include country code if possible">
+      </div>
+
+      <div class="field">
+        <label for="email">Business Email</label>
+        <input type="email" id="email" name="email" maxlength="254">
+      </div>
+
+      <div class="field">
+        <label for="facebook_url">Facebook Page URL</label>
+        <input type="url" id="facebook_url" name="facebook_url" maxlength="500" placeholder="https://www.facebook.com/yourbusiness">
+      </div>
+
+      <div class="field">
+        <label for="business_website">Business Website</label>
+        <input type="url" id="business_website" name="business_website" maxlength="500" placeholder="https://www.example.com">
+      </div>
+
+      <div class="field">
+        <label for="logo_url">Business Logo Image URL</label>
+        <input type="url" id="logo_url" name="logo_url" maxlength="500" placeholder="Optional HTTPS image link">
+        <small class="help">You can leave this blank if you do not have a logo link.</small>
+      </div>
+
+      <h2>Your Submission Details</h2>
+      <p class="help">These details help our team contact you about your listing. They are not displayed as public business contact details.</p>
+
+      <div class="field">
+        <label for="submitted_by_name">Your Full Name <span class="required">*</span></label>
+        <input type="text" id="submitted_by_name" name="submitted_by_name" maxlength="120" required>
+      </div>
+
+      <div class="field">
+        <label for="submitted_by_email">Your Email Address</label>
+        <input type="email" id="submitted_by_email" name="submitted_by_email" maxlength="254">
+      </div>
+
+      <div class="field">
+        <label for="submitted_by_phone">Your Phone Number</label>
+        <input type="tel" id="submitted_by_phone" name="submitted_by_phone" maxlength="40">
+        <small class="help">Provide at least your email address or phone number so we can contact you.</small>
+      </div>
+
+      <!-- Hidden spam-prevention field -->
+      <div class="website-check" aria-hidden="true">
+        <label for="website_url">Leave this field empty</label>
+        <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="notice">
+        <strong>Review process:</strong> Your submission will be checked by the WantokHub team. It will not appear in the public directory until it has been reviewed and approved.
+      </div>
+
+      <label class="permission">
+        <input type="checkbox" id="permission_confirmed" required>
+        <span>I confirm that I am authorised to submit this business information and have permission to share the contact details and logo provided. <span class="required">*</span></span>
+      </label>
+
+      <button type="submit" id="submitButton">Submit Business Listing</button>
+
+    </form>
+  </div>
+</main>
+
+<footer>
+  © <span id="year"></span> WantokHub — PNG Opportunity Hub
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const form = document.getElementById("businessForm");
+  const button = document.getElementById("submitButton");
+  const message = document.getElementById("message");
+
+  function showMessage(text, type) {
+    message.textContent = text;
+    message.className = type;
+  }
+
+  form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    message.className = "";
+    message.textContent = "";
+
+    const data = {
+      business_name: form.business_name.value.trim(),
+      category: form.category.value,
+      description: form.description.value.trim(),
+      address: form.address.value.trim(),
+      phone: form.phone.value.trim(),
+      whatsapp: form.whatsapp.value.trim(),
+      email: form.email.value.trim(),
+      facebook_url: form.facebook_url.value.trim(),
+      business_website: form.business_website.value.trim(),
+      logo_url: form.logo_url.value.trim(),
+      submitted_by_name: form.submitted_by_name.value.trim(),
+      submitted_by_email: form.submitted_by_email.value.trim(),
+      submitted_by_phone: form.submitted_by_phone.value.trim(),
+      website_url: form.website_url.value.trim(),
+      permission_confirmed: document.getElementById("permission_confirmed").checked
+    };
+
+    if (!data.phone && !data.whatsapp && !data.email && !data.facebook_url) {
+      showMessage("Please provide at least one public business contact method.", "error");
+      return;
+    }
+
+    if (!data.submitted_by_email && !data.submitted_by_phone) {
+      showMessage("Please provide your email address or phone number so our team can contact you.", "error");
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Submitting...";
+
+    try {
+      const response = await fetch("/api/business-submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Your submission could not be completed. Please check your details and try again.");
+      }
+
+      showMessage(
+        result.message || "Thank you! Your business listing has been submitted for review.",
+        "success"
+      );
+
+      form.reset();
+
+    } catch (error) {
+      showMessage(error.message || "Something went wrong. Please try again later.", "error");
+    } finally {
+      button.disabled = false;
+      button.textContent = "Submit Business Listing";
+    }
+  });
+</script>
+
+</body>
+</html>
