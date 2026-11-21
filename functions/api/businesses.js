@@ -1,51 +1,45 @@
-function json(data, status = 200) {
-  return Response.json(data, {
-    status,
-    headers: {
-      "Cache-Control": "no-store"
-    }
-  });
-}
-
-export async function onRequestGet({ request, env }) {
-  if (!env.DB) {
-    return json(
-      { success: false, message: "Database is not configured." },
-      500
-    );
-  }
-
-  const url = new URL(request.url);
-  const province = (url.searchParams.get("province") || "").trim();
-  const town = (url.searchParams.get("town") || "").trim();
-  const category = (url.searchParams.get("category") || "").trim();
-  const q = (url.searchParams.get("q") || "").trim().toLowerCase();
-
-  const conditions = ["status = 'published'"];
-  const params = [];
-
-  if (province && province.toLowerCase() !== "all") {
-    conditions.push("province = ?");
-    params.push(province);
-  }
-
-  if (town && town.toLowerCase() !== "all") {
-    conditions.push("town = ?");
-    params.push(town);
-  }
-
-  if (category && category.toLowerCase() !== "all") {
-    conditions.push("category = ?");
-    params.push(category);
-  }
-
-  if (q) {
-    conditions.push("(LOWER(business_name) LIKE ? OR LOWER(description) LIKE ?)");
-    const pattern = `%${q}%`;
-    params.push(pattern, pattern);
-  }
+export async function onRequestGet(context) {
+  const { request, env } = context;
 
   try {
+    const db = env.DB;
+    if (!db) {
+      return Response.json(
+        { error: "Database binding (DB) is not configured." },
+        { status: 500 }
+      );
+    }
+
+    const url = new URL(request.url);
+    const province = (url.searchParams.get("province") || "").trim();
+    const town = (url.searchParams.get("town") || "").trim();
+    const category = (url.searchParams.get("category") || "").trim();
+    const q = (url.searchParams.get("q") || "").trim().toLowerCase();
+
+    const conditions = ["status = 'published'"];
+    const params = [];
+
+    if (province && province.toLowerCase() !== "all") {
+      conditions.push("province = ?");
+      params.push(province);
+    }
+
+    if (town && town.toLowerCase() !== "all") {
+      conditions.push("town = ?");
+      params.push(town);
+    }
+
+    if (category && category.toLowerCase() !== "all") {
+      conditions.push("category = ?");
+      params.push(category);
+    }
+
+    if (q) {
+      conditions.push("(LOWER(business_name) LIKE ? OR LOWER(description) LIKE ?)");
+      const pattern = `%${q}%`;
+      params.push(pattern, pattern);
+    }
+
     const sql = `
       SELECT
         id,
@@ -70,16 +64,15 @@ export async function onRequestGet({ request, env }) {
       ORDER BY is_verified DESC, created_at DESC
     `;
 
-    const result = await env.DB.prepare(sql).bind(...params).all();
+    const result = await db.prepare(sql).bind(...params).all();
 
-    return json({
-      success: true,
-      businesses: result.results || []
+    return Response.json({
+      businesses: result.results || [],
     });
-  } catch {
-    return json(
-      { success: false, message: "Unable to load businesses." },
-      500
+  } catch (err) {
+    return Response.json(
+      { error: "Failed to load businesses.", details: err.message },
+      { status: 500 }
     );
   }
 }
