@@ -1,4 +1,4 @@
-const allowedTypes = [
+const allowedOpportunityTypes = [
   "Job",
   "Scholarship",
   "Internship",
@@ -10,33 +10,27 @@ const allowedTypes = [
   "Education Grant"
 ];
 
-function json(data, status = 200, headers = {}) {
+function json(data, status = 200) {
   return Response.json(data, {
     status,
     headers: {
-      "Cache-Control": "no-store",
-      ...headers
+      "Cache-Control": "no-store"
     }
   });
 }
 
-function isValidHttpsUrl(value, maxLength = 2000) {
-  if (typeof value !== "string" || value.length > maxLength) {
-    return { valid: false, message: "Invalid link format or length." };
-  }
-  try {
-    const url = new URL(value.trim());
-    if (url.protocol !== "https:") {
-      return { valid: false, message: "All links must start with https://" };
-    }
-    return { valid: true };
-  } catch {
-    return { valid: false, message: "Please enter a valid web link starting with https://" };
-  }
+function validOrigin(request) {
+  const origin = request.headers.get("Origin");
+  return origin === new URL(request.url).origin;
 }
 
-function normalizePermission(val) {
-  return val === true || val === 1 || val === "1" || val === "true" || val === "on";
+function isHttpsUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 function slugifyBusinessName(name) {
@@ -70,28 +64,66 @@ async function generateUniqueSlug(db, businessName) {
   }
 }
 
-function validateOpportunitySubmission(data) {
-  if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return "Invalid form data.";
-  }
-
-  // Honeypot field check (catches automated spam bots)
-  if (data.website_url && data.website_url.trim() !== "") {
-    return "Spam detected.";
-  }
-
-  const required = [
-    "title",
-    "organisation",
-    "type",
-    "province",
-    "description",
-    "source_name"
-  ];
-
-  for (const field of required) {
+function validateBusinessSubmission(data) {
+  for (const field of ["business_name", "category", "description"]) {
     if (typeof data[field] !== "string" || !data[field].trim()) {
-      return `Please fill in the required field: ${field.replace("_", " ")}.`;
+      return `Please provide ${field.replace(/_/g, " ")}.`;
+    }
+  }
+
+  const permissionConfirmed =
+    data.permission_confirmed === true ||
+    data.permission_confirmed === 1 ||
+    data.permission_confirmed === "1" ||
+    data.permission_confirmed === "true" ||
+    data.permission_confirmed === "on";
+
+  if (!permissionConfirmed) {
+    return "Please confirm permission to list this business.";
+  }
+
+  const maxLengths = {
+    business_name: 200,
+    category: 120,
+    description: 4000,
+    province: 100,
+    town: 100,
+    address: 300,
+    phone: 60,
+    whatsapp: 60,
+    email: 160,
+    submitted_by_name: 160,
+    submitted_by_email: 160,
+    submitted_by_phone: 60
+  };
+
+  for (const [field, maxLen] of Object.entries(maxLengths)) {
+    if (data[field] !== undefined && data[field] !== null && data[field] !== "") {
+      if (typeof data[field] !== "string" || data[field].length > maxLen) {
+        return `Invalid ${field.replace(/_/g, " ")}.`;
+      }
+    }
+  }
+
+  for (const urlField of ["facebook_url", "website_url", "logo_url"]) {
+    if (data[urlField] !== undefined && data[urlField] !== null && data[urlField] !== "") {
+      if (
+        typeof data[urlField] !== "string" ||
+        data[urlField].length > 2000 ||
+        !isHttpsUrl(data[urlField].trim())
+      ) {
+        return `${urlField.replace(/_/g, " ")} must use HTTPS.`;
+      }
+    }
+  }
+
+  return null;
+}
+
+function validateOpportunitySubmission(data) {
+  for (const field of ["title", "organisation", "type", "province", "description"]) {
+    if (typeof data[field] !== "string" || !data[field].trim()) {
+      return `Please provide ${field}.`;
     }
   }
 
@@ -99,101 +131,35 @@ function validateOpportunitySubmission(data) {
     data.title.length > 200 ||
     data.organisation.length > 200 ||
     data.province.length > 100 ||
-    data.description.length > 5000 ||
-    data.source_name.length > 200
+    data.description.length > 5000
   ) {
-    return "One or more fields exceed the maximum allowed length.";
+    return "One or more fields are too long.";
   }
 
-  if (!allowedTypes.includes(data.type)) {
-    return "Invalid opportunity type selected.";
+  if (!allowedOpportunityTypes.includes(data.type)) {
+    return "Invalid opportunity type.";
   }
 
-  const optionalTextLimits = {
+  for (const [field, maxLen] of Object.entries({
     requirements: 2000,
-    deadline: 200
-  };
-
-  for (const [field, maxLength] of Object.entries(optionalTextLimits)) {
-    if (
-      data[field] !== undefined &&
-      data[field] !== null &&
-      (typeof data[field] !== "string" || data[field].length > maxLength)
-    ) {
-      return `Invalid ${field}.`;
-    }
-  }
-
-  if (data.expiry_date && data.expiry_date !== "") {
-    if (
-      typeof data.expiry_date !== "string" ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(data.expiry_date)
-    ) {
-      return "Invalid expiry date format.";
-    }
-  }
-
-  for (const field of ["application_url", "source_url"]) {
-    if (data[field] && data[field].trim() !== "") {
-      const check = isValidHttpsUrl(data[field], 2000);
-      if (!check.valid) {
-        return check.message;
-      }
-    }
-  }
-
-  return null;
-}
-
-function validateBusinessSubmission(data) {
-  if (!data || typeof data !== "object" || Array.isArray(data)) {
-    return "Invalid form data.";
-  }
-
-  // Dedicated honeypot field so legitimate business website_url isn't blocked
-  if (data._hp && String(data._hp).trim() !== "") {
-    return "Spam detected.";
-  }
-
-  const required = ["business_name", "category", "description"];
-  for (const field of required) {
-    if (typeof data[field] !== "string" || !data[field].trim()) {
-      return `Please fill in the required field: ${field.replace(/_/g, " ")}.`;
-    }
-  }
-
-  if (!normalizePermission(data.permission_confirmed)) {
-    return "You must confirm permission to list this business.";
-  }
-
-  const maxLengths = {
-    business_name: 200,
-    category: 120,
-    description: 5000,
-    province: 100,
-    town: 100,
-    address: 300,
-    phone: 60,
-    whatsapp: 60,
-    email: 200,
-    submitted_by_name: 200,
-    submitted_by_email: 200,
-    submitted_by_phone: 60
-  };
-
-  for (const [field, maxLen] of Object.entries(maxLengths)) {
-    if (data[field] !== undefined && data[field] !== null) {
+    deadline: 2000,
+    source_name: 200
+  })) {
+    if (data[field] !== undefined && data[field] !== null && data[field] !== "") {
       if (typeof data[field] !== "string" || data[field].length > maxLen) {
-        return `Invalid or overly long ${field.replace(/_/g, " ")}.`;
+        return `Invalid ${field}.`;
       }
     }
   }
 
-  for (const urlField of ["facebook_url", "website_url", "logo_url"]) {
-    if (data[urlField] && String(data[urlField]).trim() !== "") {
-      const check = isValidHttpsUrl(String(data[urlField]), 2000);
-      if (!check.valid) {
-        return check.message;
+  for (const urlField of ["application_url", "source_url"]) {
+    if (data[urlField] !== undefined && data[urlField] !== null && data[urlField] !== "") {
+      if (
+        typeof data[urlField] !== "string" ||
+        data[urlField].length > 2000 ||
+        !isHttpsUrl(data[urlField].trim())
+      ) {
+        return `${urlField} must use HTTPS.`;
       }
     }
   }
@@ -201,149 +167,158 @@ function validateBusinessSubmission(data) {
   return null;
 }
 
-async function handleOpportunityPost(db, data) {
-  const validationError = validateOpportunitySubmission(data);
-  if (validationError) {
-    return json({ success: false, message: validationError }, 400);
+async function handleBusiness(data, env) {
+  const error = validateBusinessSubmission(data);
+  if (error) {
+    return json({ success: false, message: error }, 400);
   }
 
-  // Insert into D1 database strictly as a 'draft' for admin review
-  await db.prepare(`
-    INSERT INTO opportunities (
-      title,
-      organisation,
-      type,
-      province,
-      description,
-      requirements,
-      deadline,
-      application_url,
-      source_url,
-      source_name,
-      expiry_date,
-      status
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft')
-  `).bind(
-    data.title.trim(),
-    data.organisation.trim(),
-    data.type,
-    data.province.trim(),
-    data.description.trim(),
-    (data.requirements || "").trim(),
-    (data.deadline || "").trim(),
-    (data.application_url || "").trim(),
-    (data.source_url || "").trim(),
-    data.source_name.trim(),
-    (data.expiry_date || "").trim()
-  ).run();
+  try {
+    const slug = await generateUniqueSlug(env.DB, data.business_name);
 
-  return json({
-    success: true,
-    message: "Thank you! Your opportunity has been submitted and is pending admin review."
-  }, 201);
+    const result = await env.DB.prepare(`
+      INSERT INTO businesses (
+        business_name,
+        slug,
+        category,
+        description,
+        province,
+        town,
+        address,
+        phone,
+        whatsapp,
+        email,
+        facebook_url,
+        website_url,
+        logo_url,
+        submitted_by_name,
+        submitted_by_email,
+        submitted_by_phone,
+        submission_source,
+        status,
+        permission_confirmed,
+        is_verified
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'owner', 'pending', 1, 0)
+    `)
+      .bind(
+        data.business_name.trim(),
+        slug,
+        data.category.trim(),
+        data.description.trim(),
+        (typeof data.province === "string" && data.province.trim()) || "Morobe",
+        (typeof data.town === "string" && data.town.trim()) || "Lae",
+        data.address?.trim() || null,
+        data.phone?.trim() || null,
+        data.whatsapp?.trim() || null,
+        data.email?.trim() || null,
+        data.facebook_url?.trim() || null,
+        data.website_url?.trim() || null,
+        data.logo_url?.trim() || null,
+        data.submitted_by_name?.trim() || null,
+        data.submitted_by_email?.trim() || null,
+        data.submitted_by_phone?.trim() || null
+      )
+      .run();
+
+    return json(
+      {
+        success: true,
+        message: "Business submitted for review.",
+        id: result.meta?.last_row_id ?? null,
+        slug
+      },
+      201
+    );
+  } catch {
+    return json(
+      { success: false, message: "Unable to submit business." },
+      500
+    );
+  }
 }
 
-async function handleBusinessPost(db, data) {
-  const validationError = validateBusinessSubmission(data);
-  if (validationError) {
-    return json({ success: false, message: validationError }, 400);
+async function handleOpportunity(data, env) {
+  const error = validateOpportunitySubmission(data);
+  if (error) {
+    return json({ success: false, message: error }, 400);
   }
 
-  const businessName = data.business_name.trim();
-  const category = data.category.trim();
-  const description = data.description.trim();
-  const province = (data.province || "Morobe").trim() || "Morobe";
-  const town = (data.town || "Lae").trim() || "Lae";
-  const address = (data.address || "").trim() || null;
-  const phone = (data.phone || "").trim() || null;
-  const whatsapp = (data.whatsapp || "").trim() || null;
-  const email = (data.email || "").trim() || null;
-  const facebookUrl = (data.facebook_url || "").trim() || null;
-  const websiteUrl = (data.website_url || "").trim() || null;
-  const logoUrl = (data.logo_url || "").trim() || null;
-  const submittedByName = (data.submitted_by_name || "").trim() || null;
-  const submittedByEmail = (data.submitted_by_email || "").trim() || null;
-  const submittedByPhone = (data.submitted_by_phone || "").trim() || null;
+  try {
+    const result = await env.DB.prepare(`
+      INSERT INTO opportunities (
+        title,
+        organisation,
+        type,
+        province,
+        description,
+        requirements,
+        deadline,
+        application_url,
+        source_url,
+        source_name,
+        status
+      )
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'draft')
+    `)
+      .bind(
+        data.title.trim(),
+        data.organisation.trim(),
+        data.type,
+        data.province.trim(),
+        data.description.trim(),
+        data.requirements?.trim() || "",
+        data.deadline?.trim() || "",
+        data.application_url?.trim() || "",
+        data.source_url?.trim() || "",
+        data.source_name?.trim() || ""
+      )
+      .run();
 
-  const slug = await generateUniqueSlug(db, businessName);
-
-  // Insert into D1 database as 'pending' with permission_confirmed = 1
-  await db.prepare(`
-    INSERT INTO businesses (
-      business_name,
-      slug,
-      category,
-      description,
-      province,
-      town,
-      address,
-      phone,
-      whatsapp,
-      email,
-      facebook_url,
-      website_url,
-      logo_url,
-      submitted_by_name,
-      submitted_by_email,
-      submitted_by_phone,
-      submission_source,
-      status,
-      permission_confirmed,
-      is_verified
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'owner', 'pending', 1, 0)
-  `).bind(
-    businessName,
-    slug,
-    category,
-    description,
-    province,
-    town,
-    address,
-    phone,
-    whatsapp,
-    email,
-    facebookUrl,
-    websiteUrl,
-    logoUrl,
-    submittedByName,
-    submittedByEmail,
-    submittedByPhone
-  ).run();
-
-  return json({
-    success: true,
-    slug,
-    message: "Thank you! Your business has been submitted and is pending admin review."
-  }, 201);
+    return json(
+      {
+        success: true,
+        message: "Opportunity submitted for review.",
+        id: result.meta?.last_row_id ?? null
+      },
+      201
+    );
+  } catch {
+    return json(
+      { success: false, message: "Unable to submit opportunity." },
+      500
+    );
+  }
 }
 
 export async function onRequestPost({ request, env }) {
-  try {
-    if (!env.DB) {
-      return json({ success: false, message: "Database not configured." }, 500);
-    }
-
-    const contentType = request.headers.get("Content-Type") || "";
-    if (!contentType.includes("application/json")) {
-      return json({ success: false, message: "Invalid request format." }, 415);
-    }
-
-    const data = await request.json();
-    const kind = String(data?.submission_type || data?.kind || data?.entity_type || "")
-      .trim()
-      .toLowerCase();
-
-    if (kind === "business") {
-      return await handleBusinessPost(env.DB, data);
-    }
-
-    return await handleOpportunityPost(env.DB, data);
-  } catch (error) {
-    return json({
-      success: false,
-      message: "Unable to submit right now. Please try again later."
-    }, 500);
+  if (!validOrigin(request)) {
+    return json({ success: false, message: "Invalid request origin." }, 403);
   }
+
+  if (!env.DB) {
+    return json({ success: false, message: "Database is not configured." }, 500);
+  }
+
+  const contentType = request.headers.get("Content-Type") || "";
+  if (!contentType.includes("application/json")) {
+    return json({ success: false, message: "Invalid content type." }, 400);
+  }
+
+  let data;
+  try {
+    data = await request.json();
+  } catch {
+    return json({ success: false, message: "Invalid information." }, 400);
+  }
+
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    return json({ success: false, message: "Invalid information." }, 400);
+  }
+
+  if (data.submission_type === "business" || data.kind === "business") {
+    return handleBusiness(data, env);
+  }
+
+  return handleOpportunity(data, env);
 }
