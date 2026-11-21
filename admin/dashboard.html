@@ -28,6 +28,13 @@
 
     header h2 { margin: 0; }
 
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     button {
       border: 0;
       padding: 11px 15px;
@@ -41,9 +48,19 @@
       cursor: not-allowed;
     }
 
-    .logout {
+    .tab-btn {
+      background: rgba(255, 255, 255, 0.18);
+      color: white;
+    }
+
+    .tab-btn.active {
       background: white;
       color: #168447;
+    }
+
+    .logout {
+      background: #105e32;
+      color: white;
     }
 
     main {
@@ -103,6 +120,23 @@
       gap: 12px;
     }
 
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .checkbox-row label {
+      margin: 0;
+      font-weight: bold;
+    }
+
     .primary {
       background: #168447;
       color: white;
@@ -137,13 +171,45 @@
       line-height: 1.5;
     }
 
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
     .status {
       display: inline-block;
       padding: 5px 9px;
       border-radius: 20px;
       font-size: 12px;
+      font-weight: bold;
       background: #edf2ee;
       margin: 8px 0;
+    }
+
+    .badge-row .status {
+      margin: 0;
+    }
+
+    .status.published {
+      background: #e2f5e8;
+      color: #16713c;
+    }
+
+    .status.pending {
+      background: #fff5db;
+      color: #8a5a00;
+    }
+
+    .status.rejected {
+      background: #ffe9e9;
+      color: #a52a2a;
+    }
+
+    .status.verified {
+      background: #e7f0ff;
+      color: #24549a;
     }
 
     .verification {
@@ -151,6 +217,10 @@
       border-radius: 7px;
       padding: 10px;
       margin-top: 10px;
+    }
+
+    .verification p {
+      margin: 3px 0;
     }
 
     .actions {
@@ -162,6 +232,7 @@
 
     .edit { background: #e7f0ff; color: #24549a; }
     .publish { background: #e2f5e8; color: #16713c; }
+    .warn { background: #fff5db; color: #8a5a00; }
     .delete { background: #ffe9e9; color: #a52a2a; }
 
     .empty {
@@ -169,6 +240,8 @@
       text-align: center;
       color: #65736a;
     }
+
+    [hidden] { display: none !important; }
 
     @media (max-width: 600px) {
       .stats { grid-template-columns: 1fr; }
@@ -182,189 +255,382 @@
 <header>
   <div>
     <h2>WantokHub Admin</h2>
-    <small>Opportunity Management</small>
+    <small id="headerSubtitle">Opportunity &amp; Business Management</small>
   </div>
-  <button class="logout" id="logoutButton">Logout</button>
+  <div class="header-actions">
+    <button type="button" class="tab-btn active" id="tabOpportunitiesBtn">Opportunities</button>
+    <button type="button" class="tab-btn" id="tabBusinessesBtn">Businesses (<span id="pendingBizBadge">0</span>)</button>
+    <button type="button" class="logout" id="logoutButton">Logout</button>
+  </div>
 </header>
 
 <main>
 
-  <section class="stats">
-    <div class="stat">
-      Total Opportunities
-      <strong id="totalCount">0</strong>
-    </div>
-    <div class="stat">
-      Published
-      <strong id="publishedCount">0</strong>
-    </div>
-    <div class="stat">
-      Drafts
-      <strong id="draftCount">0</strong>
-    </div>
-  </section>
-
-  <section class="panel" id="formPanel">
-    <h3 id="formTitle">Add New Opportunity</h3>
-
-    <form id="opportunityForm">
-
-      <input type="hidden" id="opportunityId">
-
-      <label for="title">Opportunity Title *</label>
-      <input id="title" maxlength="200" required
-        placeholder="Example: IT Support Officer">
-
-      <div class="form-grid">
-        <div>
-          <label for="organisation">Organisation *</label>
-          <input id="organisation" maxlength="200" required
-            placeholder="Company or institution">
-        </div>
-
-        <div>
-          <label for="type">Opportunity Type *</label>
-          <select id="type" required>
-            <option value="Job">Job</option>
-            <option value="Scholarship">Scholarship</option>
-            <option value="Internship">Internship</option>
-            <option value="Training">Training</option>
-            <option value="Apprenticeship">Apprenticeship</option>
-            <option value="Graduate Program">Graduate Program</option>
-            <option value="Casual/Part-time">Casual/Part-time</option>
-            <option value="Remote Job">Remote Job</option>
-            <option value="Education Grant">Education Grant</option>
-          </select>
-        </div>
+  <!-- ==================== OPPORTUNITIES SECTION ==================== -->
+  <div id="opportunitiesSection">
+    <section class="stats">
+      <div class="stat">
+        Total Opportunities
+        <strong id="totalCount">0</strong>
       </div>
-
-      <label for="province">Province *</label>
-      <select id="province" required>
-        <option value="">Select province</option>
-        <option>National Capital District</option>
-        <option>Central</option>
-        <option>Morobe</option>
-        <option>Eastern Highlands</option>
-        <option>Western Highlands</option>
-        <option>Southern Highlands</option>
-        <option>Enga</option>
-        <option>Hela</option>
-        <option>Jiwaka</option>
-        <option>Chimbu</option>
-        <option>East Sepik</option>
-        <option>West Sepik</option>
-        <option>Madang</option>
-        <option>East New Britain</option>
-        <option>West New Britain</option>
-        <option>New Ireland</option>
-        <option>Manus</option>
-        <option>Milne Bay</option>
-        <option>Oro</option>
-        <option>Gulf</option>
-        <option>Western</option>
-        <option>Autonomous Region of Bougainville</option>
-      </select>
-
-      <label for="description">Description *</label>
-      <textarea id="description" maxlength="5000" required
-        placeholder="Describe the opportunity..."></textarea>
-
-      <label for="requirements">Requirements</label>
-      <textarea id="requirements" maxlength="2000"
-        placeholder="Qualifications, experience and eligibility..."></textarea>
-
-      <div class="form-grid">
-        <div>
-          <label for="deadline">Application Deadline</label>
-          <input id="deadline" maxlength="2000"
-            placeholder="Example: 30 November 2026">
-        </div>
-
-        <div>
-          <label for="status">Publication Status</label>
-          <select id="status">
-            <option value="draft">Save as Draft</option>
-            <option value="published">Publish Now</option>
-          </select>
-        </div>
+      <div class="stat">
+        Published
+        <strong id="publishedCount">0</strong>
       </div>
+      <div class="stat">
+        Drafts
+        <strong id="draftCount">0</strong>
+      </div>
+    </section>
 
-      <label for="applicationUrl">Application Link (HTTPS)</label>
-      <input id="applicationUrl" type="url"
-        placeholder="https://example.com/apply">
+    <section class="panel" id="formPanel">
+      <h3 id="formTitle">Add New Opportunity</h3>
 
-      <label for="sourceUrl">Original Source Link (HTTPS)</label>
-      <input id="sourceUrl" type="url"
-        placeholder="https://example.com/vacancy">
+      <form id="opportunityForm">
 
-      <hr style="border:0;border-top:1px solid #e1e8e2;margin:22px 0;">
+        <input type="hidden" id="opportunityId">
 
-      <h3>Opportunity Verification</h3>
+        <label for="title">Opportunity Title *</label>
+        <input id="title" maxlength="200" required
+          placeholder="Example: IT Support Officer">
+
+        <div class="form-grid">
+          <div>
+            <label for="organisation">Organisation *</label>
+            <input id="organisation" maxlength="200" required
+              placeholder="Company or institution">
+          </div>
+
+          <div>
+            <label for="type">Opportunity Type *</label>
+            <select id="type" required>
+              <option value="Job">Job</option>
+              <option value="Scholarship">Scholarship</option>
+              <option value="Internship">Internship</option>
+              <option value="Training">Training</option>
+              <option value="Apprenticeship">Apprenticeship</option>
+              <option value="Graduate Program">Graduate Program</option>
+              <option value="Casual/Part-time">Casual/Part-time</option>
+              <option value="Remote Job">Remote Job</option>
+              <option value="Education Grant">Education Grant</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="province">Province *</label>
+        <select id="province" required>
+          <option value="">Select province</option>
+          <option>National Capital District</option>
+          <option>Central</option>
+          <option>Morobe</option>
+          <option>Eastern Highlands</option>
+          <option>Western Highlands</option>
+          <option>Southern Highlands</option>
+          <option>Enga</option>
+          <option>Hela</option>
+          <option>Jiwaka</option>
+          <option>Chimbu</option>
+          <option>East Sepik</option>
+          <option>West Sepik</option>
+          <option>Madang</option>
+          <option>East New Britain</option>
+          <option>West New Britain</option>
+          <option>New Ireland</option>
+          <option>Manus</option>
+          <option>Milne Bay</option>
+          <option>Oro</option>
+          <option>Gulf</option>
+          <option>Western</option>
+          <option>Autonomous Region of Bougainville</option>
+        </select>
+
+        <label for="description">Description *</label>
+        <textarea id="description" maxlength="5000" required
+          placeholder="Describe the opportunity..."></textarea>
+
+        <label for="requirements">Requirements</label>
+        <textarea id="requirements" maxlength="2000"
+          placeholder="Qualifications, experience and eligibility..."></textarea>
+
+        <div class="form-grid">
+          <div>
+            <label for="deadline">Application Deadline</label>
+            <input id="deadline" maxlength="2000"
+              placeholder="Example: 30 November 2026">
+          </div>
+
+          <div>
+            <label for="status">Publication Status</label>
+            <select id="status">
+              <option value="draft">Save as Draft</option>
+              <option value="published">Publish Now</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="applicationUrl">Application Link (HTTPS)</label>
+        <input id="applicationUrl" type="url"
+          placeholder="https://example.com/apply">
+
+        <label for="sourceUrl">Original Source Link (HTTPS)</label>
+        <input id="sourceUrl" type="url"
+          placeholder="https://example.com/vacancy">
+
+        <hr style="border:0;border-top:1px solid #e1e8e2;margin:22px 0;">
+
+        <h3>Opportunity Verification</h3>
+        <p class="muted">
+          Record where you found this opportunity, when you checked it,
+          and when it should expire.
+        </p>
+
+        <label for="sourceName">Source Name</label>
+        <input id="sourceName" maxlength="200"
+          placeholder="Example: PNG Job Seek, company website, newspaper">
+
+        <div class="form-grid">
+          <div>
+            <label for="dateChecked">Date Checked</label>
+            <input id="dateChecked" type="date">
+          </div>
+
+          <div>
+            <label for="expiryDate">Expiry Date</label>
+            <input id="expiryDate" type="date">
+          </div>
+        </div>
+
+        <button class="primary" type="submit" id="saveButton">
+          Save Opportunity
+        </button>
+
+        <button class="secondary" type="button" id="cancelButton" hidden>
+          Cancel Edit
+        </button>
+
+        <p class="message" id="formMessage" role="status"></p>
+
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Manage Opportunities</h3>
       <p class="muted">
-        Record where you found this opportunity, when you checked it,
-        and when it should expire.
+        Review your listings, edit details, publish drafts or remove outdated opportunities.
       </p>
 
-      <label for="sourceName">Source Name</label>
-      <input id="sourceName" maxlength="200"
-        placeholder="Example: PNG Job Seek, company website, newspaper">
-
-      <div class="form-grid">
-        <div>
-          <label for="dateChecked">Date Checked</label>
-          <input id="dateChecked" type="date">
-        </div>
-
-        <div>
-          <label for="expiryDate">Expiry Date</label>
-          <input id="expiryDate" type="date">
-        </div>
+      <div class="form-grid" style="margin: 15px 0;">
+        <input id="adminSearch" type="search" placeholder="Search by title or organisation..." aria-label="Search opportunities">
+        <select id="adminStatusFilter" aria-label="Filter by status">
+          <option value="">All Statuses</option>
+          <option value="published">Published</option>
+          <option value="draft">Drafts</option>
+        </select>
       </div>
 
-      <button class="primary" type="submit" id="saveButton">
-        Save Opportunity
-      </button>
+      <div id="opportunityList">
+        <p class="empty">Loading opportunities...</p>
+      </div>
+    </section>
+  </div>
 
-      <button class="secondary" type="button" id="cancelButton" hidden>
-        Cancel Edit
-      </button>
+  <!-- ==================== BUSINESSES SECTION ==================== -->
+  <div id="businessesSection" hidden>
+    <section class="stats">
+      <div class="stat">
+        Pending Review
+        <strong id="bizPendingCount">0</strong>
+      </div>
+      <div class="stat">
+        Published Businesses
+        <strong id="bizPublishedCount">0</strong>
+      </div>
+      <div class="stat">
+        Verified
+        <strong id="bizVerifiedCount">0</strong>
+      </div>
+    </section>
 
-      <p class="message" id="formMessage" role="status"></p>
+    <section class="panel" id="bizFormPanel">
+      <h3 id="bizFormTitle">Add / Edit Business Listing</h3>
 
-    </form>
-  </section>
+      <form id="businessForm">
+        <input type="hidden" id="businessId">
 
-  <section class="panel">
-    <h3>Manage Opportunities</h3>
-    <p class="muted">
-      Review your listings, edit details, publish drafts or remove outdated opportunities.
-    </p>
+        <div class="form-grid">
+          <div>
+            <label for="bizName">Business Name *</label>
+            <input id="bizName" maxlength="200" required
+              placeholder="Example: Lae Tech Solutions">
+          </div>
 
-    <!-- NEW: Search and Status Filter Controls -->
-    <div class="form-grid" style="margin: 15px 0;">
-      <input id="adminSearch" type="search" placeholder="Search by title or organisation..." aria-label="Search opportunities">
-      <select id="adminStatusFilter" aria-label="Filter by status">
-        <option value="">All Statuses</option>
-        <option value="published">Published</option>
-        <option value="draft">Drafts</option>
-      </select>
-    </div>
+          <div>
+            <label for="bizCategory">Category *</label>
+            <input id="bizCategory" maxlength="120" required list="bizCategoryList"
+              placeholder="Example: IT & Tech Services">
+            <datalist id="bizCategoryList">
+              <option value="Retail & Trade">
+              <option value="Food & Hospitality">
+              <option value="IT & Tech Services">
+              <option value="Construction & Hardware">
+              <option value="Transport & Logistics">
+              <option value="Health & Wellness">
+              <option value="Agriculture & Services">
+              <option value="Education & Training">
+              <option value="Professional Services">
+            </datalist>
+          </div>
+        </div>
 
-    <div id="opportunityList">
-      <p class="empty">Loading opportunities...</p>
-    </div>
-  </section>
+        <div class="form-grid">
+          <div>
+            <label for="bizProvince">Province *</label>
+            <select id="bizProvince" required>
+              <option value="Morobe" selected>Morobe</option>
+              <option>National Capital District</option>
+              <option>Central</option>
+              <option>Eastern Highlands</option>
+              <option>Western Highlands</option>
+              <option>Southern Highlands</option>
+              <option>Enga</option>
+              <option>Hela</option>
+              <option>Jiwaka</option>
+              <option>Chimbu</option>
+              <option>East Sepik</option>
+              <option>West Sepik</option>
+              <option>Madang</option>
+              <option>East New Britain</option>
+              <option>West New Britain</option>
+              <option>New Ireland</option>
+              <option>Manus</option>
+              <option>Milne Bay</option>
+              <option>Oro</option>
+              <option>Gulf</option>
+              <option>Western</option>
+              <option>Autonomous Region of Bougainville</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="bizTown">Town / City *</label>
+            <input id="bizTown" maxlength="120" required value="Lae"
+              placeholder="Example: Lae">
+          </div>
+        </div>
+
+        <label for="bizAddress">Street / Area Address</label>
+        <input id="bizAddress" maxlength="250"
+          placeholder="Example: Eriku, Lae, Morobe Province">
+
+        <label for="bizDescription">Description *</label>
+        <textarea id="bizDescription" maxlength="5000" required
+          placeholder="Products, services, operating hours..."></textarea>
+
+        <div class="form-grid">
+          <div>
+            <label for="bizPhone">Phone</label>
+            <input id="bizPhone" maxlength="60"
+              placeholder="Example: +675 7000 0000">
+          </div>
+
+          <div>
+            <label for="bizWhatsapp">WhatsApp</label>
+            <input id="bizWhatsapp" maxlength="60"
+              placeholder="Example: +675 7000 0000">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="bizEmail">Public Business Email</label>
+            <input id="bizEmail" type="email" maxlength="200"
+              placeholder="info@business.com.pg">
+          </div>
+
+          <div>
+            <label for="bizWebsiteUrl">Website URL (HTTPS)</label>
+            <input id="bizWebsiteUrl" type="url"
+              placeholder="https://example.com.pg">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="bizFacebookUrl">Facebook URL (HTTPS)</label>
+            <input id="bizFacebookUrl" type="url"
+              placeholder="https://facebook.com/yourbusiness">
+          </div>
+
+          <div>
+            <label for="bizLogoUrl">Logo Image URL (HTTPS)</label>
+            <input id="bizLogoUrl" type="url"
+              placeholder="https://example.com/logo.png">
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label for="bizStatus">Listing Status</label>
+            <select id="bizStatus">
+              <option value="pending">Pending Review</option>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+
+          <div class="checkbox-row" style="margin-top: 38px;">
+            <input type="checkbox" id="bizIsVerified">
+            <label for="bizIsVerified">Mark as Verified Business</label>
+          </div>
+        </div>
+
+        <button class="primary" type="submit" id="saveBizButton">
+          Save Business
+        </button>
+
+        <button class="secondary" type="button" id="cancelBizButton" hidden>
+          Cancel Edit
+        </button>
+
+        <p class="message" id="bizFormMessage" role="status"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h3>Manage Business Submissions &amp; Directory</h3>
+      <p class="muted">
+        Review owner submissions, check permission confirmation, verify legitimate businesses, and publish or reject listings.
+      </p>
+
+      <div class="form-grid" style="margin: 15px 0;">
+        <input id="bizAdminSearch" type="search" placeholder="Search business name, category, town, or submitter..." aria-label="Search businesses">
+        <select id="bizAdminStatusFilter" aria-label="Filter businesses by status">
+          <option value="pending" selected>Pending Review</option>
+          <option value="published">Published</option>
+          <option value="draft">Drafts</option>
+          <option value="rejected">Rejected</option>
+          <option value="">All Statuses</option>
+        </select>
+      </div>
+
+      <div id="businessList">
+        <p class="empty">Loading businesses...</p>
+      </div>
+    </section>
+  </div>
 
 </main>
 
 <script>
   const API = "/api/admin/opportunities";
+  const BIZ_API = "/api/admin/business";
 
   const $ = id => document.getElementById(id);
 
   let opportunities = [];
+  let businesses = [];
 
-  // Helper function to get today's date in YYYY-MM-DD format
   function getTodayDate() {
     const now = new Date();
     const year = now.getFullYear();
@@ -372,6 +638,17 @@
     const day = String(now.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
+  function switchTab(tab) {
+    const isBiz = tab === "businesses";
+    $("opportunitiesSection").hidden = isBiz;
+    $("businessesSection").hidden = !isBiz;
+    $("tabOpportunitiesBtn").classList.toggle("active", !isBiz);
+    $("tabBusinessesBtn").classList.toggle("active", isBiz);
+  }
+
+  $("tabOpportunitiesBtn").addEventListener("click", () => switchTab("opportunities"));
+  $("tabBusinessesBtn").addEventListener("click", () => switchTab("businesses"));
 
   async function checkSession() {
     try {
@@ -407,13 +684,14 @@
       throw new Error("Your session has expired.");
     }
 
-    if (!response.ok || !data.success) {
-      throw new Error(data.message || "Request failed.");
+    if (!response.ok || (data.success === false && !data.ok)) {
+      throw new Error(data.message || data.error || "Request failed.");
     }
 
     return data;
   }
 
+  // ==================== OPPORTUNITIES LOGIC ====================
   async function loadOpportunities() {
     try {
       const data = await apiRequest(API);
@@ -439,11 +717,9 @@
     const container = $("opportunityList");
     container.replaceChildren();
 
-    // Get search query and status filter values
     const searchQuery = ($("adminSearch")?.value || "").toLowerCase().trim();
     const statusFilter = $("adminStatusFilter")?.value || "";
 
-    // Filter opportunities list based on user input
     const filtered = opportunities.filter(item => {
       const matchText = (
         (item.title || "") + " " +
@@ -483,7 +759,7 @@
       description.textContent = item.description || "";
 
       const status = document.createElement("span");
-      status.className = "status";
+      status.className = `status ${item.status || "draft"}`;
       status.textContent = (item.status || "draft").toUpperCase();
 
       const verification = document.createElement("div");
@@ -573,8 +849,6 @@
   function resetForm() {
     $("opportunityForm").reset();
     $("opportunityId").value = "";
-
-    // Automatically set Date Checked to today's date
     $("dateChecked").value = getTodayDate();
 
     $("formTitle").textContent = "Add New Opportunity";
@@ -584,8 +858,6 @@
   }
 
   $("cancelButton").addEventListener("click", resetForm);
-
-  // Bind real-time listeners for search and filtering
   $("adminSearch").addEventListener("input", renderOpportunities);
   $("adminStatusFilter").addEventListener("change", renderOpportunities);
 
@@ -604,11 +876,9 @@
       deadline: $("deadline").value.trim(),
       application_url: $("applicationUrl").value.trim(),
       source_url: $("sourceUrl").value.trim(),
-
       source_name: $("sourceName").value.trim(),
       date_checked: $("dateChecked").value,
       expiry_date: $("expiryDate").value,
-
       status: $("status").value
     };
 
@@ -653,11 +923,9 @@
       deadline: item.deadline || "",
       application_url: item.application_url || "",
       source_url: item.source_url || "",
-
       source_name: item.source_name || "",
       date_checked: item.date_checked || "",
       expiry_date: item.expiry_date || "",
-
       status: item.status === "published" ? "draft" : "published"
     };
 
@@ -692,6 +960,307 @@
     }
   }
 
+  // ==================== BUSINESSES LOGIC ====================
+  async function loadBusinesses() {
+    try {
+      const data = await apiRequest(BIZ_API);
+      businesses = data.businesses || [];
+
+      const pendingCount = businesses.filter(b => b.status === "pending").length;
+      const publishedCount = businesses.filter(b => b.status === "published").length;
+      const verifiedCount = businesses.filter(b => Number(b.is_verified) === 1).length;
+
+      $("pendingBizBadge").textContent = pendingCount;
+      $("bizPendingCount").textContent = pendingCount;
+      $("bizPublishedCount").textContent = publishedCount;
+      $("bizVerifiedCount").textContent = verifiedCount;
+
+      renderBusinesses();
+    } catch (error) {
+      $("businessList").textContent = error.message;
+    }
+  }
+
+  function renderBusinesses() {
+    const container = $("businessList");
+    container.replaceChildren();
+
+    const searchQuery = ($("bizAdminSearch")?.value || "").toLowerCase().trim();
+    const statusFilter = $("bizAdminStatusFilter")?.value || "";
+
+    const filtered = businesses.filter(biz => {
+      const matchText = (
+        (biz.business_name || "") + " " +
+        (biz.category || "") + " " +
+        (biz.town || "") + " " +
+        (biz.province || "") + " " +
+        (biz.submitted_by_name || "") + " " +
+        (biz.submitted_by_email || "")
+      ).toLowerCase();
+
+      const matchesSearch = !searchQuery || matchText.includes(searchQuery);
+      const matchesStatus = !statusFilter || biz.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
+    });
+
+    if (filtered.length === 0) {
+      const empty = document.createElement("p");
+      empty.className = "empty";
+      empty.textContent = businesses.length === 0
+        ? "No business submissions yet."
+        : "No matching businesses found.";
+      container.appendChild(empty);
+      return;
+    }
+
+    filtered.forEach(biz => {
+      const card = document.createElement("div");
+      card.className = "opportunity";
+
+      const heading = document.createElement("h4");
+      heading.textContent = biz.business_name || "Unnamed Business";
+
+      const details = document.createElement("p");
+      details.className = "muted";
+      details.textContent =
+        `${biz.category || ""} • ${biz.town || ""}, ${biz.province || ""} • Slug: ${biz.slug || ""}`;
+
+      const description = document.createElement("p");
+      description.textContent = biz.description || "";
+
+      const badgeRow = document.createElement("div");
+      badgeRow.className = "badge-row";
+
+      const statusBadge = document.createElement("span");
+      statusBadge.className = `status ${biz.status || "pending"}`;
+      statusBadge.textContent = (biz.status || "pending").toUpperCase();
+      badgeRow.appendChild(statusBadge);
+
+      const isVerified = Number(biz.is_verified) === 1;
+      if (isVerified) {
+        const verifiedBadge = document.createElement("span");
+        verifiedBadge.className = "status verified";
+        verifiedBadge.textContent = "VERIFIED";
+        badgeRow.appendChild(verifiedBadge);
+      }
+
+      const verification = document.createElement("div");
+      verification.className = "verification";
+
+      const contactInfo = document.createElement("p");
+      contactInfo.className = "muted";
+      contactInfo.textContent =
+        `Contact: Phone ${biz.phone || "N/A"} • WhatsApp ${biz.whatsapp || "N/A"} • Email ${biz.email || "N/A"}`;
+
+      const addressInfo = document.createElement("p");
+      addressInfo.className = "muted";
+      addressInfo.textContent =
+        `Address: ${biz.address || "Not recorded"} • Web: ${biz.website_url || "None"}`;
+
+      const submitterInfo = document.createElement("p");
+      submitterInfo.className = "muted";
+      const permLabel = Number(biz.permission_confirmed) === 1 ? "Confirmed" : "Not Confirmed";
+      submitterInfo.textContent =
+        `Submitter (${biz.submission_source || "owner"}): ${biz.submitted_by_name || "N/A"} (${biz.submitted_by_email || "no email"}, ${biz.submitted_by_phone || "no phone"}) • Permission: ${permLabel}`;
+
+      verification.append(contactInfo, addressInfo, submitterInfo);
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit";
+      editBtn.textContent = "Edit";
+      editBtn.addEventListener("click", () => editBusiness(biz));
+
+      const publishBtn = document.createElement("button");
+      publishBtn.className = "publish";
+      publishBtn.textContent = biz.status === "published" ? "Unpublish (Draft)" : "Publish";
+      publishBtn.addEventListener("click", () =>
+        updateBusinessQuick(biz, { status: biz.status === "published" ? "draft" : "published" })
+      );
+
+      const verifyBtn = document.createElement("button");
+      verifyBtn.className = "edit";
+      verifyBtn.textContent = isVerified ? "Unverify" : "Verify";
+      verifyBtn.addEventListener("click", () =>
+        updateBusinessQuick(biz, { is_verified: isVerified ? 0 : 1 })
+      );
+
+      actions.append(editBtn, publishBtn, verifyBtn);
+
+      if (biz.status !== "rejected") {
+        const rejectBtn = document.createElement("button");
+        rejectBtn.className = "warn";
+        rejectBtn.textContent = "Reject";
+        rejectBtn.addEventListener("click", () =>
+          updateBusinessQuick(biz, { status: "rejected" })
+        );
+        actions.appendChild(rejectBtn);
+      }
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "delete";
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", () => deleteBusiness(biz));
+      actions.appendChild(deleteBtn);
+
+      card.append(
+        heading,
+        details,
+        description,
+        badgeRow,
+        verification,
+        actions
+      );
+
+      container.appendChild(card);
+    });
+  }
+
+  function editBusiness(biz) {
+    $("businessId").value = biz.id;
+    $("bizName").value = biz.business_name || "";
+    $("bizCategory").value = biz.category || "";
+    $("bizProvince").value = biz.province || "Morobe";
+    $("bizTown").value = biz.town || "Lae";
+    $("bizAddress").value = biz.address || "";
+    $("bizDescription").value = biz.description || "";
+    $("bizPhone").value = biz.phone || "";
+    $("bizWhatsapp").value = biz.whatsapp || "";
+    $("bizEmail").value = biz.email || "";
+    $("bizWebsiteUrl").value = biz.website_url || "";
+    $("bizFacebookUrl").value = biz.facebook_url || "";
+    $("bizLogoUrl").value = biz.logo_url || "";
+    $("bizStatus").value = biz.status || "pending";
+    $("bizIsVerified").checked = Number(biz.is_verified) === 1;
+
+    $("bizFormTitle").textContent = "Edit Business Listing";
+    $("saveBizButton").textContent = "Update Business";
+    $("cancelBizButton").hidden = false;
+
+    $("bizFormPanel").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function resetBusinessForm() {
+    $("businessForm").reset();
+    $("businessId").value = "";
+    $("bizProvince").value = "Morobe";
+    $("bizTown").value = "Lae";
+    $("bizStatus").value = "pending";
+    $("bizIsVerified").checked = false;
+
+    $("bizFormTitle").textContent = "Add / Edit Business Listing";
+    $("saveBizButton").textContent = "Save Business";
+    $("cancelBizButton").hidden = true;
+    $("bizFormMessage").textContent = "";
+  }
+
+  $("cancelBizButton").addEventListener("click", resetBusinessForm);
+  $("bizAdminSearch").addEventListener("input", renderBusinesses);
+  $("bizAdminStatusFilter").addEventListener("change", renderBusinesses);
+
+  $("businessForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const id = $("businessId").value;
+
+    const payload = {
+      business_name: $("bizName").value.trim(),
+      category: $("bizCategory").value.trim(),
+      province: $("bizProvince").value,
+      town: $("bizTown").value.trim(),
+      address: $("bizAddress").value.trim(),
+      description: $("bizDescription").value.trim(),
+      phone: $("bizPhone").value.trim(),
+      whatsapp: $("bizWhatsapp").value.trim(),
+      email: $("bizEmail").value.trim(),
+      website_url: $("bizWebsiteUrl").value.trim(),
+      facebook_url: $("bizFacebookUrl").value.trim(),
+      logo_url: $("bizLogoUrl").value.trim(),
+      status: $("bizStatus").value,
+      is_verified: $("bizIsVerified").checked ? 1 : 0
+    };
+
+    if (id) payload.id = Number(id);
+
+    $("saveBizButton").disabled = true;
+    $("bizFormMessage").textContent = "Saving business...";
+
+    try {
+      await apiRequest(BIZ_API, {
+        method: id ? "PUT" : "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      $("bizFormMessage").textContent = id
+        ? "Business updated successfully."
+        : "Business saved successfully.";
+
+      resetBusinessForm();
+      await loadBusinesses();
+
+    } catch (error) {
+      $("bizFormMessage").textContent = error.message;
+    } finally {
+      $("saveBizButton").disabled = false;
+    }
+  });
+
+  async function updateBusinessQuick(biz, changes) {
+    const payload = {
+      id: biz.id,
+      business_name: biz.business_name,
+      category: biz.category,
+      description: biz.description,
+      province: biz.province || "Morobe",
+      town: biz.town || "Lae",
+      address: biz.address || "",
+      phone: biz.phone || "",
+      whatsapp: biz.whatsapp || "",
+      email: biz.email || "",
+      facebook_url: biz.facebook_url || "",
+      website_url: biz.website_url || "",
+      logo_url: biz.logo_url || "",
+      status: biz.status,
+      is_verified: Number(biz.is_verified) === 1 ? 1 : 0,
+      ...changes
+    };
+
+    try {
+      await apiRequest(BIZ_API, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      await loadBusinesses();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  async function deleteBusiness(biz) {
+    if (!confirm(`Delete "${biz.business_name}" permanently?`)) return;
+
+    try {
+      await apiRequest(`${BIZ_API}?id=${encodeURIComponent(biz.id)}`, {
+        method: "DELETE"
+      });
+
+      await loadBusinesses();
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  // ==================== LOGOUT & INIT ====================
   $("logoutButton").addEventListener("click", async () => {
     try {
       await fetch("/api/logout", {
@@ -705,9 +1274,11 @@
 
   (async function startDashboard() {
     if (await checkSession()) {
-      // Set initial date checked to today on load
       $("dateChecked").value = getTodayDate();
-      await loadOpportunities();
+      await Promise.all([
+        loadOpportunities(),
+        loadBusinesses()
+      ]);
     }
   })();
 </script>
